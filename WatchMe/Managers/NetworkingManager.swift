@@ -5,7 +5,7 @@
 //  Created by Fatih Kilit on 11.08.2022.
 //
 
-import Foundation
+import UIKit
 
 enum ErrorMessage: String, Error {
     case unknown = "Unknown error occured!"
@@ -52,6 +52,26 @@ final class NetworkingManager {
             } catch {
                 completion(.failure(.unknown))
             }
+        }
+        .resume()
+    }
+    
+    func downloadImage(urlString: String, completion: @escaping (UIImage?) -> ()) {
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            
+            guard
+                error == nil,
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200,
+                let data = data,
+                let image = UIImage(data: data) else {
+                completion(nil)
+                return
+            }
+            
+            completion(image)
         }
         .resume()
     }
