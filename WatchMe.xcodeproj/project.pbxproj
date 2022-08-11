@@ -20,6 +20,7 @@
 		3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55528A51ECA00B527AF /* NetworkingManager.swift */; };
 		3D3AE55828A520DA00B527AF /* PopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55728A520DA00B527AF /* PopularMovies.swift */; };
 		3D3AE55B28A5252000B527AF /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55A28A5252000B527AF /* ContentCell.swift */; };
+		3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		3D3AE55528A51ECA00B527AF /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3D3AE55728A520DA00B527AF /* PopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovies.swift; sourceTree = "<group>"; };
 		3D3AE55A28A5252000B527AF /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
+		3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		3D3AE52128A4FC2000B527AF /* WatchMe */ = {
 			isa = PBXGroup;
 			children = (
+				3D3AE55E28A547C700B527AF /* Extensions */,
 				3D3AE54428A504F700B527AF /* Utilities */,
 				3D3AE54528A504FE00B527AF /* Managers */,
 				3D3AE54628A5051000B527AF /* Models */,
@@ -179,6 +182,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		3D3AE55E28A547C700B527AF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -257,6 +268,7 @@
 				3D3AE52528A4FC2000B527AF /* SceneDelegate.swift in Sources */,
 				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
+				3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */,
 				3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */,
 				3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */,
 				3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */,
