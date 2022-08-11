@@ -10,7 +10,7 @@ import UIKit
 class ContentCell: UICollectionViewCell {
     static let reuseID = "MovieCell"
     
-    let nameLabel = UILabel(frame: .zero)
+    let posterImageView = WMPosterImageView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,20 +22,19 @@ class ContentCell: UICollectionViewCell {
     }
     
     func set(movie: PopularMoviesResult) {
-        nameLabel.text = movie.title
+        posterImageView.downloadImage(urlString: ApiUrls.image(path: movie.posterPath ?? ""))
     }
     
     private func configure() {
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(nameLabel)
-        layer.cornerRadius = 10
-        backgroundColor = .gray.withAlphaComponent(0.15)
+        addSubview(posterImageView)
+        
+        let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            posterImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            posterImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding)
         ])
     }
 }
