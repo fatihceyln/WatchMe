@@ -16,6 +16,7 @@
 		3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */; };
 		3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53C28A4FFC800B527AF /* SearchVC.swift */; };
 		3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */; };
+		3D3AE55428A505DB00B527AF /* ApiUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55328A505DB00B527AF /* ApiUrls.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		3D3AE54F28A5052000B527AF /* AppDelegate copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate copy.swift"; sourceTree = "<group>"; };
 		3D3AE55028A5052000B527AF /* SceneDelegate copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate copy.swift"; sourceTree = "<group>"; };
 		3D3AE55128A5052100B527AF /* Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info copy.plist"; sourceTree = "<group>"; };
+		3D3AE55328A505DB00B527AF /* ApiUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrls.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		3D3AE54428A504F700B527AF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3D3AE55328A505DB00B527AF /* ApiUrls.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D3AE55428A505DB00B527AF /* ApiUrls.swift in Sources */,
 				3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */,
 				3D3AE52328A4FC2000B527AF /* AppDelegate.swift in Sources */,
 				3D3AE52528A4FC2000B527AF /* SceneDelegate.swift in Sources */,
