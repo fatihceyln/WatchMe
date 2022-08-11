@@ -12,6 +12,8 @@ class MoviesVC: UIViewController {
     private var scrollView: UIScrollView!
     private var contentView: UIView!
     private var label: UILabel!
+    
+    private var popularMoviesResult: [PopularMoviesResult] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,18 @@ class MoviesVC: UIViewController {
         configureScrollView()
         configureContentView()
         
+        getPopularMovies()
+    }
+    
+    private func getPopularMovies() {
+        NetworkingManager.shared.getPopularMovies(page: 1) { [weak self] result in
+            switch result {
+            case .success(let popularMovies):
+                self?.popularMoviesResult = popularMovies
+            case .failure(let error):
+                print(error.rawValue)
+            }
+        }
     }
     
     private func configureScrollView() {
