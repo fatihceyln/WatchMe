@@ -15,6 +15,9 @@ class MoviesVC: UIViewController {
     private var collectionView: UICollectionView!
     
     private var popularMoviesResult: [PopularMoviesResult] = []
+    
+    private var shouldDownloadMore: Bool = false
+    private var page: Int = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,16 +28,18 @@ class MoviesVC: UIViewController {
         configureContentView()
         configureCollectionView()
         
-        getPopularMovies()
+        getPopularMovies(page: page)
     }
     
-    private func getPopularMovies() {
-        NetworkingManager.shared.getPopularMovies(page: 1) { [weak self] result in
+    private func getPopularMovies(page: Int) {
+        shouldDownloadMore = false
+        NetworkingManager.shared.getPopularMovies(page: page) { [weak self] result in
             guard let self = self else { return }
+            self.shouldDownloadMore = true
             
             switch result {
             case .success(let popularMovies):
-                self.popularMoviesResult = popularMovies
+                self.popularMoviesResult.append(contentsOf: popularMovies)
                 self.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error.rawValue)
@@ -105,5 +110,19 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.set(movie: popularMoviesResult[indexPath.row])
         
         return cell
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetX = scrollView.contentOffset.x
+        let contentWidth = scrollView.contentSize.width
+        let width = scrollView.frame.width
+
+        if offsetX >= contentWidth - (width * 3) && shouldDownloadMore {
+            shouldDownloadMore = false
+            print("Downloading")
+            self.page += 1
+
+            getPopularMovies(page: page)
+        }
     }
 }

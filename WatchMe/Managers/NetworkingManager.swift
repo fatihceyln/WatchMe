@@ -20,7 +20,6 @@ final class NetworkingManager {
         guard let url = URL(string: ApiUrls.popularMovies(page: page)) else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
-            
             print(url)
             if let _ = error {
                 completion(.failure(.unknown))

@@ -44,11 +44,11 @@ enum ApiUrls {
     }
     
     static func popularShows(page: Int) -> String {
-        "\(baseURL)tv/popular?api_key=\(api_key)&language=en-US&page\(page)"
+        "\(baseURL)tv/popular?api_key=\(api_key)&language=en-US&page=\(page)"
     }
     
     static func topRatedShows(page: Int) -> String {
-        "\(baseURL)tv/popular?api_key=\(api_key)&language=en-US&page\(page)"
+        "\(baseURL)tv/popular?api_key=\(api_key)&language=en-US&page=\(page)"
     }
     
     // MARK: MOVIE
@@ -73,14 +73,14 @@ enum ApiUrls {
     }
     
     static func popularMovies(page: Int) -> String {
-        "\(baseURL)movie/popular?api_key=\(api_key)&language=en-US&page\(page)"
+        "\(baseURL)movie/popular?api_key=\(api_key)&language=en-US&page=\(page)"
     }
     
     static func topRatedMovies(page: Int) -> String {
-        "\(baseURL)movie/top_rated?api_key=\(api_key)&language=en-US&page\(page)"
+        "\(baseURL)movie/top_rated?api_key=\(api_key)&language=en-US&page=\(page)"
     }
     
     static func upcomingMovies(page: Int) -> String {
-        "\(baseURL)movie/upcoming?api_key=\(api_key)&language=en-US&page\(page)"
+        "\(baseURL)movie/upcoming?api_key=\(api_key)&language=en-US&page=\(page)"
     }
 }
