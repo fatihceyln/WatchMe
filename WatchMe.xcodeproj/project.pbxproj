@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3D3AE52328A4FC2000B527AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE52228A4FC2000B527AF /* AppDelegate.swift */; };
 		3D3AE52528A4FC2000B527AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE52428A4FC2000B527AF /* SceneDelegate.swift */; };
-		3D3AE52728A4FC2000B527AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE52628A4FC2000B527AF /* ViewController.swift */; };
 		3D3AE52C28A4FC2100B527AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AE52B28A4FC2100B527AF /* Assets.xcassets */; };
 		3D3AE52F28A4FC2100B527AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AE52D28A4FC2100B527AF /* LaunchScreen.storyboard */; };
 		3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */; };
@@ -23,7 +22,6 @@
 		3D3AE51F28A4FC2000B527AF /* WatchMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3AE52228A4FC2000B527AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D3AE52428A4FC2000B527AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3D3AE52628A4FC2000B527AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3D3AE52B28A4FC2100B527AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D3AE52E28A4FC2100B527AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D3AE53028A4FC2100B527AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -32,6 +30,15 @@
 		3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsVC.swift; sourceTree = "<group>"; };
 		3D3AE53C28A4FFC800B527AF /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
+		3D3AE54828A5052000B527AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3D3AE54A28A5052000B527AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3D3AE54B28A5052000B527AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3D3AE54C28A5052000B527AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D3AE54D28A5052000B527AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		3D3AE54E28A5052000B527AF /* Assets copy.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets copy.xcassets"; sourceTree = "<group>"; };
+		3D3AE54F28A5052000B527AF /* AppDelegate copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate copy.swift"; sourceTree = "<group>"; };
+		3D3AE55028A5052000B527AF /* SceneDelegate copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate copy.swift"; sourceTree = "<group>"; };
+		3D3AE55128A5052100B527AF /* Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info copy.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,19 +71,92 @@
 		3D3AE52128A4FC2000B527AF /* WatchMe */ = {
 			isa = PBXGroup;
 			children = (
-				3D3AE52228A4FC2000B527AF /* AppDelegate.swift */,
-				3D3AE52428A4FC2000B527AF /* SceneDelegate.swift */,
-				3D3AE52628A4FC2000B527AF /* ViewController.swift */,
-				3D3AE52B28A4FC2100B527AF /* Assets.xcassets */,
-				3D3AE52D28A4FC2100B527AF /* LaunchScreen.storyboard */,
-				3D3AE53028A4FC2100B527AF /* Info.plist */,
-				3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */,
+				3D3AE54428A504F700B527AF /* Utilities */,
+				3D3AE54528A504FE00B527AF /* Managers */,
+				3D3AE54628A5051000B527AF /* Models */,
+				3D3AE54328A504C600B527AF /* Support */,
+				3D3AE54128A5049000B527AF /* CustomViews */,
+				3D3AE54028A5048100B527AF /* Screens */,
+				3D3AE54728A5052000B527AF /* Support */,
+			);
+			path = WatchMe;
+			sourceTree = "<group>";
+		};
+		3D3AE54028A5048100B527AF /* Screens */ = {
+			isa = PBXGroup;
+			children = (
 				3D3AE53828A4FEA100B527AF /* MoviesVC.swift */,
 				3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */,
 				3D3AE53C28A4FFC800B527AF /* SearchVC.swift */,
 				3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */,
 			);
-			path = WatchMe;
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		3D3AE54128A5049000B527AF /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				3D3AE54228A5049700B527AF /* ViewControllers */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		3D3AE54228A5049700B527AF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3D3AE54328A504C600B527AF /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3D3AE52B28A4FC2100B527AF /* Assets.xcassets */,
+				3D3AE52228A4FC2000B527AF /* AppDelegate.swift */,
+				3D3AE52428A4FC2000B527AF /* SceneDelegate.swift */,
+				3D3AE52D28A4FC2100B527AF /* LaunchScreen.storyboard */,
+				3D3AE53028A4FC2100B527AF /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		3D3AE54428A504F700B527AF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		3D3AE54528A504FE00B527AF /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		3D3AE54628A5051000B527AF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3D3AE54728A5052000B527AF /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3D3AE54828A5052000B527AF /* Assets.xcassets */,
+				3D3AE55028A5052000B527AF /* SceneDelegate copy.swift */,
+				3D3AE54928A5052000B527AF /* LaunchScreen.storyboard */,
+				3D3AE55128A5052100B527AF /* Info copy.plist */,
+				3D3AE54E28A5052000B527AF /* Assets copy.xcassets */,
+				3D3AE54B28A5052000B527AF /* AppDelegate.swift */,
+				3D3AE55228A5052100B527AF /* LaunchScreen.storyboard */,
+				3D3AE54C28A5052000B527AF /* Info.plist */,
+				3D3AE54F28A5052000B527AF /* AppDelegate copy.swift */,
+				3D3AE54D28A5052000B527AF /* SceneDelegate.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,7 +230,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */,
-				3D3AE52728A4FC2000B527AF /* ViewController.swift in Sources */,
 				3D3AE52328A4FC2000B527AF /* AppDelegate.swift in Sources */,
 				3D3AE52528A4FC2000B527AF /* SceneDelegate.swift in Sources */,
 				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,
@@ -167,6 +246,21 @@
 			isa = PBXVariantGroup;
 			children = (
 				3D3AE52E28A4FC2100B527AF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		3D3AE54928A5052000B527AF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D3AE54A28A5052000B527AF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		3D3AE55228A5052100B527AF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -297,7 +391,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5CYVKDSSNH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WatchMe/Info.plist;
+				INFOPLIST_FILE = WatchMe/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -325,7 +419,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5CYVKDSSNH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WatchMe/Info.plist;
+				INFOPLIST_FILE = WatchMe/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
