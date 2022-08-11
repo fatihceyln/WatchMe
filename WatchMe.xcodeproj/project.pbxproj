@@ -23,6 +23,7 @@
 		3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */; };
 		3D3AE56428A54EEC00B527AF /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE56328A54EEC00B527AF /* UICollectionView+Ext.swift */; };
 		3D3AE56628A5519500B527AF /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE56528A5519500B527AF /* UIHelper.swift */; };
+		3D3AE56928A552D600B527AF /* WMTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE56828A552D600B527AF /* WMTitleLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		3D3AE56328A54EEC00B527AF /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
 		3D3AE56528A5519500B527AF /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		3D3AE56828A552D600B527AF /* WMTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMTitleLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		3D3AE54128A5049000B527AF /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				3D3AE56728A552AD00B527AF /* Labels */,
 				3D3AE55928A5232A00B527AF /* Cells */,
 				3D3AE54228A5049700B527AF /* ViewControllers */,
 			);
@@ -196,6 +199,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3D3AE56728A552AD00B527AF /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				3D3AE56828A552D600B527AF /* WMTitleLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -276,6 +287,7 @@
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
 				3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */,
 				3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */,
+				3D3AE56928A552D600B527AF /* WMTitleLabel.swift in Sources */,
 				3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */,
 				3D3AE56428A54EEC00B527AF /* UICollectionView+Ext.swift in Sources */,
 				3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */,
