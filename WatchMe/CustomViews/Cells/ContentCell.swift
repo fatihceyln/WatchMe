@@ -29,6 +29,7 @@ class ContentCell: UICollectionViewCell {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(nameLabel)
         layer.cornerRadius = 10
+        backgroundColor = .gray.withAlphaComponent(0.15)
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),

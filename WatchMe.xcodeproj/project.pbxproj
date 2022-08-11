@@ -21,6 +21,8 @@
 		3D3AE55828A520DA00B527AF /* PopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55728A520DA00B527AF /* PopularMovies.swift */; };
 		3D3AE55B28A5252000B527AF /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55A28A5252000B527AF /* ContentCell.swift */; };
 		3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */; };
+		3D3AE56428A54EEC00B527AF /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE56328A54EEC00B527AF /* UICollectionView+Ext.swift */; };
+		3D3AE56628A5519500B527AF /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE56528A5519500B527AF /* UIHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		3D3AE55728A520DA00B527AF /* PopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovies.swift; sourceTree = "<group>"; };
 		3D3AE55A28A5252000B527AF /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
 		3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		3D3AE56328A54EEC00B527AF /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
+		3D3AE56528A5519500B527AF /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3AE55328A505DB00B527AF /* ApiUrls.swift */,
+				3D3AE56528A5519500B527AF /* UIHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */,
+				3D3AE56328A54EEC00B527AF /* UICollectionView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -271,7 +277,9 @@
 				3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */,
 				3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */,
 				3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */,
+				3D3AE56428A54EEC00B527AF /* UICollectionView+Ext.swift in Sources */,
 				3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */,
+				3D3AE56628A5519500B527AF /* UIHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
