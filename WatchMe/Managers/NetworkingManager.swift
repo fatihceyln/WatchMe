@@ -15,6 +15,8 @@ final class NetworkingManager {
     static let shared = NetworkingManager()
     private init() {}
     
+    let cache = NSCache<NSString, UIImage>()
+    
     func getPopularMovies(page: Int, completion: @escaping (Result<[PopularMoviesResult], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: ApiUrls.popularMovies(page: page)) else { return }
@@ -56,7 +58,17 @@ final class NetworkingManager {
     }
     
     func downloadImage(urlString: String, completion: @escaping (UIImage?) -> ()) {
-        guard let url = URL(string: urlString) else { return }
+        let cacheKey = NSString(string: urlString)
+        
+        if let image = cache.object(forKey: cacheKey) {
+            completion(image)
+            return
+        }
+        
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             
@@ -69,7 +81,7 @@ final class NetworkingManager {
                 completion(nil)
                 return
             }
-            
+            self.cache.setObject(image, forKey: cacheKey)
             completion(image)
         }
         .resume()
