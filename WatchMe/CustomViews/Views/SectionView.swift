@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SectionView.swift
 //  WatchMe
 //
 //  Created by Fatih Kilit on 12.08.2022.
@@ -7,12 +7,13 @@
 
 import UIKit
 
-class ContainerView: UIView {
+class SectionView: UIView {
 
     var titleLabel: WMTitleLabel!
     var collectionView: UICollectionView!
     
     var superView: UIView!
+    var topAnchorPoint: NSLayoutYAxisAnchor!
     var title: String!
     
     override init(frame: CGRect) {
@@ -24,9 +25,10 @@ class ContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(superView: UIView, title: String) {
+    convenience init(superView: UIView, topAnchorPoint: NSLayoutYAxisAnchor, title: String) {
         self.init(frame: .zero)
         self.superView = superView
+        self.topAnchorPoint = topAnchorPoint
         self.title = title
         
         configureContainerView()
@@ -36,10 +38,10 @@ class ContainerView: UIView {
     
     private func configureContainerView() {
         superView.addSubview(self)
-        
         translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: superView.topAnchor, constant: 50),
+            topAnchor.constraint(equalTo: topAnchorPoint, constant: 50),
             leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 10),
             trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -10),
             heightAnchor.constraint(equalToConstant: 420)

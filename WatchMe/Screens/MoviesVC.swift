@@ -18,7 +18,7 @@ class MoviesVC: UIViewController {
     private var page: Int = 1
     
     
-    private var popularContent: ContainerView!
+    private var popularSectionView: SectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +34,9 @@ class MoviesVC: UIViewController {
     }
     
     private func configurePopularContainerView() {
-        popularContent = ContainerView(superView: view, title: "Popular Movies")
-        popularContent.collectionView.delegate = self
-        popularContent.collectionView.dataSource = self
+        popularSectionView = SectionView(superView: contentView, topAnchorPoint: contentView.topAnchor, title: "Popular Movies")
+        popularSectionView.collectionView.delegate = self
+        popularSectionView.collectionView.dataSource = self
     }
     
     private func getPopularMovies(page: Int) {
@@ -48,7 +48,7 @@ class MoviesVC: UIViewController {
             switch result {
             case .success(let popularMovies):
                 self.popularMoviesResult.append(contentsOf: popularMovies)
-                self.popularContent.collectionView.reloadDataOnMainThread()
+                self.popularSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error.rawValue)
             }
