@@ -12,12 +12,13 @@ class MoviesVC: UIViewController {
     private var scrollView: UIScrollView!
     private var contentView: UIView!
     
-    private var collectionView: UICollectionView!
-    
     private var popularMoviesResult: [PopularMoviesResult] = []
     
     private var shouldDownloadMore: Bool = false
     private var page: Int = 1
+    
+    
+    private var popularContent: ContainerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +27,16 @@ class MoviesVC: UIViewController {
         
         configureScrollView()
         configureContentView()
-        configureCollectionView()
+        
+        configurePopularContainerView()
         
         getPopularMovies(page: page)
+    }
+    
+    private func configurePopularContainerView() {
+        popularContent = ContainerView(superView: view, title: "Popular Movies")
+        popularContent.collectionView.delegate = self
+        popularContent.collectionView.dataSource = self
     }
     
     private func getPopularMovies(page: Int) {
@@ -40,34 +48,11 @@ class MoviesVC: UIViewController {
             switch result {
             case .success(let popularMovies):
                 self.popularMoviesResult.append(contentsOf: popularMovies)
-                self.collectionView.reloadDataOnMainThread()
+                self.popularContent.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error.rawValue)
             }
         }
-    }
-    
-    private func configureCollectionView() {
-        
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createFlowLayout())
-        contentView.addSubview(collectionView)
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        collectionView.backgroundColor = .systemBackground
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(ContentCell.self, forCellWithReuseIdentifier: ContentCell.reuseID)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            collectionView.heightAnchor.constraint(equalToConstant: 400)
-        ])
     }
     
     private func configureScrollView() {
