@@ -15,13 +15,16 @@ class MoviesVC: UIViewController {
     
     private var popularMovies: [MovieResult] = []
     private var nowPlayingMovies: [MovieResult] = []
+    private var upcomingMovies: [MovieResult] = []
         
-    private var popularMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: true, page: 1)
-    private var nowPlayingMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: true, page: 1)
+    private var popularMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
+    private var nowPlayingMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
+    private var upcomingMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
     
     
     private var popularSectionView: SectionView!
     private var nowPlayingSectionView: SectionView!
+    private var upcomingSectionView: SectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +36,18 @@ class MoviesVC: UIViewController {
         
         configurePopularSectionView()
         configureNowPlayingSectionView()
+        configureUpcomingSectionView()
         
         getPopularMovies(page: popularMoviesPagination.page)
         getNowPlayingMovies(page: nowPlayingMoviesPagination.page)
+        getUpcomingMovies(page: upcomingMoviesPagination.page)
     }
 }
 
 //MARK: SECTION VIEWS
 extension MoviesVC {
     private func configurePopularSectionView() {
-        popularSectionView = SectionView(stackView: stackView, topAnchorPoint: stackView.topAnchor, title: "Popular Movies")
+        popularSectionView = SectionView(stackView: stackView, topAnchorPoint: stackView.topAnchor, title: "Popular")
         popularSectionView.collectionView.delegate = self
         popularSectionView.collectionView.dataSource = self
     }
@@ -52,6 +57,12 @@ extension MoviesVC {
         nowPlayingSectionView.collectionView.delegate = self
         nowPlayingSectionView.collectionView.dataSource = self
     }
+    
+    private func configureUpcomingSectionView() {
+        upcomingSectionView = SectionView(stackView: stackView, topAnchorPoint: nowPlayingSectionView.bottomAnchor, title: "Upcoming")
+        upcomingSectionView.collectionView.delegate = self
+        upcomingSectionView.collectionView.dataSource = self
+    }
 }
 
 // MARK: DELEGATE, DATASOURCE
@@ -59,9 +70,13 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == popularSectionView.collectionView {
             return popularMovies.count
+        } else if collectionView == nowPlayingSectionView.collectionView {
+            return nowPlayingMovies.count
+        } else if collectionView == upcomingSectionView.collectionView {
+            return upcomingMovies.count
+        } else {
+            return 0
         }
-        
-        return nowPlayingMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -70,11 +85,18 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.set(movie: popularMovies[indexPath.row])
             
             return cell
-        } else {
+        } else if collectionView == nowPlayingSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
             cell.set(movie: nowPlayingMovies[indexPath.row])
             
             return cell
+        } else if collectionView == upcomingSectionView.collectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
+            cell.set(movie: upcomingMovies[indexPath.row])
+            
+            return cell
+        } else {
+            return UICollectionViewCell()
         }
     }
     
@@ -94,6 +116,11 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 self.nowPlayingMoviesPagination.page += 1
                 
                 self.getNowPlayingMovies(page: self.nowPlayingMoviesPagination.page)
+            } else if scrollView == upcomingSectionView.collectionView && upcomingMoviesPagination.shouldDownloadMore {
+                self.upcomingMoviesPagination.shouldDownloadMore = false
+                self.upcomingMoviesPagination.page += 1
+                
+                self.getUpcomingMovies(page: self.upcomingMoviesPagination.page)
             }
         }
     }
@@ -108,7 +135,7 @@ extension MoviesVC {
             
             switch result {
             case .success(let popularMovies):
-                self.popularMovies.append(contentsOf: popularMovies)
+                self.popularMovies.append(contentsOf: popularMovies.filter({$0.posterPath != nil}))
                 self.popularSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error.rawValue)
@@ -123,8 +150,23 @@ extension MoviesVC {
             
             switch result {
             case .success(let nowPlayingMovies):
-                self.nowPlayingMovies.append(contentsOf: nowPlayingMovies)
+                self.nowPlayingMovies.append(contentsOf: nowPlayingMovies.filter({$0.posterPath != nil}))
                 self.nowPlayingSectionView.collectionView.reloadDataOnMainThread()
+            case .failure(let error):
+                print(error.rawValue)
+            }
+        }
+    }
+    
+    private func getUpcomingMovies(page: Int) {
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.upcomingMovies(page: page)) { [weak self] result in
+            guard let self = self else { return }
+            self.upcomingMoviesPagination.shouldDownloadMore = true
+            
+            switch result {
+            case .success(let upcomingMovies):
+                self.upcomingMovies.append(contentsOf: upcomingMovies.filter({$0.posterPath != nil}))
+                self.upcomingSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error.rawValue)
             }
