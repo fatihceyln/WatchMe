@@ -17,6 +17,8 @@ class HeaderView: UIView {
     var dateLabel: WMBodyLabel!
     var genreLabel: WMBodyLabel!
     var runtimeLabel: WMBodyLabel!
+    
+    let padding: CGFloat = 10
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +33,7 @@ class HeaderView: UIView {
         self.superContainerView = superContainerView
         
         configureView()
+        configurePosterImageView()
     }
     
     private func configureView() {
@@ -42,9 +45,23 @@ class HeaderView: UIView {
             topAnchor.constraint(equalTo: superContainerView.topAnchor),
             leadingAnchor.constraint(equalTo: superContainerView.leadingAnchor),
             trailingAnchor.constraint(equalTo: superContainerView.trailingAnchor),
-            heightAnchor.constraint(equalToConstant: 300)
+            heightAnchor.constraint(equalToConstant: 250)
         ])
         
         backgroundColor = .yellow
+    }
+    
+    private func configurePosterImageView() {
+        posterImageView = WMPosterImageView(frame: .zero)
+        addSubview(posterImageView)
+        
+        NSLayoutConstraint.activate([
+            posterImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            posterImageView.widthAnchor.constraint(equalToConstant: 150),
+            posterImageView.heightAnchor.constraint(equalToConstant: 225)
+        ])
+        
+        posterImageView.backgroundColor = .red
     }
 }
