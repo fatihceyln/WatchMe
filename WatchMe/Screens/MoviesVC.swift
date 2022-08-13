@@ -31,10 +31,10 @@ class MoviesVC: UIViewController {
         configureStackView()
         
         configurePopularSectionView()
-//        configureNowPlayingSectionView()
+        configureNowPlayingSectionView()
         
         getPopularMovies(page: page)
-//        getNowPlayingMovies(page: page)
+        getNowPlayingMovies(page: page)
     }
 }
 
@@ -149,8 +149,7 @@ extension MoviesVC {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 20
+        stackView.distribution = .fill
         
         stackView.pinToEdges(of: scrollView)
         

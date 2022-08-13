@@ -32,8 +32,8 @@ class SectionView: UIView {
         self.title = title
         
         configureContainerView()
-        configureTitle()
         configureCollectionView()
+        configureTitle()
     }
     
     private func configureContainerView() {
@@ -44,7 +44,7 @@ class SectionView: UIView {
             topAnchor.constraint(equalTo: topAnchorPoint),
             leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            heightAnchor.constraint(equalToConstant: 380)
+            heightAnchor.constraint(equalToConstant: 400)
         ])
     }
     
@@ -55,9 +55,9 @@ class SectionView: UIView {
         titleLabel.text = title
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10),
             titleLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
