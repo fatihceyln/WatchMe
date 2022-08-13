@@ -34,6 +34,7 @@ class HeaderView: UIView {
         
         configureView()
         configurePosterImageView()
+        configureTitleLabel()
     }
     
     private func configureView() {
@@ -63,5 +64,19 @@ class HeaderView: UIView {
         ])
         
         posterImageView.backgroundColor = .red
+    }
+    
+    private func configureTitleLabel() {
+        titleLabel = WMTitleLabel(textAlignment: .left, fontSize: 20)
+        addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: posterImageView.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 2 * padding),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            titleLabel.heightAnchor.constraint(equalToConstant: 23)
+        ])
+        
+        titleLabel.backgroundColor = .black
     }
 }
