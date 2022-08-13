@@ -31,10 +31,10 @@ class MoviesVC: UIViewController {
         configureStackView()
         
         configurePopularSectionView()
-        configureNowPlayingSectionView()
+//        configureNowPlayingSectionView()
         
         getPopularMovies(page: page)
-        getNowPlayingMovies(page: page)
+//        getNowPlayingMovies(page: page)
     }
 }
 

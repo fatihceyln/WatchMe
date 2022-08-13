@@ -41,10 +41,10 @@ class SectionView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: topAnchorPoint, constant: 50),
-            leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 10),
-            trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -10),
-            heightAnchor.constraint(equalToConstant: 420)
+            topAnchor.constraint(equalTo: topAnchorPoint),
+            leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            heightAnchor.constraint(equalToConstant: 380)
         ])
     }
     
@@ -74,9 +74,9 @@ class SectionView: UIView {
         
         NSLayoutConstraint.activate([
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 360)
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            collectionView.heightAnchor.constraint(equalToConstant: 320)
         ])
     }
 }
