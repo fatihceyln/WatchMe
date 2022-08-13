@@ -34,7 +34,7 @@ class MoviesVC: UIViewController {
         configureNowPlayingSectionView()
         
         getPopularMovies(page: page)
-        getLatestMovies(page: page)
+        getNowPlayingMovies(page: page)
     }
 }
 
@@ -100,7 +100,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension MoviesVC {
     private func getPopularMovies(page: Int) {
         shouldDownloadMore = false
-        NetworkingManager.shared.getMovies(urlString: ApiUrls.popularMovies(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.popularMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.shouldDownloadMore = true
             
@@ -114,9 +114,9 @@ extension MoviesVC {
         }
     }
     
-    private func getLatestMovies(page: Int) {
+    private func getNowPlayingMovies(page: Int) {
         shouldDownloadMore = false
-        NetworkingManager.shared.getMovies(urlString: ApiUrls.nowPlayingMovies(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.nowPlayingMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.shouldDownloadMore = true
             

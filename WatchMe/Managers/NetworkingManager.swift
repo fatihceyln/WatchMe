@@ -17,7 +17,7 @@ final class NetworkingManager {
     
     let cache = NSCache<NSString, UIImage>()
     
-    func getMovies(urlString: String, completion: @escaping (Result<[MovieResult], ErrorMessage>) -> ()) {
+    func downloadMovies(urlString: String, completion: @escaping (Result<[MovieResult], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else { return }
         
