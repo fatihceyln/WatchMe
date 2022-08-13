@@ -11,14 +11,14 @@ class HeaderView: UIView {
     
     var superContainerView: UIView!
     
-    var posterImageView: WMPosterImageView!
-    var titleLabel: WMTitleLabel!
-    var stackView: UIStackView!
-    var dateLabel: WMBodyLabel!
-    var genreLabel: WMBodyLabel!
-    var runtimeLabel: WMBodyLabel!
+    private var posterImageView: WMPosterImageView!
+    private var titleLabel: WMTitleLabel!
     
-    var releaseDateLabel: WMLabelWithImage!
+    private var dateLabel: WMLabelWithImage!
+    private var genreLabel: WMLabelWithImage!
+    private var runtimeLabel: WMLabelWithImage!
+    
+    private var attributesStackView: UIStackView!
     
     let padding: CGFloat = 10
 
@@ -35,9 +35,15 @@ class HeaderView: UIView {
         self.superContainerView = superContainerView
         
         configureView()
+        
         configurePosterImageView()
+        
         configureTitleLabel()
-        configureReleaseDateLabel()
+        
+        configureAttributesStackView()
+        configureDateLabel()
+        configureGenreLabel()
+        configureRuntimeLabel()
     }
     
     private func configureView() {
@@ -81,17 +87,34 @@ class HeaderView: UIView {
         titleLabel.text = "Thor: Love and Thunder"
     }
     
-    private func configureReleaseDateLabel() {
-        releaseDateLabel = WMLabelWithImage(text: "07/08/2022", systemName: "calendar")
-        addSubview(releaseDateLabel)
+    private func configureAttributesStackView() {
+        attributesStackView = UIStackView(frame: .zero)
+        addSubview(attributesStackView)
         
-        releaseDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        attributesStackView.translatesAutoresizingMaskIntoConstraints = false
+        attributesStackView.axis = .vertical
+        attributesStackView.distribution = .fillEqually
         
         NSLayoutConstraint.activate([
-            releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2 * padding),
-            releaseDateLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 2 * padding),
-            releaseDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            releaseDateLabel.heightAnchor.constraint(equalToConstant: 40)
+            attributesStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3 * padding),
+            attributesStackView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            attributesStackView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            attributesStackView.heightAnchor.constraint(equalToConstant: 110)
         ])
+    }
+    
+    private func configureDateLabel() {
+        dateLabel = WMLabelWithImage(text: "07/08/2022", systemName: "calendar")
+        attributesStackView.addArrangedSubview(dateLabel)
+    }
+    
+    private func configureGenreLabel() {
+        genreLabel = WMLabelWithImage(text: "Action, Adventure, Fantasy", systemName: "film")
+        attributesStackView.addArrangedSubview(genreLabel)
+    }
+    
+    private func configureRuntimeLabel() {
+        runtimeLabel = WMLabelWithImage(text: "1h 59m", systemName: "clock")
+        attributesStackView.addArrangedSubview(runtimeLabel)
     }
 }
