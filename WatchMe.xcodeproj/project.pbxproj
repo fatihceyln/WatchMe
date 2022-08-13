@@ -28,6 +28,7 @@
 		3D3AE57828A55A6800B527AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE57728A55A6800B527AF /* AppDelegate.swift */; };
 		3D487C1828A7FC38000F22F8 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1728A7FC38000F22F8 /* DetailVC.swift */; };
 		3D487C1A28A8064F000F22F8 /* ReferenceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1928A8064F000F22F8 /* ReferenceDetailView.swift */; };
+		3D487C1C28A81265000F22F8 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1B28A81265000F22F8 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		3D3AE57928A55A6C00B527AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D487C1728A7FC38000F22F8 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		3D487C1928A8064F000F22F8 /* ReferenceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceDetailView.swift; sourceTree = "<group>"; };
+		3D487C1B28A81265000F22F8 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				3D0463E528A646CF00C1BEE0 /* SectionView.swift */,
+				3D487C1B28A81265000F22F8 /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				3D3AE55428A505DB00B527AF /* ApiUrls.swift in Sources */,
 				3D487C1828A7FC38000F22F8 /* DetailVC.swift in Sources */,
 				3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */,
+				3D487C1C28A81265000F22F8 /* HeaderView.swift in Sources */,
 				3D3AE55B28A5252000B527AF /* ContentCell.swift in Sources */,
 				3D487C1A28A8064F000F22F8 /* ReferenceDetailView.swift in Sources */,
 				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,

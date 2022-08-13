@@ -246,7 +246,7 @@ extension MoviesVC {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .fill
+        stackView.distribution = .fillEqually
         
         stackView.pinToEdges(of: scrollView)
         
