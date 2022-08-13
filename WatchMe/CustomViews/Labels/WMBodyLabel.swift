@@ -30,6 +30,7 @@ class WMBodyLabel: UILabel {
         font = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontForContentSizeCategory = true
         adjustsFontSizeToFitWidth = true
+        numberOfLines = 0
         minimumScaleFactor = 0.75
         lineBreakMode = .byWordWrapping
     }

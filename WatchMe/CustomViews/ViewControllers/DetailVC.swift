@@ -13,6 +13,9 @@ class DetailVC: UIViewController {
     private var containerStackView: UIStackView!
     
     private var headerView: HeaderView!
+    private var overviewLabel: WMBodyLabel!
+    
+    private let padding: CGFloat = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,7 @@ class DetailVC: UIViewController {
         configureContainerStackView()
         
         configureHeaderView()
+        configureOverviewLabel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +40,20 @@ class DetailVC: UIViewController {
 extension DetailVC {
     private func configureHeaderView() {
         headerView = HeaderView(superContainerView: containerStackView)
+    }
+    
+    private func configureOverviewLabel() {
+        overviewLabel = WMBodyLabel(textAlignment: .left)
+        view.addSubview(overviewLabel)
+        
+        NSLayoutConstraint.activate([
+            overviewLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
+            overviewLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
+            overviewLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -padding),
+            overviewLabel.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        overviewLabel.text = "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Mighty Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late."
     }
 }
 
