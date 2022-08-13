@@ -16,15 +16,18 @@ class MoviesVC: UIViewController {
     private var popularMovies: [MovieResult] = []
     private var nowPlayingMovies: [MovieResult] = []
     private var upcomingMovies: [MovieResult] = []
+    private var topRatedMovies: [MovieResult] = []
         
     private var popularMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
     private var nowPlayingMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
     private var upcomingMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
+    private var topRatedMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
     
     
     private var popularSectionView: SectionView!
     private var nowPlayingSectionView: SectionView!
     private var upcomingSectionView: SectionView!
+    private var topRatedSectionView: SectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +40,12 @@ class MoviesVC: UIViewController {
         configurePopularSectionView()
         configureNowPlayingSectionView()
         configureUpcomingSectionView()
+        configureTopRatedSectionView()
         
         getPopularMovies(page: popularMoviesPagination.page)
         getNowPlayingMovies(page: nowPlayingMoviesPagination.page)
         getUpcomingMovies(page: upcomingMoviesPagination.page)
+        getTopRatedMovies(page: topRatedMoviesPagination.page)
     }
 }
 
@@ -63,6 +68,12 @@ extension MoviesVC {
         upcomingSectionView.collectionView.delegate = self
         upcomingSectionView.collectionView.dataSource = self
     }
+    
+    private func configureTopRatedSectionView() {
+        topRatedSectionView = SectionView(stackView: stackView, topAnchorPoint: upcomingSectionView.bottomAnchor, title: "Top Rated")
+        topRatedSectionView.collectionView.delegate = self
+        topRatedSectionView.collectionView.dataSource = self
+    }
 }
 
 // MARK: DELEGATE, DATASOURCE
@@ -74,6 +85,8 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return nowPlayingMovies.count
         } else if collectionView == upcomingSectionView.collectionView {
             return upcomingMovies.count
+        } else if collectionView == topRatedSectionView.collectionView {
+            return topRatedMovies.count
         } else {
             return 0
         }
@@ -93,6 +106,11 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         } else if collectionView == upcomingSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
             cell.set(movie: upcomingMovies[indexPath.row])
+            
+            return cell
+        } else if collectionView == topRatedSectionView.collectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
+            cell.set(movie: topRatedMovies[indexPath.row])
             
             return cell
         } else {
@@ -121,6 +139,11 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 self.upcomingMoviesPagination.page += 1
                 
                 self.getUpcomingMovies(page: self.upcomingMoviesPagination.page)
+            } else if scrollView == topRatedSectionView.collectionView && topRatedMoviesPagination.shouldDownloadMore {
+                self.topRatedMoviesPagination.shouldDownloadMore = false
+                self.topRatedMoviesPagination.page += 1
+                
+                self.getTopRatedMovies(page: self.topRatedMoviesPagination.page)
             }
         }
     }
@@ -167,6 +190,21 @@ extension MoviesVC {
             case .success(let upcomingMovies):
                 self.upcomingMovies.append(contentsOf: upcomingMovies.filter({$0.posterPath != nil}))
                 self.upcomingSectionView.collectionView.reloadDataOnMainThread()
+            case .failure(let error):
+                print(error.rawValue)
+            }
+        }
+    }
+    
+    private func getTopRatedMovies(page: Int) {
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.topRatedMovies(page: page)) { [weak self] result in
+            guard let self = self else { return }
+            self.topRatedMoviesPagination.shouldDownloadMore = true
+            
+            switch result {
+            case .success(let topRatedMovies):
+                self.topRatedMovies.append(contentsOf: topRatedMovies.filter({$0.posterPath != nil}))
+                self.topRatedSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error.rawValue)
             }
