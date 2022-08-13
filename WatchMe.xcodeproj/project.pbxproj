@@ -26,6 +26,8 @@
 		3D3AE56E28A554F000B527AF /* WMPosterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE56D28A554F000B527AF /* WMPosterImageView.swift */; };
 		3D3AE57228A55A5600B527AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE57128A55A5600B527AF /* SceneDelegate.swift */; };
 		3D3AE57828A55A6800B527AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE57728A55A6800B527AF /* AppDelegate.swift */; };
+		3D487C1828A7FC38000F22F8 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1728A7FC38000F22F8 /* DetailVC.swift */; };
+		3D487C1A28A8064F000F22F8 /* ReferenceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1928A8064F000F22F8 /* ReferenceDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		3D3AE57528A55A6000B527AF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D3AE57728A55A6800B527AF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D3AE57928A55A6C00B527AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3D487C1728A7FC38000F22F8 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		3D487C1928A8064F000F22F8 /* ReferenceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 				3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */,
 				3D3AE53C28A4FFC800B527AF /* SearchVC.swift */,
 				3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */,
+				3D487C1928A8064F000F22F8 /* ReferenceDetailView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */,
+				3D487C1728A7FC38000F22F8 /* DetailVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -287,8 +293,10 @@
 				3D0463E628A646CF00C1BEE0 /* SectionView.swift in Sources */,
 				3D3AE57828A55A6800B527AF /* AppDelegate.swift in Sources */,
 				3D3AE55428A505DB00B527AF /* ApiUrls.swift in Sources */,
+				3D487C1828A7FC38000F22F8 /* DetailVC.swift in Sources */,
 				3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */,
 				3D3AE55B28A5252000B527AF /* ContentCell.swift in Sources */,
+				3D487C1A28A8064F000F22F8 /* ReferenceDetailView.swift in Sources */,
 				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
 				3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */,

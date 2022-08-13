@@ -31,8 +31,6 @@ class MoviesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        configureVC()
         
         configureScrollView()
         configureStackView()
@@ -46,6 +44,12 @@ class MoviesVC: UIViewController {
         getNowPlayingMovies(page: nowPlayingMoviesPagination.page)
         getUpcomingMovies(page: upcomingMoviesPagination.page)
         getTopRatedMovies(page: topRatedMoviesPagination.page)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureVC()
     }
 }
 
@@ -145,6 +149,18 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 
                 self.getTopRatedMovies(page: self.topRatedMoviesPagination.page)
             }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == popularSectionView.collectionView {
+            navigationController?.pushViewController(DetailVC(), animated: true)
+        } else if collectionView == nowPlayingSectionView.collectionView {
+            navigationController?.pushViewController(DetailVC(), animated: true)
+        } else if collectionView == upcomingSectionView.collectionView {
+            navigationController?.pushViewController(DetailVC(), animated: true)
+        } else if collectionView == topRatedSectionView.collectionView {
+            navigationController?.pushViewController(DetailVC(), animated: true)
         }
     }
 }
