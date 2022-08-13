@@ -21,7 +21,7 @@ class ContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(movie: PopularMoviesResult) {
+    func set(movie: MovieResult) {
         posterImageView.downloadImage(urlString: ApiUrls.image(path: movie.posterPath ?? ""))
     }
     

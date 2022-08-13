@@ -17,9 +17,9 @@ final class NetworkingManager {
     
     let cache = NSCache<NSString, UIImage>()
     
-    func getPopularMovies(page: Int, completion: @escaping (Result<[PopularMoviesResult], ErrorMessage>) -> ()) {
+    func getMovies(urlString: String, completion: @escaping (Result<[MovieResult], ErrorMessage>) -> ()) {
         
-        guard let url = URL(string: ApiUrls.popularMovies(page: page)) else { return }
+        guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             print(url)
@@ -30,7 +30,6 @@ final class NetworkingManager {
             guard
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                print("ad")
                 completion(.failure(.unknown))
                 return
             }
@@ -41,9 +40,9 @@ final class NetworkingManager {
             }
             
             do {
-                let popularMoviesData = try JSONDecoder().decode(PopularMovies.self, from: data)
+                let moviesData = try JSONDecoder().decode(Movie.self, from: data)
                 
-                guard let results = popularMoviesData.results else {
+                guard let results = moviesData.results else {
                     completion(.failure(.unknown))
                     return
                 }

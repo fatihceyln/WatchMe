@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct PopularMovies: Codable {
+struct Movie: Codable {
     let page: Int?
-    let results: [PopularMoviesResult]?
+    let results: [MovieResult]?
     let totalPages, totalResults: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -19,7 +19,7 @@ struct PopularMovies: Codable {
     }
 }
 
-struct PopularMoviesResult: Codable, Hashable {
+struct MovieResult: Codable, Hashable {
     let adult: Bool?
     let backdropPath: String?
     let genreIDS: [Int]?
