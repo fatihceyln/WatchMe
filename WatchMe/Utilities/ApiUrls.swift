@@ -69,7 +69,7 @@ enum ApiUrls {
     }
     
     static func nowPlayingMovies(page: Int) -> String {
-        "\(baseURL)movie/now_playing?api_key=\(api_key)&language=en-US&page=1"
+        "\(baseURL)movie/now_playing?api_key=\(api_key)&language=en-US&page=\(page)"
     }
     
     static func popularMovies(page: Int) -> String {

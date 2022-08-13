@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class MoviesVC: UIViewController {
     
     private var scrollView: UIScrollView!
@@ -14,9 +15,9 @@ class MoviesVC: UIViewController {
     
     private var popularMovies: [MovieResult] = []
     private var nowPlayingMovies: [MovieResult] = []
-    
-    private var shouldDownloadMore: Bool = false
-    private var page: Int = 1
+        
+    private var popularMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: true, page: 1)
+    private var nowPlayingMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: true, page: 1)
     
     
     private var popularSectionView: SectionView!
@@ -33,8 +34,8 @@ class MoviesVC: UIViewController {
         configurePopularSectionView()
         configureNowPlayingSectionView()
         
-        getPopularMovies(page: page)
-        getNowPlayingMovies(page: page)
+        getPopularMovies(page: popularMoviesPagination.page)
+        getNowPlayingMovies(page: nowPlayingMoviesPagination.page)
     }
 }
 
@@ -82,15 +83,17 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let contentWidth = scrollView.contentSize.width
         let width = scrollView.frame.width
 
-        if offsetX >= contentWidth - (width * 3) && shouldDownloadMore {
-            shouldDownloadMore = false
-            print("Downloading")
-            self.page += 1
-
-            if scrollView == nowPlayingSectionView.collectionView {
-                print("GET LATEST")
-            } else {
-                print("GET POPULAR")
+        if offsetX >= contentWidth - (width * 3) {
+            if scrollView == popularSectionView.collectionView && popularMoviesPagination.shouldDownloadMore {
+                self.popularMoviesPagination.shouldDownloadMore = false
+                self.popularMoviesPagination.page += 1
+                
+                self.getPopularMovies(page: self.popularMoviesPagination.page)
+            } else if scrollView == nowPlayingSectionView.collectionView && nowPlayingMoviesPagination.shouldDownloadMore {
+                self.nowPlayingMoviesPagination.shouldDownloadMore = false
+                self.nowPlayingMoviesPagination.page += 1
+                
+                self.getNowPlayingMovies(page: self.nowPlayingMoviesPagination.page)
             }
         }
     }
@@ -99,10 +102,9 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
 // MARK: GET METHODS
 extension MoviesVC {
     private func getPopularMovies(page: Int) {
-        shouldDownloadMore = false
         NetworkingManager.shared.downloadMovies(urlString: ApiUrls.popularMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
-            self.shouldDownloadMore = true
+            self.popularMoviesPagination.shouldDownloadMore = true
             
             switch result {
             case .success(let popularMovies):
@@ -115,10 +117,9 @@ extension MoviesVC {
     }
     
     private func getNowPlayingMovies(page: Int) {
-        shouldDownloadMore = false
         NetworkingManager.shared.downloadMovies(urlString: ApiUrls.nowPlayingMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
-            self.shouldDownloadMore = true
+            self.nowPlayingMoviesPagination.shouldDownloadMore = true
             
             switch result {
             case .success(let nowPlayingMovies):

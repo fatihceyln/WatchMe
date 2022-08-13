@@ -20,7 +20,7 @@ final class NetworkingManager {
     func downloadMovies(urlString: String, completion: @escaping (Result<[MovieResult], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else { return }
-        
+        print(url)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
                 completion(.failure(.unknown))

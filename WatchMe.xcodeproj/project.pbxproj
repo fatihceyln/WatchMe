@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D0463E628A646CF00C1BEE0 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0463E528A646CF00C1BEE0 /* SectionView.swift */; };
+		3D0D694928A7B70A0058B7C0 /* PaginationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */; };
 		3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */; };
 		3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53828A4FEA100B527AF /* MoviesVC.swift */; };
 		3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		3D0463E528A646CF00C1BEE0 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
+		3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationControl.swift; sourceTree = "<group>"; };
 		3D3AE51F28A4FC2000B527AF /* WatchMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMTabBarController.swift; sourceTree = "<group>"; };
 		3D3AE53828A4FEA100B527AF /* MoviesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesVC.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				3D3AE55328A505DB00B527AF /* ApiUrls.swift */,
 				3D3AE56528A5519500B527AF /* UIHelper.swift */,
+				3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */,
 				3D3AE56B28A5536100B527AF /* WMBodyLabel.swift in Sources */,
 				3D3AE56628A5519500B527AF /* UIHelper.swift in Sources */,
+				3D0D694928A7B70A0058B7C0 /* PaginationControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
