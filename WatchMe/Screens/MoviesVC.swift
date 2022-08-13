@@ -10,7 +10,7 @@ import UIKit
 class MoviesVC: UIViewController {
     
     private var scrollView: UIScrollView!
-    private var contentView: UIView!
+    private var stackView: UIStackView!
     
     private var popularMoviesResult: [PopularMoviesResult] = []
     
@@ -26,15 +26,15 @@ class MoviesVC: UIViewController {
         configureVC()
         
         configureScrollView()
-        configureContentView()
+        configureStackView()
         
-        configurePopularContainerView()
+        configurePopularSectionView()
         
         getPopularMovies(page: page)
     }
     
-    private func configurePopularContainerView() {
-        popularSectionView = SectionView(superView: contentView, topAnchorPoint: contentView.topAnchor, title: "Popular Movies")
+    private func configurePopularSectionView() {
+        popularSectionView = SectionView(stackView: stackView, topAnchorPoint: stackView.topAnchor, title: "Popular Movies")
         popularSectionView.collectionView.delegate = self
         popularSectionView.collectionView.dataSource = self
     }
@@ -64,18 +64,22 @@ class MoviesVC: UIViewController {
         scrollView.pinToEdges(of: view)
     }
     
-    private func configureContentView() {
-        contentView = UIView(frame: .zero)
-        scrollView.addSubview(contentView)
+    private func configureStackView() {
+        stackView = UIStackView()
+        scrollView.addSubview(stackView)
         
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 50
         
-        contentView.pinToEdges(of: scrollView)
+        stackView.backgroundColor = .red
         
-        // widthAnchor and heightAnchor have to be specified.
+        stackView.pinToEdges(of: scrollView)
+        
+        // widthAnchor have to be specified.
         NSLayoutConstraint.activate([
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
     }
     

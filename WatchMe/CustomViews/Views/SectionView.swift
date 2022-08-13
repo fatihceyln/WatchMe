@@ -12,7 +12,7 @@ class SectionView: UIView {
     var titleLabel: WMTitleLabel!
     var collectionView: UICollectionView!
     
-    var superView: UIView!
+    var stackView: UIStackView!
     var topAnchorPoint: NSLayoutYAxisAnchor!
     var title: String!
     
@@ -25,9 +25,9 @@ class SectionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(superView: UIView, topAnchorPoint: NSLayoutYAxisAnchor, title: String) {
+    convenience init(stackView: UIStackView, topAnchorPoint: NSLayoutYAxisAnchor, title: String) {
         self.init(frame: .zero)
-        self.superView = superView
+        self.stackView = stackView
         self.topAnchorPoint = topAnchorPoint
         self.title = title
         
@@ -37,13 +37,13 @@ class SectionView: UIView {
     }
     
     private func configureContainerView() {
-        superView.addSubview(self)
+        stackView.addArrangedSubview(self)
         translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: topAnchorPoint, constant: 50),
-            leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 10),
-            trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -10),
+            leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 10),
+            trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -10),
             heightAnchor.constraint(equalToConstant: 420)
         ])
     }
