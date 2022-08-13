@@ -9,7 +9,7 @@ import UIKit
 
 class HeaderView: UIView {
     
-    var superContainerView: UIStackView!
+    var superContainerView: UIView!
     
     var posterImageView: WMPosterImageView!
     var titleLabel: WMTitleLabel!
@@ -17,6 +17,8 @@ class HeaderView: UIView {
     var dateLabel: WMBodyLabel!
     var genreLabel: WMBodyLabel!
     var runtimeLabel: WMBodyLabel!
+    
+    var releaseDateLabel: WMLabelWithImage!
     
     let padding: CGFloat = 10
 
@@ -35,6 +37,7 @@ class HeaderView: UIView {
         configureView()
         configurePosterImageView()
         configureTitleLabel()
+        configureReleaseDateLabel()
     }
     
     private func configureView() {
@@ -48,8 +51,6 @@ class HeaderView: UIView {
             trailingAnchor.constraint(equalTo: superContainerView.trailingAnchor),
             heightAnchor.constraint(equalToConstant: 250)
         ])
-        
-        backgroundColor = .yellow
     }
     
     private func configurePosterImageView() {
@@ -63,20 +64,34 @@ class HeaderView: UIView {
             posterImageView.heightAnchor.constraint(equalToConstant: 225)
         ])
         
-        posterImageView.backgroundColor = .red
+        posterImageView.backgroundColor = .gray.withAlphaComponent(0.15)
     }
     
     private func configureTitleLabel() {
-        titleLabel = WMTitleLabel(textAlignment: .left, fontSize: 20)
+        titleLabel = WMTitleLabel(textAlignment: .left, fontSize: 22)
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: posterImageView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 2 * padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 23)
+            titleLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
         
-        titleLabel.backgroundColor = .black
+        titleLabel.text = "Thor: Love and Thunder"
+    }
+    
+    private func configureReleaseDateLabel() {
+        releaseDateLabel = WMLabelWithImage(text: "07/08/2022", systemName: "calendar")
+        addSubview(releaseDateLabel)
+        
+        releaseDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2 * padding),
+            releaseDateLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 2 * padding),
+            releaseDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            releaseDateLabel.heightAnchor.constraint(equalToConstant: 40)
+        ])
     }
 }
