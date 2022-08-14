@@ -15,6 +15,7 @@ class DetailVC: UIViewController {
     private var headerView: HeaderView!
     private var overviewLabel: WMBodyLabel!
     private var castView: CastView!
+    private var similarSectionView: SectionView!
     
     private let padding: CGFloat = 16
     
@@ -28,6 +29,7 @@ class DetailVC: UIViewController {
         configureHeaderView()
         configureOverviewLabel()
         configureCastView()
+        configureSimilarSectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +57,10 @@ extension DetailVC {
     
     private func configureCastView() {
         castView = CastView(superContainerView: containerStackView)
+    }
+    
+    private func configureSimilarSectionView() {
+        similarSectionView = SectionView(containerStackView: containerStackView, title: "Similar Movies")
     }
 }
 
@@ -85,5 +91,15 @@ extension DetailVC {
         NSLayoutConstraint.activate([
             containerStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
+    }
+}
+
+extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        UICollectionViewCell()
     }
 }

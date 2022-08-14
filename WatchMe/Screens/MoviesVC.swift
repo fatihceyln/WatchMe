@@ -156,13 +156,22 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == popularSectionView.collectionView {
-            navigationController?.pushViewController(DetailVC(), animated: true)
+            
+            let detailVC = DetailVC()
+            navigationController?.pushViewController(detailVC, animated: true)
+        
         } else if collectionView == nowPlayingSectionView.collectionView {
+        
             navigationController?.pushViewController(DetailVC(), animated: true)
+        
         } else if collectionView == upcomingSectionView.collectionView {
+        
             navigationController?.pushViewController(DetailVC(), animated: true)
+        
         } else if collectionView == topRatedSectionView.collectionView {
+        
             navigationController?.pushViewController(DetailVC(), animated: true)
+        
         }
     }
 }
