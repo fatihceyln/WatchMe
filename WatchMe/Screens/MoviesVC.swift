@@ -289,7 +289,7 @@ extension MoviesVC {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 2 * padding, left: padding, bottom: 2 * padding, right: padding)
+        stackView.layoutMargins = UIEdgeInsets(top: 3 * padding, left: padding, bottom: 3 * padding, right: padding)
         
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
