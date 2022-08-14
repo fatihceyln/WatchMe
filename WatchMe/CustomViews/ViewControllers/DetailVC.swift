@@ -14,6 +14,7 @@ class DetailVC: UIViewController {
     
     private var headerView: HeaderView!
     private var overviewLabel: WMBodyLabel!
+    private var castView: CastView!
     
     private let padding: CGFloat = 16
     
@@ -26,6 +27,7 @@ class DetailVC: UIViewController {
         
         configureHeaderView()
         configureOverviewLabel()
+        configureCastView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +51,10 @@ extension DetailVC {
         ])
         
         overviewLabel.text = "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Mighty Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late."
+    }
+    
+    private func configureCastView() {
+        castView = CastView(superContainerView: containerStackView)
     }
 }
 
