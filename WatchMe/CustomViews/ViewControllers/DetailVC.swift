@@ -46,8 +46,7 @@ class DetailVC: UIViewController {
         configureCastView()
         configureSimilarSectionView()
         
-        getCast()
-        getSimilarMovies()
+        setViewData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,16 +90,23 @@ extension DetailVC {
 }
 
 extension DetailVC {
+    private func setViewData() {
+        headerView.setHeaderView(movieDetail: movieDetail)
+        overviewLabel.text = movieDetail?.overview
+        
+        getCast()
+        getSimilarMovies()
+    }
+}
+
+extension DetailVC {
     private func configureHeaderView() {
         headerView = HeaderView(superContainerView: containerStackView)
-        headerView.setHeaderView(movieDetail: movieDetail)
     }
     
     private func configureOverviewLabel() {
         overviewLabel = WMBodyLabel(textAlignment: .left)
         containerStackView.addArrangedSubview(overviewLabel)
-        
-        overviewLabel.text = movieDetail?.overview
     }
     
     private func configureCastView() {
@@ -172,5 +178,22 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == similarSectionView.collectionView {
+            NetworkingManager.shared.downloadMovieDetail(urlString: ApiUrls.movieDetail(id: similarMovies[indexPath.row].id?.description ?? "")) { [weak self] result in
+                switch result {
+                case .success(let movieDetail):
+                    self?.movieDetail = movieDetail
+                    DispatchQueue.main.async {
+                        self?.setViewData()
+                        self?.scrollView.setContentOffset(CGPoint(x: 0, y: -(self?.view.safeAreaInsets.top ?? 0)), animated: true)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 }
