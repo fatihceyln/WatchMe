@@ -15,7 +15,7 @@ class DetailVC: UIViewController {
     private var headerView: HeaderView!
     private var overviewLabel: WMBodyLabel!
     
-    private let padding: CGFloat = 10
+    private let padding: CGFloat = 16
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,6 @@ class DetailVC: UIViewController {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    
 }
 
 extension DetailVC {
@@ -44,12 +42,9 @@ extension DetailVC {
     
     private func configureOverviewLabel() {
         overviewLabel = WMBodyLabel(textAlignment: .left)
-        view.addSubview(overviewLabel)
+        containerStackView.addArrangedSubview(overviewLabel)
         
         NSLayoutConstraint.activate([
-            overviewLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
-            overviewLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
-            overviewLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -padding),
             overviewLabel.heightAnchor.constraint(equalToConstant: 200)
         ])
         
@@ -72,11 +67,17 @@ extension DetailVC {
         scrollView.addSubview(containerStackView)
         
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        containerStackView.layoutMargins = UIEdgeInsets(top: 2 * padding, left: padding, bottom: 2 * padding, right: padding)
+        
         containerStackView.axis = .vertical
-        containerStackView.distribution = .fillEqually
+        containerStackView.distribution = .fill
+        containerStackView.spacing = 20
         
         containerStackView.pinToEdges(of: scrollView)
-        
-        containerStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            containerStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
     }
 }

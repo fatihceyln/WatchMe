@@ -9,16 +9,15 @@ import UIKit
 
 class HeaderView: UIView {
     
-    var superContainerView: UIView!
+    private var superContainerView: UIStackView!
     
     private var posterImageView: WMPosterImageView!
     private var titleLabel: WMTitleLabel!
     
+    private var attributesStackView: UIStackView!
     private var dateLabel: WMLabelWithImage!
     private var genreLabel: WMLabelWithImage!
     private var runtimeLabel: WMLabelWithImage!
-    
-    private var attributesStackView: UIStackView!
     
     let padding: CGFloat = 10
 
@@ -47,16 +46,11 @@ class HeaderView: UIView {
     }
     
     private func configureView() {
-        superContainerView.addSubview(self)
+        superContainerView.addArrangedSubview(self)
         
         translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: superContainerView.topAnchor),
-            leadingAnchor.constraint(equalTo: superContainerView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: superContainerView.trailingAnchor),
-            heightAnchor.constraint(equalToConstant: 250)
-        ])
+        heightAnchor.constraint(equalToConstant: 250).isActive = true
     }
     
     private func configurePosterImageView() {
@@ -65,7 +59,7 @@ class HeaderView: UIView {
         
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
-            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             posterImageView.widthAnchor.constraint(equalToConstant: 150),
             posterImageView.heightAnchor.constraint(equalToConstant: 225)
         ])
@@ -77,11 +71,13 @@ class HeaderView: UIView {
         titleLabel = WMTitleLabel(textAlignment: .left, fontSize: 22)
         addSubview(titleLabel)
         
+        titleLabel.numberOfLines = 2
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: posterImageView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 2 * padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 25)
+            titleLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         titleLabel.text = "Thor: Love and Thunder"
