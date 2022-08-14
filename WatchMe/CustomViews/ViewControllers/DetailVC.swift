@@ -22,6 +22,9 @@ class DetailVC: UIViewController {
     private var movieDetail: MovieDetail!
     private var cast: [Cast] = []
     
+    private var similarMovies: [MovieResult] = []
+    private var similarMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
+    
     init(movieDetail: MovieDetail) {
         super.init(nibName: nil, bundle: nil)
         self.movieDetail = movieDetail
@@ -44,6 +47,7 @@ class DetailVC: UIViewController {
         configureSimilarSectionView()
         
         getCast()
+        getSimilarMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +68,21 @@ extension DetailVC {
                     self?.cast = cast
                 }
                 self?.castView.collectionView.reloadDataOnMainThread()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func getSimilarMovies() {
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarMovies(movieId: movieDetail.id?.description ?? "", page: similarMoviesPagination.page)) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let similarMovies):
+                self.similarMovies = similarMovies
+                self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error)
             }
@@ -92,6 +111,8 @@ extension DetailVC {
     
     private func configureSimilarSectionView() {
         similarSectionView = SectionView(containerStackView: containerStackView, title: "Similar Movies")
+        similarSectionView.collectionView.delegate = self
+        similarSectionView.collectionView.dataSource = self
     }
 }
 
@@ -128,13 +149,28 @@ extension DetailVC {
 
 extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cast.count
+        if collectionView == castView.collectionView {
+            return cast.count
+        } else if collectionView == similarSectionView.collectionView {
+            return similarMovies.count
+        }
+        
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopBilledCell.reuseID, for: indexPath) as! TopBilledCell
-        cell.set(cast: cast[indexPath.row])
+        if collectionView == castView.collectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopBilledCell.reuseID, for: indexPath) as! TopBilledCell
+            cell.set(cast: cast[indexPath.row])
+            
+            return cell
+        } else if collectionView == similarSectionView.collectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
+            cell.set(movie: similarMovies[indexPath.row])
+            
+            return cell
+        }
         
-        return cell
+        return UICollectionViewCell()
     }
 }
