@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailVC: WMDataLoadingVC {
+class DetailVC: UIViewController {
     
     private var scrollView: UIScrollView!
     private var containerStackView: UIStackView!

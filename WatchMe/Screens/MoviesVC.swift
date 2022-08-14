@@ -8,7 +8,7 @@
 import UIKit
 
 
-class MoviesVC: WMDataLoadingVC {
+class MoviesVC: UIViewController {
     
     private var scrollView: UIScrollView!
     private var stackView: UIStackView!
