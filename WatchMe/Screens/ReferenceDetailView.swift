@@ -36,6 +36,13 @@ struct ReferenceDetailView: View {
                             
                             Text("1h 59m")
                         }
+                        
+                        HStack {
+                            ForEach(0..<5) { index in
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(index <= 2 ? .yellow : .gray)
+                            }
+                        }
                     }
                     .padding(.top, 30)
                 }

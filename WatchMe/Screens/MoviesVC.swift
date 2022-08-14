@@ -157,20 +157,23 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == popularSectionView.collectionView {
             
-            let detailVC = DetailVC()
+            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
             navigationController?.pushViewController(detailVC, animated: true)
         
         } else if collectionView == nowPlayingSectionView.collectionView {
         
-            navigationController?.pushViewController(DetailVC(), animated: true)
+            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
+            navigationController?.pushViewController(detailVC, animated: true)
         
         } else if collectionView == upcomingSectionView.collectionView {
         
-            navigationController?.pushViewController(DetailVC(), animated: true)
+            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
+            navigationController?.pushViewController(detailVC, animated: true)
         
         } else if collectionView == topRatedSectionView.collectionView {
         
-            navigationController?.pushViewController(DetailVC(), animated: true)
+            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
+            navigationController?.pushViewController(detailVC, animated: true)
         
         }
     }

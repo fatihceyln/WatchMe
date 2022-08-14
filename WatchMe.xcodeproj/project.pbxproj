@@ -31,6 +31,7 @@
 		3D487C1C28A81265000F22F8 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1B28A81265000F22F8 /* HeaderView.swift */; };
 		3D487C1E28A81DCC000F22F8 /* WMLabelWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1D28A81DCC000F22F8 /* WMLabelWithImage.swift */; };
 		3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2328A8E48E000F22F8 /* CastView.swift */; };
+		3D487C2728A8F737000F22F8 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2628A8F737000F22F8 /* MovieDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		3D487C1B28A81265000F22F8 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3D487C1D28A81DCC000F22F8 /* WMLabelWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMLabelWithImage.swift; sourceTree = "<group>"; };
 		3D487C2328A8E48E000F22F8 /* CastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastView.swift; sourceTree = "<group>"; };
+		3D487C2628A8F737000F22F8 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3AE55728A520DA00B527AF /* Movie.swift */,
+				3D487C2628A8F737000F22F8 /* MovieDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */,
 				3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */,
 				3D3AE57228A55A5600B527AF /* SceneDelegate.swift in Sources */,
+				3D487C2728A8F737000F22F8 /* MovieDetail.swift in Sources */,
 				3D3AE56928A552D600B527AF /* WMTitleLabel.swift in Sources */,
 				3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */,
 				3D3AE56428A54EEC00B527AF /* UICollectionView+Ext.swift in Sources */,
