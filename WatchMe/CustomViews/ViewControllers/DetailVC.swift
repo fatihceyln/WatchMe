@@ -73,14 +73,14 @@ extension DetailVC {
         }
     }
     
-    private func getSimilarMovies() {
+    private func getSimilarMovies(page: Int) {
         NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarMovies(movieId: movieDetail.id?.description ?? "", page: similarMoviesPagination.page)) { [weak self] result in
-            
             guard let self = self else { return }
+            self.similarMoviesPagination.shouldDownloadMore = true
             
             switch result {
             case .success(let similarMovies):
-                self.similarMovies = similarMovies
+                self.similarMovies.append(contentsOf: similarMovies)
                 self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error)
@@ -95,7 +95,7 @@ extension DetailVC {
         overviewLabel.text = movieDetail?.overview
         
         getCast()
-        getSimilarMovies()
+        getSimilarMovies(page: similarMoviesPagination.page)
     }
 }
 
@@ -193,6 +193,21 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 case .failure(let error):
                     print(error)
                 }
+            }
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetX = scrollView.contentOffset.x
+        let contentWidth = scrollView.contentSize.width
+        let width = scrollView.frame.width
+
+        if offsetX >= contentWidth - (width * 3) {
+            if scrollView == similarSectionView.collectionView && similarMoviesPagination.shouldDownloadMore {
+                self.similarMoviesPagination.shouldDownloadMore = false
+                self.similarMoviesPagination.page += 1
+                
+                self.getSimilarMovies(page: self.similarMoviesPagination.page)
             }
         }
     }
