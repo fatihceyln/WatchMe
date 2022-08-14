@@ -28,6 +28,8 @@ class MoviesVC: UIViewController {
     private var nowPlayingSectionView: SectionView!
     private var upcomingSectionView: SectionView!
     private var topRatedSectionView: SectionView!
+    
+    private let padding: CGFloat = 10
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,25 +58,25 @@ class MoviesVC: UIViewController {
 //MARK: SECTION VIEWS
 extension MoviesVC {
     private func configurePopularSectionView() {
-        popularSectionView = SectionView(stackView: stackView, topAnchorPoint: stackView.topAnchor, title: "Popular")
+        popularSectionView = SectionView(containerStackView: stackView, title: "Popular")
         popularSectionView.collectionView.delegate = self
         popularSectionView.collectionView.dataSource = self
     }
     
     private func configureNowPlayingSectionView() {
-        nowPlayingSectionView = SectionView(stackView: stackView, topAnchorPoint: popularSectionView.bottomAnchor, title: "Now Playing")
+        nowPlayingSectionView = SectionView(containerStackView: stackView, title: "Now Playing")
         nowPlayingSectionView.collectionView.delegate = self
         nowPlayingSectionView.collectionView.dataSource = self
     }
     
     private func configureUpcomingSectionView() {
-        upcomingSectionView = SectionView(stackView: stackView, topAnchorPoint: nowPlayingSectionView.bottomAnchor, title: "Upcoming")
+        upcomingSectionView = SectionView(containerStackView: stackView, title: "Upcoming")
         upcomingSectionView.collectionView.delegate = self
         upcomingSectionView.collectionView.dataSource = self
     }
     
     private func configureTopRatedSectionView() {
-        topRatedSectionView = SectionView(stackView: stackView, topAnchorPoint: upcomingSectionView.bottomAnchor, title: "Top Rated")
+        topRatedSectionView = SectionView(containerStackView: stackView, title: "Top Rated")
         topRatedSectionView.collectionView.delegate = self
         topRatedSectionView.collectionView.dataSource = self
     }
@@ -245,8 +247,13 @@ extension MoviesVC {
         scrollView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 2 * padding, left: padding, bottom: 2 * padding, right: padding)
+        
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
+        stackView.spacing = 3 * padding
         
         stackView.pinToEdges(of: scrollView)
         
