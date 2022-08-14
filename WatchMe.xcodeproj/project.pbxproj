@@ -32,6 +32,7 @@
 		3D487C1E28A81DCC000F22F8 /* WMLabelWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C1D28A81DCC000F22F8 /* WMLabelWithImage.swift */; };
 		3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2328A8E48E000F22F8 /* CastView.swift */; };
 		3D487C2728A8F737000F22F8 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2628A8F737000F22F8 /* MovieDetail.swift */; };
+		3D487C2928A90901000F22F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2828A90901000F22F8 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		3D487C1D28A81DCC000F22F8 /* WMLabelWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMLabelWithImage.swift; sourceTree = "<group>"; };
 		3D487C2328A8E48E000F22F8 /* CastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastView.swift; sourceTree = "<group>"; };
 		3D487C2628A8F737000F22F8 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
+		3D487C2828A90901000F22F8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				3D3AE55328A505DB00B527AF /* ApiUrls.swift */,
 				3D3AE56528A5519500B527AF /* UIHelper.swift */,
 				3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */,
+				3D487C2828A90901000F22F8 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				3D3AE55428A505DB00B527AF /* ApiUrls.swift in Sources */,
 				3D487C1828A7FC38000F22F8 /* DetailVC.swift in Sources */,
 				3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */,
+				3D487C2928A90901000F22F8 /* Constants.swift in Sources */,
 				3D487C1C28A81265000F22F8 /* HeaderView.swift in Sources */,
 				3D487C1E28A81DCC000F22F8 /* WMLabelWithImage.swift in Sources */,
 				3D3AE55B28A5252000B527AF /* ContentCell.swift in Sources */,

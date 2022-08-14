@@ -12,25 +12,20 @@ class WMLabelWithImage: UIView {
     private var image: UIImageView!
     private var label: WMBodyLabel!
     
-    private var text: String!
-    private var systemName: String!
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureImage()
+        configurelabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(text: String, systemName: String) {
-        self.init(frame: .zero)
-        
-        self.text = text
-        self.systemName = systemName
-        
-        configureImage()
-        configurelabel()
+    func setWMLabelWithImage(text: String?, systemImage: UIImage?) {
+        label.text = text
+        image.image = systemImage
     }
     
     private func configureImage() {
@@ -38,7 +33,6 @@ class WMLabelWithImage: UIView {
         addSubview(image)
         
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(systemName: systemName)
         image.contentMode = .scaleAspectFit
         image.tintColor = .secondaryLabel
         
@@ -53,8 +47,6 @@ class WMLabelWithImage: UIView {
     private func configurelabel() {
         label = WMBodyLabel(textAlignment: .left)
         addSubview(label)
-        
-        label.text = text
         
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),

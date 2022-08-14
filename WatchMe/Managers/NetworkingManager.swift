@@ -19,7 +19,10 @@ final class NetworkingManager {
     
     func downloadMovies(urlString: String, completion: @escaping (Result<[MovieResult], ErrorMessage>) -> ()) {
         
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.unknown))
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
@@ -81,6 +84,41 @@ final class NetworkingManager {
             }
             self.cache.setObject(image, forKey: cacheKey)
             completion(image)
+        }
+        .resume()
+    }
+    
+    func downloadMovieDetail(urlString: String, completion: @escaping (Result<MovieDetail, ErrorMessage>) -> ()) {
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.unknown))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completion(.failure(.unknown))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            do {
+                let movieDetail = try JSONDecoder().decode(MovieDetail.self, from: data)
+                
+                completion(.success(movieDetail))
+            } catch {
+                completion(.failure(.unknown))
+            }
         }
         .resume()
     }

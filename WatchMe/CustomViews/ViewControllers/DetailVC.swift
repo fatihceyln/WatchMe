@@ -19,13 +19,11 @@ class DetailVC: UIViewController {
     
     private let padding: CGFloat = 16
     
-    private var movieDetail: MovieDetail?
+    private var movieDetail: MovieDetail!
     
     init(movieDetail: MovieDetail) {
         super.init(nibName: nil, bundle: nil)
         self.movieDetail = movieDetail
-        
-        print(movieDetail)
     }
     
     required init?(coder: NSCoder) {
@@ -55,17 +53,14 @@ class DetailVC: UIViewController {
 extension DetailVC {
     private func configureHeaderView() {
         headerView = HeaderView(superContainerView: containerStackView)
+        headerView.setHeaderView(movieDetail: movieDetail)
     }
     
     private func configureOverviewLabel() {
         overviewLabel = WMBodyLabel(textAlignment: .left)
         containerStackView.addArrangedSubview(overviewLabel)
         
-        NSLayoutConstraint.activate([
-            overviewLabel.heightAnchor.constraint(equalToConstant: 200)
-        ])
-        
-        overviewLabel.text = "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Mighty Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late."
+        overviewLabel.text = movieDetail?.overview
     }
     
     private func configureCastView() {

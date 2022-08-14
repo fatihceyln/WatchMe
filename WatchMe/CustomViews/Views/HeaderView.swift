@@ -45,6 +45,14 @@ class HeaderView: UIView {
         configureRuntimeLabel()
     }
     
+    func setHeaderView(movieDetail: MovieDetail) {
+        posterImageView.downloadImage(urlString: ApiUrls.image(path: movieDetail.posterPath ?? ""))
+        titleLabel.text = movieDetail.title
+        dateLabel.setWMLabelWithImage(text: movieDetail.releaseDateString, systemImage: SystemImages.calendarImage)
+        genreLabel.setWMLabelWithImage(text: movieDetail.genresString, systemImage: SystemImages.filmImage)
+        runtimeLabel.setWMLabelWithImage(text: movieDetail.runtimeString, systemImage: SystemImages.clockImage)
+    }
+    
     private func configureView() {
         superContainerView.addArrangedSubview(self)
         
@@ -79,8 +87,6 @@ class HeaderView: UIView {
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             titleLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
-        
-        titleLabel.text = "Thor: Love and Thunder"
     }
     
     private func configureAttributesStackView() {
@@ -100,17 +106,17 @@ class HeaderView: UIView {
     }
     
     private func configureDateLabel() {
-        dateLabel = WMLabelWithImage(text: "07/08/2022", systemName: "calendar")
+        dateLabel = WMLabelWithImage()
         attributesStackView.addArrangedSubview(dateLabel)
     }
     
     private func configureGenreLabel() {
-        genreLabel = WMLabelWithImage(text: "Action, Adventure, Fantasy", systemName: "film")
+        genreLabel = WMLabelWithImage()
         attributesStackView.addArrangedSubview(genreLabel)
     }
     
     private func configureRuntimeLabel() {
-        runtimeLabel = WMLabelWithImage(text: "1h 59m", systemName: "clock")
+        runtimeLabel = WMLabelWithImage()
         attributesStackView.addArrangedSubview(runtimeLabel)
     }
 }

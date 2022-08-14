@@ -24,6 +24,21 @@ struct MovieDetail: Codable {
         case imdbID = "imdb_id"
         case voteAverage = "vote_average"
     }
+    
+    var genresString: String {
+        guard let genres = genres else { return "N/A" }
+        let names = genres.map({$0.name ?? ""})
+        
+        return names.joined(separator: ", ")
+    }
+    
+    var runtimeString: String {
+        runtime?.description ?? "N/A"
+    }
+    
+    var releaseDateString: String {
+        releaseDate ?? "N/a"
+    }
 }
 
 struct Genre: Codable {

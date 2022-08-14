@@ -157,23 +157,39 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == popularSectionView.collectionView {
             
-            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
-            navigationController?.pushViewController(detailVC, animated: true)
-        
+            getMovieDetail(id: popularMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
+                guard let movieDetail = movieDetail else { return }
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                }
+            }
+            
         } else if collectionView == nowPlayingSectionView.collectionView {
         
-            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
-            navigationController?.pushViewController(detailVC, animated: true)
+            getMovieDetail(id: nowPlayingMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
+                guard let movieDetail = movieDetail else { return }
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                }
+            }
         
         } else if collectionView == upcomingSectionView.collectionView {
         
-            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
-            navigationController?.pushViewController(detailVC, animated: true)
+            getMovieDetail(id: upcomingMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
+                guard let movieDetail = movieDetail else { return }
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                }
+            }
         
         } else if collectionView == topRatedSectionView.collectionView {
         
-            let detailVC = DetailVC(movieDetail: MovieDetail(id: nil, title: nil, overview: nil, posterPath: nil, releaseDate: nil, runtime: nil, genres: nil, homepage: nil, imdbID: nil, voteAverage: nil))
-            navigationController?.pushViewController(detailVC, animated: true)
+            getMovieDetail(id: topRatedMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
+                guard let movieDetail = movieDetail else { return }
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                }
+            }
         
         }
     }
@@ -237,6 +253,18 @@ extension MoviesVC {
                 self.topRatedSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error.rawValue)
+            }
+        }
+    }
+    
+    private func getMovieDetail(id: String, completion: @escaping (MovieDetail?) -> ()) {
+        NetworkingManager.shared.downloadMovieDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
+            switch result {
+            case .success(let movieDetail):
+                completion(movieDetail)
+            case .failure(let error):
+                print(error)
+                completion(nil)
             }
         }
     }
