@@ -23,7 +23,6 @@ class DetailVC: UIViewController {
     private var cast: [Cast] = []
     
     private var similarMovies: [MovieResult] = []
-    private var similarMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
     
     init(movieDetail: MovieDetail) {
         super.init(nibName: nil, bundle: nil)
@@ -73,14 +72,13 @@ extension DetailVC {
         }
     }
     
-    private func getSimilarMovies(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarMovies(movieId: movieDetail.id?.description ?? "", page: similarMoviesPagination.page)) { [weak self] result in
+    private func getSimilarMovies() {
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarMovies(movieId: movieDetail.id?.description ?? "", page: 1)) { [weak self] result in
             guard let self = self else { return }
-            self.similarMoviesPagination.shouldDownloadMore = true
             
             switch result {
             case .success(let similarMovies):
-                self.similarMovies.append(contentsOf: similarMovies)
+                self.similarMovies = similarMovies
                 self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 print(error)
@@ -95,7 +93,7 @@ extension DetailVC {
         overviewLabel.text = movieDetail?.overview
         
         getCast()
-        getSimilarMovies(page: similarMoviesPagination.page)
+        getSimilarMovies()
     }
 }
 
@@ -189,25 +187,12 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
                     DispatchQueue.main.async {
                         self?.setViewData()
                         self?.scrollView.setContentOffset(CGPoint(x: 0, y: -(self?.view.safeAreaInsets.top ?? 0)), animated: true)
+                        self?.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        self?.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
                     }
                 case .failure(let error):
                     print(error)
                 }
-            }
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-        let contentWidth = scrollView.contentSize.width
-        let width = scrollView.frame.width
-
-        if offsetX >= contentWidth - (width * 3) {
-            if scrollView == similarSectionView.collectionView && similarMoviesPagination.shouldDownloadMore {
-                self.similarMoviesPagination.shouldDownloadMore = false
-                self.similarMoviesPagination.page += 1
-                
-                self.getSimilarMovies(page: self.similarMoviesPagination.page)
             }
         }
     }
