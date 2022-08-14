@@ -33,6 +33,8 @@
 		3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2328A8E48E000F22F8 /* CastView.swift */; };
 		3D487C2728A8F737000F22F8 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2628A8F737000F22F8 /* MovieDetail.swift */; };
 		3D487C2928A90901000F22F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2828A90901000F22F8 /* Constants.swift */; };
+		3D487C2B28A91148000F22F8 /* TopBilledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2A28A91148000F22F8 /* TopBilledCell.swift */; };
+		3D487C2D28A9132C000F22F8 /* CastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2C28A9132C000F22F8 /* CastModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		3D487C2328A8E48E000F22F8 /* CastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastView.swift; sourceTree = "<group>"; };
 		3D487C2628A8F737000F22F8 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		3D487C2828A90901000F22F8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3D487C2A28A91148000F22F8 /* TopBilledCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBilledCell.swift; sourceTree = "<group>"; };
+		3D487C2C28A9132C000F22F8 /* CastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,7 @@
 			children = (
 				3D3AE55728A520DA00B527AF /* Movie.swift */,
 				3D487C2628A8F737000F22F8 /* MovieDetail.swift */,
+				3D487C2C28A9132C000F22F8 /* CastModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3AE55A28A5252000B527AF /* ContentCell.swift */,
+				3D487C2A28A91148000F22F8 /* TopBilledCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -310,12 +316,14 @@
 				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
 				3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */,
+				3D487C2B28A91148000F22F8 /* TopBilledCell.swift in Sources */,
 				3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */,
 				3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */,
 				3D3AE57228A55A5600B527AF /* SceneDelegate.swift in Sources */,
 				3D487C2728A8F737000F22F8 /* MovieDetail.swift in Sources */,
 				3D3AE56928A552D600B527AF /* WMTitleLabel.swift in Sources */,
 				3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */,
+				3D487C2D28A9132C000F22F8 /* CastModel.swift in Sources */,
 				3D3AE56428A54EEC00B527AF /* UICollectionView+Ext.swift in Sources */,
 				3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */,
 				3D3AE56B28A5536100B527AF /* WMBodyLabel.swift in Sources */,

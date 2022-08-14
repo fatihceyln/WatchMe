@@ -33,7 +33,14 @@ struct MovieDetail: Codable {
     }
     
     var runtimeString: String {
-        runtime?.description ?? "N/A"
+        guard let runtime = runtime else {
+            return "N/A"
+        }
+        
+        let hour = runtime / 60
+        let minute = runtime % 60
+        
+        return "\(hour)h \(minute)m"
     }
     
     var releaseDateString: String {

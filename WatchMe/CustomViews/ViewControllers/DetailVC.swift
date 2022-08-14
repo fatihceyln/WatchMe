@@ -20,6 +20,7 @@ class DetailVC: UIViewController {
     private let padding: CGFloat = 16
     
     private var movieDetail: MovieDetail!
+    private var cast: [Cast] = []
     
     init(movieDetail: MovieDetail) {
         super.init(nibName: nil, bundle: nil)
@@ -41,12 +42,32 @@ class DetailVC: UIViewController {
         configureOverviewLabel()
         configureCastView()
         configureSimilarSectionView()
+        
+        getCast()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+}
+
+extension DetailVC {
+    private func getCast() {
+        NetworkingManager.shared.downloadCast(urlString: ApiUrls.movieCredits(id: movieDetail.id?.description ?? "")) { [weak self] result in
+            switch result {
+            case .success(let cast):
+                if cast.count > 10 {
+                    self?.cast = Array(cast.prefix(upTo: 10))
+                } else {
+                    self?.cast = cast
+                }
+                self?.castView.collectionView.reloadDataOnMainThread()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
@@ -65,6 +86,8 @@ extension DetailVC {
     
     private func configureCastView() {
         castView = CastView(superContainerView: containerStackView)
+        castView.collectionView.delegate = self
+        castView.collectionView.dataSource = self
     }
     
     private func configureSimilarSectionView() {
@@ -105,10 +128,13 @@ extension DetailVC {
 
 extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        0
+        cast.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopBilledCell.reuseID, for: indexPath) as! TopBilledCell
+        cell.set(cast: cast[indexPath.row])
+        
+        return cell
     }
 }

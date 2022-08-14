@@ -32,6 +32,6 @@ class WMBodyLabel: UILabel {
         adjustsFontSizeToFitWidth = true
         numberOfLines = 0
         minimumScaleFactor = 0.75
-        lineBreakMode = .byWordWrapping
+        lineBreakMode = .byTruncatingTail
     }
 }

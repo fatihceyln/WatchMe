@@ -88,4 +88,8 @@ enum ApiUrls {
     static func upcomingMovies(page: Int) -> String {
         "\(baseURL)movie/upcoming?api_key=\(api_key)&language=en-US&page=\(page)"
     }
+    
+    static func movieCredits(id: String) -> String {
+        return "\(baseURL)movie/\(id)/credits?api_key=\(api_key)&language=en-US"
+    }
 }

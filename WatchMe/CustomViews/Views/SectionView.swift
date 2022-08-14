@@ -27,12 +27,12 @@ class SectionView: UIStackView {
         self.containerStackView = containerStackView
         self.title = title
         
-        configureCastView()
+        configureSectionView()
         configureTitle()
         configureCollectionView()
     }
     
-    private func configureCastView() {
+    private func configureSectionView() {
         containerStackView.addArrangedSubview(self)
         
         translatesAutoresizingMaskIntoConstraints = false

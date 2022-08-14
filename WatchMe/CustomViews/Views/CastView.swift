@@ -11,6 +11,7 @@ class CastView: UIStackView {
     
     private var superContainerView: UIStackView!
     private var titleLabel: WMTitleLabel!
+    var collectionView: UICollectionView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,9 +36,6 @@ class CastView: UIStackView {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
         distribution = .fill
-        spacing = 10
-        
-        backgroundColor = .systemPink
     }
     
     private func configureTitleLabel() {
@@ -51,14 +49,16 @@ class CastView: UIStackView {
     }
     
     private func configureCollectionView() {
-        let view = UIView(frame: .zero)
-        addArrangedSubview(view)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createCastFlowLayout())
+        addArrangedSubview(collectionView)
         
-        view.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        collectionView.backgroundColor = .systemBackground
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(TopBilledCell.self, forCellWithReuseIdentifier: TopBilledCell.reuseID)
         
-        view.backgroundColor = .yellow
+        collectionView.heightAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
 }
