@@ -60,7 +60,7 @@ class ShowDetailVC: UIViewController {
 
 extension ShowDetailVC {
     private func getCast() {
-        NetworkingManager.shared.downloadCast(urlString: ApiUrls.movieCredits(id: showDetail.id?.description ?? "")) { [weak self] result in
+        NetworkingManager.shared.downloadCast(urlString: ApiUrls.showCredits(id: showDetail.id?.description ?? "")) { [weak self] result in
             switch result {
             case .success(let cast):
                 if cast.count > 10 {
