@@ -19,6 +19,10 @@ enum ApiUrls {
     }
     
     // MARK: SHOWS
+    static func showDetail(id: String) -> String {
+        "\(baseURL)tv/\(id)?api_key=\(api_key)"
+    }
+    
     static func searchShows(query: String, page: Int) -> String {
         "\(baseURL)search/tv?api_key=\(api_key)&language=en-US&page=\(page)&include_adult=true"
     }

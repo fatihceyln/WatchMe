@@ -160,7 +160,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getMovieDetail(id: popularMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
                 guard let movieDetail = movieDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
                 }
             }
             
@@ -169,7 +169,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getMovieDetail(id: nowPlayingMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
                 guard let movieDetail = movieDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
                 }
             }
         
@@ -178,7 +178,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getMovieDetail(id: upcomingMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
                 guard let movieDetail = movieDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
                 }
             }
         
@@ -187,7 +187,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getMovieDetail(id: topRatedMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
                 guard let movieDetail = movieDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
                 }
             }
         

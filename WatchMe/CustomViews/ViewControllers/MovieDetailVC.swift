@@ -1,5 +1,5 @@
 //
-//  DetailVC.swift
+//  MovieDetailVC.swift
 //  WatchMe
 //
 //  Created by Fatih Kilit on 13.08.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailVC: UIViewController {
+class MovieDetailVC: UIViewController {
     
     private var scrollView: UIScrollView!
     private var containerStackView: UIStackView!
@@ -58,7 +58,7 @@ class DetailVC: UIViewController {
     }
 }
 
-extension DetailVC {
+extension MovieDetailVC {
     private func getCast() {
         NetworkingManager.shared.downloadCast(urlString: ApiUrls.movieCredits(id: movieDetail.id?.description ?? "")) { [weak self] result in
             switch result {
@@ -90,7 +90,7 @@ extension DetailVC {
     }
 }
 
-extension DetailVC {
+extension MovieDetailVC {
     private func setViewData() {
         headerView.setHeaderView(movieDetail: movieDetail)
         overviewLabel.text = movieDetail?.overview
@@ -100,7 +100,7 @@ extension DetailVC {
     }
 }
 
-extension DetailVC {
+extension MovieDetailVC {
     private func configureHeaderView() {
         headerView = HeaderView(superContainerView: containerStackView)
     }
@@ -123,7 +123,7 @@ extension DetailVC {
     }
 }
 
-extension DetailVC {
+extension MovieDetailVC {
     private func configureScrollView() {
         scrollView = UIScrollView(frame: .zero)
         view.addSubview(scrollView)
@@ -154,7 +154,7 @@ extension DetailVC {
     }
 }
 
-extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == castView.collectionView {
             return cast.count
@@ -190,7 +190,7 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 switch result {
                 case .success(let movieDetail):
                     DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                        self.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

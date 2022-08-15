@@ -98,6 +98,41 @@ final class NetworkingManager {
         .resume()
     }
     
+    func downloadShowDetail(urlString: String, completion: @escaping (Result<ShowDetail, ErrorMessage>) -> ()) {
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.unknown))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completion(.failure(.unknown))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            do {
+                let showDetail = try JSONDecoder().decode(ShowDetail.self, from: data)
+                
+                completion(.success(showDetail))
+            } catch {
+                completion(.failure(.unknown))
+            }
+        }
+        .resume()
+    }
+    
     func downloadCast(urlString: String, completion: @escaping (Result<[Cast], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
