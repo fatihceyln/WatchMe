@@ -21,6 +21,14 @@ class ContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var cellReused: (() ->())?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        print("prepare for reuse")
+        cellReused?()
+    }
+    
     func set(movie: MovieResult) {
         posterImageView.downloadImage(urlString: ApiUrls.image(path: movie.posterPath ?? ""))
     }

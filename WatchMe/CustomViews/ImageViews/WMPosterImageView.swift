@@ -8,6 +8,8 @@
 import UIKit
 
 class WMPosterImageView: UIImageView {
+    
+    var dataTask: URLSessionDataTask?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,11 +30,41 @@ class WMPosterImageView: UIImageView {
     }
     
     func downloadImage(urlString: String) {
-        NetworkingManager.shared.downloadImage(urlString: urlString) { [weak self] image in
-            guard let self = self else { return }
+//        NetworkingManager.shared.downloadImage(urlString: urlString) { [weak self] image in
+//            guard let self = self else { return }
+//            DispatchQueue.main.async {
+//                self.image = image
+//            }
+//        }
+        
+        guard let url = URL(string: urlString) else { return }
+        image = nil
+        
+        if let cachedImage = NetworkingManager.shared.cache.object(forKey: urlString as NSString) {
+            self.image = cachedImage
+            return
+        }
+        
+        self.dataTask = URLSession.shared.dataTask(with: url, completionHandler: { [weak self] (data, response, error) in
+            guard
+                let self = self,
+                let data = data,
+                let image = UIImage(data: data) else {
+                return
+            }
+            
             DispatchQueue.main.async {
                 self.image = image
+                
+                NetworkingManager.shared.cache.setObject(image, forKey: urlString as NSString)
             }
-        }
+        })
+        
+        dataTask?.resume()
+    }
+    
+    func cancelDownloadingImage() {
+        dataTask?.cancel()
+        dataTask = nil
     }
 }
