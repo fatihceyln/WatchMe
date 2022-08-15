@@ -10,6 +10,8 @@
 		3D0463E628A646CF00C1BEE0 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0463E528A646CF00C1BEE0 /* SectionView.swift */; };
 		3D0D694928A7B70A0058B7C0 /* PaginationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */; };
 		3D20CCF128AACB4900E179BB /* ShowDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D20CCF028AACB4900E179BB /* ShowDetail.swift */; };
+		3D20CCF528AACD1500E179BB /* ReferenceShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D20CCF428AACD1500E179BB /* ReferenceShowDetailView.swift */; };
+		3D20CCF728AACFF300E179BB /* ShowDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D20CCF628AACFF300E179BB /* ShowDetailVC.swift */; };
 		3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */; };
 		3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53828A4FEA100B527AF /* MoviesVC.swift */; };
 		3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */; };
@@ -42,6 +44,8 @@
 		3D0463E528A646CF00C1BEE0 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationControl.swift; sourceTree = "<group>"; };
 		3D20CCF028AACB4900E179BB /* ShowDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetail.swift; sourceTree = "<group>"; };
+		3D20CCF428AACD1500E179BB /* ReferenceShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceShowDetailView.swift; sourceTree = "<group>"; };
+		3D20CCF628AACFF300E179BB /* ShowDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailVC.swift; sourceTree = "<group>"; };
 		3D3AE51F28A4FC2000B527AF /* WatchMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMTabBarController.swift; sourceTree = "<group>"; };
 		3D3AE53828A4FEA100B527AF /* MoviesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesVC.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				3D3AE53C28A4FFC800B527AF /* SearchVC.swift */,
 				3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */,
 				3D487C1928A8064F000F22F8 /* ReferenceDetailView.swift */,
+				3D20CCF428AACD1500E179BB /* ReferenceShowDetailView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 			children = (
 				3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */,
 				3D487C1728A7FC38000F22F8 /* MovieDetailVC.swift */,
+				3D20CCF628AACFF300E179BB /* ShowDetailVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -316,6 +322,7 @@
 				3D487C1C28A81265000F22F8 /* HeaderView.swift in Sources */,
 				3D487C1E28A81DCC000F22F8 /* WMLabelWithImage.swift in Sources */,
 				3D3AE55B28A5252000B527AF /* ContentCell.swift in Sources */,
+				3D20CCF728AACFF300E179BB /* ShowDetailVC.swift in Sources */,
 				3D487C1A28A8064F000F22F8 /* ReferenceDetailView.swift in Sources */,
 				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
@@ -324,6 +331,7 @@
 				3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */,
 				3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */,
 				3D3AE57228A55A5600B527AF /* SceneDelegate.swift in Sources */,
+				3D20CCF528AACD1500E179BB /* ReferenceShowDetailView.swift in Sources */,
 				3D487C2728A8F737000F22F8 /* MovieDetail.swift in Sources */,
 				3D3AE56928A552D600B527AF /* WMTitleLabel.swift in Sources */,
 				3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */,

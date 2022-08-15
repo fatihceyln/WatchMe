@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum HeaderType {
+    case movie, show
+}
+
 class HeaderView: UIView {
     
     private var superContainerView: UIStackView!
@@ -18,9 +22,12 @@ class HeaderView: UIView {
     private var dateLabel: WMLabelWithImage!
     private var genreLabel: WMLabelWithImage!
     private var runtimeLabel: WMLabelWithImage!
+    private var statusLabel: WMLabelWithImage!
+    
+    private var headerType: HeaderType!
     
     let padding: CGFloat = 10
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -51,6 +58,17 @@ class HeaderView: UIView {
         dateLabel.setWMLabelWithImage(text: movieDetail.releaseDateString, systemImage: SystemImages.calendarImage)
         genreLabel.setWMLabelWithImage(text: movieDetail.genresString, systemImage: SystemImages.filmImage)
         runtimeLabel.setWMLabelWithImage(text: movieDetail.runtimeString, systemImage: SystemImages.clockImage)
+    }
+    
+    func setHeaderView(showDetail: ShowDetail) {
+        configureStatusLabel()
+        
+        posterImageView.downloadImage(urlString: ApiUrls.image(path: showDetail.posterPath ?? ""))
+        titleLabel.text = showDetail.name
+        dateLabel.setWMLabelWithImage(text: showDetail.startEndDate, systemImage: SystemImages.calendarImage)
+        genreLabel.setWMLabelWithImage(text: showDetail.genresString, systemImage: SystemImages.filmImage)
+        runtimeLabel.setWMLabelWithImage(text: showDetail.season, systemImage: SystemImages.clockImage)
+        statusLabel.setWMLabelWithImage(text: showDetail.status, systemImage: SystemImages.infoImage)
     }
     
     private func configureView() {
@@ -118,5 +136,10 @@ class HeaderView: UIView {
     private func configureRuntimeLabel() {
         runtimeLabel = WMLabelWithImage()
         attributesStackView.addArrangedSubview(runtimeLabel)
+    }
+    
+    private func configureStatusLabel() {
+        statusLabel = WMLabelWithImage()
+        attributesStackView.addArrangedSubview(statusLabel)
     }
 }

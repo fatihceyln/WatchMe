@@ -44,7 +44,7 @@ struct MovieDetail: Codable {
     }
     
     var releaseDateString: String {
-        releaseDate ?? "N/a"
+        releaseDate?.replacingOccurrences(of: "-", with: "/") ?? "N/A"
     }
 }
 

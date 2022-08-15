@@ -156,37 +156,37 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == popularSectionView.collectionView {
             
-            getShowDetail(id: popularShows[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getShowDetail(id: popularShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
+                guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-//                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
                 }
             }
             
         } else if collectionView == airingTodaySectionView.collectionView {
         
-            getShowDetail(id: airingTodayShows[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getShowDetail(id: airingTodayShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
+                guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-//                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
                 }
             }
         
         } else if collectionView == onTVSectionView.collectionView {
         
-            getShowDetail(id: onTVShows[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getShowDetail(id: onTVShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
+                guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-//                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
                 }
             }
         
         } else if collectionView == topRatedSectionView.collectionView {
         
-            getShowDetail(id: topRatedShows[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getShowDetail(id: topRatedShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
+                guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-//                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
                 }
             }
         
