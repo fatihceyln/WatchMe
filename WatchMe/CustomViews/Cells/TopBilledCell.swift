@@ -25,7 +25,6 @@ class TopBilledCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("prepare for reuse")
         posterImageView.cancelDownloading()
     }
     

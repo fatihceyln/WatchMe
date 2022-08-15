@@ -35,7 +35,10 @@ class DetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemBackground
+        navigationItem.title = movieDetail.title
+        navigationItem.backButtonTitle = "Back"
         
         configureScrollView()
         configureContainerStackView()
@@ -181,14 +184,19 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == similarSectionView.collectionView {
             NetworkingManager.shared.downloadMovieDetail(urlString: ApiUrls.movieDetail(id: similarMovies[indexPath.row].id?.description ?? "")) { [weak self] result in
+                
+                guard let self = self else { return }
+                
                 switch result {
                 case .success(let movieDetail):
-                    self?.movieDetail = movieDetail
                     DispatchQueue.main.async {
-                        self?.setViewData()
-                        self?.scrollView.setContentOffset(CGPoint(x: 0, y: -(self?.view.safeAreaInsets.top ?? 0)), animated: true)
-                        self?.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                        self?.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        self.navigationController?.pushViewController(DetailVC(movieDetail: movieDetail), animated: true)
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
+                        self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
                     }
                 case .failure(let error):
                     print(error)
