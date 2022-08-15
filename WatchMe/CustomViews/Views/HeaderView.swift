@@ -7,10 +7,6 @@
 
 import UIKit
 
-enum HeaderType {
-    case movie, show
-}
-
 class HeaderView: UIView {
     
     private var superContainerView: UIStackView!
@@ -23,8 +19,6 @@ class HeaderView: UIView {
     private var genreLabel: WMLabelWithImage!
     private var runtimeLabel: WMLabelWithImage!
     private var statusLabel: WMLabelWithImage!
-    
-    private var headerType: HeaderType!
     
     let padding: CGFloat = 10
     
