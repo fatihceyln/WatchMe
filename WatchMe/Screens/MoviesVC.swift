@@ -101,38 +101,22 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == popularSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-//            cell.set(movie: popularMovies[indexPath.row])
-            cell.cellReused = {
-                cell.posterImageView.cancelDownloadingImage()
-            }
-            cell.posterImageView.downloadImage(urlString: ApiUrls.image(path: popularMovies[indexPath.row].posterPath ?? ""))
+            cell.set(movie: popularMovies[indexPath.row])
             
             return cell
         } else if collectionView == nowPlayingSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-//            cell.set(movie: nowPlayingMovies[indexPath.row])
-            cell.cellReused = {
-                cell.posterImageView.cancelDownloadingImage()
-            }
-            cell.posterImageView.downloadImage(urlString: ApiUrls.image(path: nowPlayingMovies[indexPath.row].posterPath ?? ""))
+            cell.set(movie: nowPlayingMovies[indexPath.row])
             
             return cell
         } else if collectionView == upcomingSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-//            cell.set(movie: upcomingMovies[indexPath.row])
-            cell.cellReused = {
-                cell.posterImageView.cancelDownloadingImage()
-            }
-            cell.posterImageView.downloadImage(urlString: ApiUrls.image(path: upcomingMovies[indexPath.row].posterPath ?? ""))
+            cell.set(movie: upcomingMovies[indexPath.row])
             
             return cell
         } else if collectionView == topRatedSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-//            cell.set(movie: topRatedMovies[indexPath.row])
-            cell.cellReused = {
-                cell.posterImageView.cancelDownloadingImage()
-            }
-            cell.posterImageView.downloadImage(urlString: ApiUrls.image(path: topRatedMovies[indexPath.row].posterPath ?? ""))
+            cell.set(movie: topRatedMovies[indexPath.row])
             
             return cell
         } else {

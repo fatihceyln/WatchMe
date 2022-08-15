@@ -23,6 +23,12 @@ class TopBilledCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        print("prepare for reuse")
+        posterImageView.cancelDownloading()
+    }
+    
     func set(cast: Cast) {
         posterImageView.downloadImage(urlString: ApiUrls.image(path: cast.profilePath ?? ""))
         nameLabel.text = cast.name

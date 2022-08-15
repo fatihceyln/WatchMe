@@ -63,7 +63,7 @@ class WMPosterImageView: UIImageView {
         dataTask?.resume()
     }
     
-    func cancelDownloadingImage() {
+    func cancelDownloading() {
         dataTask?.cancel()
         dataTask = nil
     }
