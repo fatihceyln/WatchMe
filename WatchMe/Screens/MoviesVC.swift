@@ -309,5 +309,6 @@ extension MoviesVC {
     private func configureVC() {
         navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .systemBackground
+        navigationItem.backButtonTitle = "Movies"
     }
 }

@@ -30,13 +30,6 @@ class WMPosterImageView: UIImageView {
     }
     
     func downloadImage(urlString: String) {
-//        NetworkingManager.shared.downloadImage(urlString: urlString) { [weak self] image in
-//            guard let self = self else { return }
-//            DispatchQueue.main.async {
-//                self.image = image
-//            }
-//        }
-        
         guard let url = URL(string: urlString) else { return }
         image = nil
         
@@ -53,10 +46,10 @@ class WMPosterImageView: UIImageView {
                 return
             }
             
+            NetworkingManager.shared.cache.setObject(image, forKey: urlString as NSString)
+            
             DispatchQueue.main.async {
                 self.image = image
-                
-                NetworkingManager.shared.cache.setObject(image, forKey: urlString as NSString)
             }
         })
         
