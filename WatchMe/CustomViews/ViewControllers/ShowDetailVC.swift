@@ -87,25 +87,6 @@ extension ShowDetailVC {
         }
     }
     
-    private func configureEmptyView(superStackView: UIStackView, collectionView: UICollectionView, message: String) {
-        DispatchQueue.main.async {
-            collectionView.removeFromSuperview()
-            
-            self.emptyView = UIView(frame: .zero)
-            superStackView.addArrangedSubview(self.emptyView)
-            
-            self.emptyView.translatesAutoresizingMaskIntoConstraints = false
-            self.emptyView.backgroundColor = .systemBackground
-            self.emptyView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            
-            let messageLabel = WMBodyLabel(textAlignment: .left)
-            self.emptyView.addSubview(messageLabel)
-            messageLabel.translatesAutoresizingMaskIntoConstraints = false
-            messageLabel.text = message
-            messageLabel.pinToEdges(of: self.emptyView)
-        }
-    }
-    
     private func getSimilarMovies() {
         NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarShows(showId: showDetail.id?.description ?? "", page: 1)) { [weak self] result in
             guard let self = self else { return }
@@ -157,6 +138,25 @@ extension ShowDetailVC {
         similarSectionView = SectionView(containerStackView: containerStackView, title: "Similar Shows")
         similarSectionView.collectionView.delegate = self
         similarSectionView.collectionView.dataSource = self
+    }
+    
+    private func configureEmptyView(superStackView: UIStackView, collectionView: UICollectionView, message: String) {
+        DispatchQueue.main.async {
+            collectionView.removeFromSuperview()
+            
+            self.emptyView = UIView(frame: .zero)
+            superStackView.addArrangedSubview(self.emptyView)
+            
+            self.emptyView.translatesAutoresizingMaskIntoConstraints = false
+            self.emptyView.backgroundColor = .systemBackground
+            self.emptyView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            
+            let messageLabel = WMBodyLabel(textAlignment: .left)
+            self.emptyView.addSubview(messageLabel)
+            messageLabel.translatesAutoresizingMaskIntoConstraints = false
+            messageLabel.text = message
+            messageLabel.pinToEdges(of: self.emptyView)
+        }
     }
 }
 
