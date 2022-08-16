@@ -69,7 +69,6 @@ class HeaderView: UIView {
         superContainerView.addArrangedSubview(self)
         
         translatesAutoresizingMaskIntoConstraints = false
-        
         heightAnchor.constraint(equalToConstant: 250).isActive = true
     }
     
@@ -106,13 +105,13 @@ class HeaderView: UIView {
         
         attributesStackView.translatesAutoresizingMaskIntoConstraints = false
         attributesStackView.axis = .vertical
-        attributesStackView.distribution = .fillEqually
+        attributesStackView.distribution = .fill
+        attributesStackView.spacing = 10
         
         NSLayoutConstraint.activate([
-            attributesStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3 * padding),
+            attributesStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2 * padding),
             attributesStackView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             attributesStackView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            attributesStackView.heightAnchor.constraint(equalToConstant: 110)
         ])
     }
     

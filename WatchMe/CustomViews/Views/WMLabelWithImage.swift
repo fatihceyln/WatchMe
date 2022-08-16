@@ -14,9 +14,12 @@ class WMLabelWithImage: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         configureImage()
         configurelabel()
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalTo: label.heightAnchor, constant: 5).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +41,6 @@ class WMLabelWithImage: UIView {
         
         NSLayoutConstraint.activate([
             image.leadingAnchor.constraint(equalTo: leadingAnchor),
-            image.centerYAnchor.constraint(equalTo: centerYAnchor),
             image.heightAnchor.constraint(equalToConstant: 25),
             image.widthAnchor.constraint(equalToConstant: 25)
         ])
@@ -49,10 +51,9 @@ class WMLabelWithImage: UIView {
         addSubview(label)
         
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 2),
             label.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8),
             label.trailingAnchor.constraint(equalTo: trailingAnchor),
-            label.heightAnchor.constraint(equalToConstant: 22)
         ])
     }
 }
