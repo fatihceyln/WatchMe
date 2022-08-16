@@ -57,7 +57,7 @@ class TopBilledCell: UICollectionViewCell {
             characterLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: padding / 2),
             characterLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             characterLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-            characterLabel.heightAnchor.constraint(equalToConstant: 16)
+            characterLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
 }
