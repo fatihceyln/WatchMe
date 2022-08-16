@@ -24,6 +24,8 @@ class MovieDetailVC: UIViewController {
     
     private var similarMovies: [MovieResult] = []
     
+    private var emptyView: UIView!
+    
     init(movieDetail: MovieDetail) {
         super.init(nibName: nil, bundle: nil)
         self.movieDetail = movieDetail
@@ -120,6 +122,25 @@ extension MovieDetailVC {
         similarSectionView = SectionView(containerStackView: containerStackView, title: "Similar Movies")
         similarSectionView.collectionView.delegate = self
         similarSectionView.collectionView.dataSource = self
+    }
+    
+    private func configureEmptyView(superStackView: UIStackView, collectionView: UICollectionView, message: String) {
+        DispatchQueue.main.async {
+            collectionView.removeFromSuperview()
+            
+            self.emptyView = UIView(frame: .zero)
+            superStackView.addArrangedSubview(self.emptyView)
+            
+            self.emptyView.translatesAutoresizingMaskIntoConstraints = false
+            self.emptyView.backgroundColor = .systemBackground
+            self.emptyView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            
+            let messageLabel = WMBodyLabel(textAlignment: .left)
+            self.emptyView.addSubview(messageLabel)
+            messageLabel.translatesAutoresizingMaskIntoConstraints = false
+            messageLabel.text = message
+            messageLabel.pinToEdges(of: self.emptyView)
+        }
     }
 }
 
