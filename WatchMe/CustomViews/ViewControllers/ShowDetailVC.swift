@@ -24,6 +24,8 @@ class ShowDetailVC: UIViewController {
     
     private var similarMovies: [MovieResult] = []
     
+    private var emptyView: UIView!
+    
     init(showDetail: ShowDetail) {
         super.init(nibName: nil, bundle: nil)
         self.showDetail = showDetail
@@ -61,17 +63,46 @@ class ShowDetailVC: UIViewController {
 extension ShowDetailVC {
     private func getCast() {
         NetworkingManager.shared.downloadCast(urlString: ApiUrls.showCredits(id: showDetail.id?.description ?? "")) { [weak self] result in
+            
+            guard let self = self else { return }
+            
             switch result {
             case .success(let cast):
-                if cast.count > 10 {
-                    self?.cast = Array(cast.prefix(upTo: 10))
-                } else {
-                    self?.cast = cast
+                if cast.isEmpty {
+                    self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No cast info")
+                    return
                 }
-                self?.castView.collectionView.reloadDataOnMainThread()
+                
+                if cast.count > 10 {
+                    self.cast = Array(cast.prefix(upTo: 10))
+                } else {
+                    self.cast = cast
+                }
+                
+                self.castView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
+                self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No cast info")
                 print(error)
             }
+        }
+    }
+    
+    private func configureEmptyView(superStackView: UIStackView, collectionView: UICollectionView, message: String) {
+        DispatchQueue.main.async {
+            collectionView.removeFromSuperview()
+            
+            self.emptyView = UIView(frame: .zero)
+            superStackView.addArrangedSubview(self.emptyView)
+            
+            self.emptyView.translatesAutoresizingMaskIntoConstraints = false
+            self.emptyView.backgroundColor = .systemBackground
+            self.emptyView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            
+            let messageLabel = WMBodyLabel(textAlignment: .left)
+            self.emptyView.addSubview(messageLabel)
+            messageLabel.translatesAutoresizingMaskIntoConstraints = false
+            messageLabel.text = message
+            messageLabel.pinToEdges(of: self.emptyView)
         }
     }
     
@@ -81,9 +112,15 @@ extension ShowDetailVC {
             
             switch result {
             case .success(let similarMovies):
+                if similarMovies.isEmpty {
+                    self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
+                    return
+                }
+                
                 self.similarMovies = similarMovies
                 self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
+                self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
                 print(error)
             }
         }
@@ -194,8 +231,12 @@ extension ShowDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
-                        self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                        self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        if !self.cast.isEmpty {
+                            self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        }
+                        if !self.similarMovies.isEmpty {
+                            self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        }
                     }
                 case .failure(let error):
                     print(error)
