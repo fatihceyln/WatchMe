@@ -97,7 +97,6 @@ class HeaderView: UIView {
             titleLabel.topAnchor.constraint(equalTo: posterImageView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 2 * padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
