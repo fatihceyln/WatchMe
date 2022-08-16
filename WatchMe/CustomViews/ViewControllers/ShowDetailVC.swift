@@ -81,27 +81,27 @@ extension ShowDetailVC {
                 
                 self.castView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
-                self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No cast info")
+                self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No casts info")
                 print(error)
             }
         }
     }
     
-    private func getSimilarMovies() {
+    private func getSimilarShows() {
         NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarShows(showId: showDetail.id?.description ?? "", page: 1)) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let similarMovies):
                 if similarMovies.isEmpty {
-                    self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
+                    self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar shows info")
                     return
                 }
                 
                 self.similarMovies = similarMovies
                 self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
-                self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
+                self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar shows info")
                 print(error)
             }
         }
@@ -114,7 +114,7 @@ extension ShowDetailVC {
         overviewLabel.text = showDetail?.overview
         
         getCast()
-        getSimilarMovies()
+        getSimilarShows()
     }
 }
 

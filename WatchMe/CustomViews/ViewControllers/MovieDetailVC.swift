@@ -63,15 +63,24 @@ class MovieDetailVC: UIViewController {
 extension MovieDetailVC {
     private func getCast() {
         NetworkingManager.shared.downloadCast(urlString: ApiUrls.movieCredits(id: movieDetail.id?.description ?? "")) { [weak self] result in
+            
+            guard let self = self else { return }
             switch result {
             case .success(let cast):
-                if cast.count > 10 {
-                    self?.cast = Array(cast.prefix(upTo: 10))
-                } else {
-                    self?.cast = cast
+                if cast.isEmpty {
+                    self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No casts info")
+                    return
                 }
-                self?.castView.collectionView.reloadDataOnMainThread()
+                
+                if cast.count > 10 {
+                    self.cast = Array(cast.prefix(upTo: 10))
+                } else {
+                    self.cast = cast
+                }
+                
+                self.castView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
+                self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No casts info")
                 print(error)
             }
         }
@@ -79,13 +88,20 @@ extension MovieDetailVC {
     
     private func getSimilarMovies() {
         NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarMovies(movieId: movieDetail.id?.description ?? "", page: 1)) { [weak self] result in
+            
             guard let self = self else { return }
             
             switch result {
             case .success(let similarMovies):
+                if similarMovies.isEmpty {
+                    self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
+                    return
+                }
+                
                 self.similarMovies = similarMovies
                 self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
+                self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
                 print(error)
             }
         }
