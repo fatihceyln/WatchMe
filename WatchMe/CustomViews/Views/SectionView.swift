@@ -46,8 +46,6 @@ class SectionView: UIStackView {
         titleLabel = WMTitleLabel(textAlignment: .left, fontSize: 26)
         addArrangedSubview(titleLabel)
         
-        titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
         titleLabel.text = title
     }
     

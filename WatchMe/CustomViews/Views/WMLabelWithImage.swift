@@ -17,13 +17,16 @@ class WMLabelWithImage: UIView {
 
         configureImage()
         configurelabel()
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalTo: label.heightAnchor, constant: 5).isActive = true
+        configureView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalTo: label.heightAnchor, constant: 5).isActive = true
     }
     
     func setWMLabelWithImage(text: String?, systemImage: UIImage?) {

@@ -106,7 +106,7 @@ class HeaderView: UIView {
         attributesStackView.translatesAutoresizingMaskIntoConstraints = false
         attributesStackView.axis = .vertical
         attributesStackView.distribution = .fill
-        attributesStackView.spacing = 10
+        attributesStackView.spacing = padding / 2
         
         NSLayoutConstraint.activate([
             attributesStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2 * padding),

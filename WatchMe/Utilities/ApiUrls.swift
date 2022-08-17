@@ -9,6 +9,8 @@ import Foundation
 
 // thor id 616037
 
+// "https://api.themoviedb.org/3/person/1654001?api_key=b9df2a6976d6dd6ad797595884995d6e&language=en-US" -> Get a single person
+
 enum ApiUrls {
     static private let api_key = "b9df2a6976d6dd6ad797595884995d6e"
     static private let baseURL = "https://api.themoviedb.org/3/"
@@ -19,6 +21,10 @@ enum ApiUrls {
     }
     
     // MARK: SHOWS
+    static func trendShows() -> String {
+        "\(baseURL)trending/tv/day?api_key=\(api_key)"
+    }
+    
     static func showDetail(id: String) -> String {
         "\(baseURL)tv/\(id)?api_key=\(api_key)"
     }
@@ -60,6 +66,9 @@ enum ApiUrls {
     }
     
     // MARK: MOVIE
+    static func trendMovies() -> String {
+        "\(baseURL)trending/movie/day?api_key=\(api_key)"
+    }
     
     static func movieDetail(id: String) -> String {
         "\(baseURL)movie/\(id)?api_key=\(api_key)"
