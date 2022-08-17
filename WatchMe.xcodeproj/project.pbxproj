@@ -38,6 +38,7 @@
 		3D487C2928A90901000F22F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2828A90901000F22F8 /* Constants.swift */; };
 		3D487C2B28A91148000F22F8 /* TopBilledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2A28A91148000F22F8 /* TopBilledCell.swift */; };
 		3D487C2D28A9132C000F22F8 /* CastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2C28A9132C000F22F8 /* CastModel.swift */; };
+		3DF933FF28AD366F00066025 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		3D487C2828A90901000F22F8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3D487C2A28A91148000F22F8 /* TopBilledCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBilledCell.swift; sourceTree = "<group>"; };
 		3D487C2C28A9132C000F22F8 /* CastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastModel.swift; sourceTree = "<group>"; };
+		3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 			children = (
 				3D3AE55A28A5252000B527AF /* ContentCell.swift */,
 				3D487C2A28A91148000F22F8 /* TopBilledCell.swift */,
+				3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF933FF28AD366F00066025 /* HeaderCollectionReusableView.swift in Sources */,
 				3D3AE56E28A554F000B527AF /* WMPosterImageView.swift in Sources */,
 				3D3AE55828A520DA00B527AF /* Movie.swift in Sources */,
 				3D0463E628A646CF00C1BEE0 /* SectionView.swift in Sources */,

@@ -54,7 +54,10 @@ class SearchVC: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         collectionView.register(ContentCell.self, forCellWithReuseIdentifier: ContentCell.reuseID)
+        collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.reuseID)
+        
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
         
@@ -96,7 +99,7 @@ extension SearchVC {
     }
 }
 
-extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         exploreContent.count
     }
@@ -117,6 +120,17 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.reuseID, for: indexPath) as! HeaderCollectionReusableView
+        header.setHeader(text: "Explore")
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        CGSize(width: collectionView.bounds.width, height: 70)
+    }
 }
 
 extension SearchVC: UISearchBarDelegate {
@@ -135,7 +149,9 @@ extension SearchVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
     }
 }
 
