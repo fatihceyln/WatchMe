@@ -12,6 +12,8 @@
 		3D20CCF128AACB4900E179BB /* ShowDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D20CCF028AACB4900E179BB /* ShowDetail.swift */; };
 		3D20CCF528AACD1500E179BB /* ReferenceShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D20CCF428AACD1500E179BB /* ReferenceShowDetailView.swift */; };
 		3D20CCF728AACFF300E179BB /* ShowDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D20CCF628AACFF300E179BB /* ShowDetailVC.swift */; };
+		3D2F43F628AD7E9200534B27 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F43F528AD7E9200534B27 /* SearchCell.swift */; };
+		3D2F43F828AD804600534B27 /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F43F728AD804600534B27 /* SearchResultVC.swift */; };
 		3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */; };
 		3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53828A4FEA100B527AF /* MoviesVC.swift */; };
 		3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */; };
@@ -47,6 +49,8 @@
 		3D20CCF028AACB4900E179BB /* ShowDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetail.swift; sourceTree = "<group>"; };
 		3D20CCF428AACD1500E179BB /* ReferenceShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceShowDetailView.swift; sourceTree = "<group>"; };
 		3D20CCF628AACFF300E179BB /* ShowDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailVC.swift; sourceTree = "<group>"; };
+		3D2F43F528AD7E9200534B27 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		3D2F43F728AD804600534B27 /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		3D3AE51F28A4FC2000B527AF /* WatchMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMTabBarController.swift; sourceTree = "<group>"; };
 		3D3AE53828A4FEA100B527AF /* MoviesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesVC.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				3D3AE53628A4FDA200B527AF /* WMTabBarController.swift */,
 				3D487C1728A7FC38000F22F8 /* MovieDetailVC.swift */,
 				3D20CCF628AACFF300E179BB /* ShowDetailVC.swift */,
+				3D2F43F728AD804600534B27 /* SearchResultVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				3D3AE55A28A5252000B527AF /* ContentCell.swift */,
 				3D487C2A28A91148000F22F8 /* TopBilledCell.swift */,
 				3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */,
+				3D2F43F528AD7E9200534B27 /* SearchCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DF933FF28AD366F00066025 /* HeaderCollectionReusableView.swift in Sources */,
+				3D2F43F628AD7E9200534B27 /* SearchCell.swift in Sources */,
 				3D3AE56E28A554F000B527AF /* WMPosterImageView.swift in Sources */,
 				3D3AE55828A520DA00B527AF /* Movie.swift in Sources */,
 				3D0463E628A646CF00C1BEE0 /* SectionView.swift in Sources */,
@@ -329,6 +336,7 @@
 				3D20CCF728AACFF300E179BB /* ShowDetailVC.swift in Sources */,
 				3D487C1A28A8064F000F22F8 /* ReferenceDetailView.swift in Sources */,
 				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,
+				3D2F43F828AD804600534B27 /* SearchResultVC.swift in Sources */,
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
 				3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */,
 				3D487C2B28A91148000F22F8 /* TopBilledCell.swift in Sources */,

@@ -30,7 +30,7 @@ enum ApiUrls {
     }
     
     static func searchShows(query: String, page: Int) -> String {
-        "\(baseURL)search/tv?api_key=\(api_key)&language=en-US&page=\(page)&include_adult=true"
+        "\(baseURL)search/tv?api_key=\(api_key)&language=en-US&page=\(page)&include_adult=false"
     }
     
     static func discoverShows(page: Int) -> String {
@@ -75,11 +75,11 @@ enum ApiUrls {
     }
     
     static func searchMovies(query: String, page: Int) -> String {
-        "\(baseURL)search/movie?api_key=\(api_key)&language=en-US&page=\(page)&include_adult=true"
+        "\(baseURL)search/movie?api_key=\(api_key)&language=en-US&query=\(query)&page=\(page)&include_adult=false"
     }
     
     static func discoverMovies(page: Int) -> String {
-        "\(baseURL)discover/movie?api_key=\(api_key)&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=\(page)&with_watch_monetization_types=flatrate"
+        "\(baseURL)discover/movie?api_key=\(api_key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=\(page)&with_watch_monetization_types=flatrate"
     }
     
     static func similarMovies(movieId: String, page: Int) -> String {

@@ -14,6 +14,8 @@ class SearchVC: UIViewController {
     
     private var exploreContent: [MovieResult] = []
 
+    private var searchText: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -149,9 +151,35 @@ extension SearchVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchText = searchBar.text!
+        searchText = searchText
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "%20")
+            .folding(options: .diacriticInsensitive, locale: .current)
+            .lowercased()
+        
+        getSearchResult(query: searchText)
         searchBar.text = ""
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
+    }
+}
+
+extension SearchVC {
+    private func getSearchResult(query: String) {
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.searchMovies(query: query, page: 1)) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let results):
+                guard !results.isEmpty else { return }
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(SearchResultVC(results: results, query: query.capitalized.replacingOccurrences(of: "%20", with: " ")), animated: true)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
