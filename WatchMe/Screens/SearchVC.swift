@@ -20,7 +20,6 @@ class SearchVC: UIViewController {
         configureSearchBar()
         configureCollectionView()
         getExploreContent()
-        createDismissKeyboardGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,17 +28,14 @@ class SearchVC: UIViewController {
         configureVC()
     }
     
-    private func createDismissKeyboardGesture() {
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tap)
-    }
-    
     private func configureSearchBar() {
         searchBar = UISearchBar(frame: .zero)
         view.addSubview(searchBar)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Search movie or show"
+        searchBar.tintColor = .red
+        searchBar.returnKeyType = .search
         searchBar.delegate = self
         
         NSLayoutConstraint.activate([
@@ -86,6 +82,18 @@ extension SearchVC {
             }
         }
     }
+    
+    private func getMovieDetail(id: String, completion: @escaping (MovieDetail?) -> ()) {
+        NetworkingManager.shared.downloadMovieDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
+            switch result {
+            case .success(let movieDetail):
+                completion(movieDetail)
+            case .failure(let error):
+                print(error)
+                completion(nil)
+            }
+        }
+    }
 }
 
 extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -99,17 +107,42 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        getMovieDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
+            guard let self = self, let movieDetail = movieDetail else { return }
+            
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+            }
+        }
+    }
 }
 
 extension SearchVC: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
 }
-
 
 extension SearchVC {
     private func configureVC() {
         navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .systemBackground
-        navigationItem.backButtonTitle = "Movies"
+        navigationItem.backButtonTitle = "Search"
     }
 }

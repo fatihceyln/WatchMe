@@ -26,6 +26,7 @@ class WMPosterImageView: UIImageView {
         layer.cornerRadius = 10
         clipsToBounds = true
         contentMode = .scaleToFill
+        backgroundColor = .secondarySystemBackground
     }
     
     func downloadImage(urlString: String) {
