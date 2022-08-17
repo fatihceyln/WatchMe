@@ -72,15 +72,20 @@ class SearchVC: UIViewController {
 }
 
 extension SearchVC {
-    private func configureVC() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        view.backgroundColor = .systemBackground
-        navigationItem.backButtonTitle = "Movies"
+    private func getExploreContent() {
+        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.discoverMovies(page: 1)) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let exploreMovies):
+                self.exploreContent.append(contentsOf: exploreMovies)
+                self.exploreContent.shuffle()
+                self.collectionView.reloadDataOnMainThread()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
-}
-
-extension SearchVC: UISearchBarDelegate {
-    
 }
 
 extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -96,32 +101,15 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
+extension SearchVC: UISearchBarDelegate {
+    
+}
+
+
 extension SearchVC {
-    private func getExploreContent() {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.discoverMovies(page: 1)) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let exploreMovies):
-                self.exploreContent.append(contentsOf: exploreMovies)
-                self.exploreContent.shuffle()
-                self.collectionView.reloadDataOnMainThread()
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.discoverShows(page: 1)) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let exploreShows):
-                self.exploreContent.append(contentsOf: exploreShows)
-                self.exploreContent.shuffle()
-                self.collectionView.reloadDataOnMainThread()
-            case .failure(let error):
-                print(error)
-            }
-        }
+    private func configureVC() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        view.backgroundColor = .systemBackground
+        navigationItem.backButtonTitle = "Movies"
     }
 }
