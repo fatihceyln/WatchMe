@@ -33,7 +33,7 @@ enum ApiUrls {
         "\(baseURL)search/tv?api_key=\(api_key)&language=en-US&page=\(page)&include_adult=true"
     }
     
-    static func dicoverShows(page: Int) -> String {
+    static func discoverShows(page: Int) -> String {
         "\(baseURL)discover/tv?api_key=\(api_key)&language=en-US&sort_by=popularity.desc&page=\(page)&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0"
     }
     
