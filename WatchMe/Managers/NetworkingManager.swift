@@ -140,7 +140,7 @@ final class NetworkingManager {
     }
     
     func downloadContentBySearch(urlString: String, completion: @escaping (Result<[SearchResult], ErrorMessage>) ->()) {
-        print(urlString)
+        
         guard let url = URL(string: urlString) else {
             completion(.failure(.unknown))
             return

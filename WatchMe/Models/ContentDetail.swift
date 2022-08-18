@@ -58,15 +58,19 @@ struct ContentDetail: Codable {
     }
     
     var startEndDate: String {
-        guard
-            let firstAirDate = firstAirDate,
-            let lastAirDate = lastAirDate else { return "" }
+        guard let firstAirDate = firstAirDate else {
+            return "N/A"
+        }
+        
+        guard let lastAirDate = lastAirDate else {
+            return String(firstAirDate.prefix(4))
+        }
         
         return firstAirDate.prefix(4) + " - " + lastAirDate.prefix(4)
     }
     
     var season: String {
-        guard let numberOfSeasons = numberOfSeasons else { return "" }
+        guard let numberOfSeasons = numberOfSeasons else { return "N/A" }
         
         return "\(numberOfSeasons) Season"
     }
