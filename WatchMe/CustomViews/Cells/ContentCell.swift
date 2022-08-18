@@ -37,8 +37,8 @@ class ContentCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
-            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2 * padding),
             posterImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding)
         ])
     }

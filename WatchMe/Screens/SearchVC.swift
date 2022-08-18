@@ -30,6 +30,13 @@ class SearchVC: UIViewController {
         configureVC()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
     private func configureSearchBar() {
         searchBar = UISearchBar(frame: .zero)
         view.addSubview(searchBar)
