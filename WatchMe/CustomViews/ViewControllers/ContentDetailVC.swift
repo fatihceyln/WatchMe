@@ -139,7 +139,7 @@ extension ContentDetailVC {
     }
     
     private func configureSimilarSectionView() {
-        similarSectionView = SectionView(containerStackView: containerStackView, title: "Similar Movies")
+        similarSectionView = SectionView(containerStackView: containerStackView, title: "\(contentDetail.isMovie ? "Similar Movies" : "Similar Shows")")
         similarSectionView.collectionView.delegate = self
         similarSectionView.collectionView.dataSource = self
     }
@@ -238,8 +238,12 @@ extension ContentDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
-                        self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                        self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        if !self.cast.isEmpty {
+                            self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        }
+                        if !self.similarContents.isEmpty {
+                            self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        }
                     }
                 case .failure(let error):
                     print(error)

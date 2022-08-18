@@ -138,4 +138,45 @@ final class NetworkingManager {
         }
         .resume()
     }
+    
+    func downloadContentBySearch(urlString: String, completion: @escaping (Result<[SearchResult], ErrorMessage>) ->()) {
+        print(urlString)
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.unknown))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completion(.failure(.unknown))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            do {
+                let searchData = try JSONDecoder().decode(SearchModel.self, from: data)
+                
+                guard let results = searchData.results else {
+                    completion(.failure(.unknown))
+                    return
+                }
+                
+                completion(.success(results.filter({$0.mediaType == .movie || $0.mediaType == .tv})))
+                
+            } catch {
+                completion(.failure(.unknown))
+            }
+        }
+        .resume()
+    }
 }

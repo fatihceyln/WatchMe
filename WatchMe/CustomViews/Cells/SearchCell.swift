@@ -14,6 +14,7 @@ class SearchCell: UITableViewCell {
     private var posterImage: WMPosterImageView!
     private var titleLabel: WMTitleLabel!
     private var yearLabel: WMBodyLabel!
+    private var extraInfoLabel: WMBodyLabel!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,6 +24,7 @@ class SearchCell: UITableViewCell {
         configurePosterImage()
         configureTitleLabel()
         configureYearLabel()
+        configureExtraInfoLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -34,10 +36,17 @@ class SearchCell: UITableViewCell {
         posterImage.cancelDownloading()
     }
     
-    func set(content: ContentResult) {
+    func set(content: SearchResult) {
         posterImage.downloadImage(urlString: ApiUrls.image(path: content.posterPath ?? ""))
-        titleLabel.text = content.title
-        yearLabel.text = content.releaseDate?.prefix(4).capitalized
+        if content.mediaType == .movie {
+            titleLabel.text = content.title
+            yearLabel.text = content.releaseDate?.prefix(4).capitalized
+            extraInfoLabel.text = "🍿"
+            
+        } else {
+            titleLabel.text = content.name
+            yearLabel.text = content.firstAirDate?.prefix(4).capitalized
+        }
     }
     
     private func configurePosterImage() {
@@ -71,8 +80,18 @@ class SearchCell: UITableViewCell {
         NSLayoutConstraint.activate([
             yearLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             yearLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            yearLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             yearLabel.heightAnchor.constraint(equalToConstant: 22)
+        ])
+    }
+    
+    private func configureExtraInfoLabel() {
+        extraInfoLabel = WMBodyLabel(textAlignment: .left)
+        addSubview(extraInfoLabel)
+        
+        NSLayoutConstraint.activate([
+            extraInfoLabel.topAnchor.constraint(equalTo: yearLabel.topAnchor),
+            extraInfoLabel.leadingAnchor.constraint(equalTo: yearLabel.trailingAnchor, constant: 10),
+            extraInfoLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
     }
 }

@@ -158,7 +158,7 @@ extension SearchVC: UISearchBarDelegate {
             .folding(options: .diacriticInsensitive, locale: .current)
             .lowercased()
         
-        getSearchResult(query: searchText)
+        getSearchedContents(query: searchText)
         searchBar.text = ""
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
@@ -166,8 +166,8 @@ extension SearchVC: UISearchBarDelegate {
 }
 
 extension SearchVC {
-    private func getSearchResult(query: String) {
-        NetworkingManager.shared.downloadContent(urlString: ApiUrls.searchMovies(query: query, page: 1)) { [weak self] result in
+    private func getSearchedContents(query: String) {
+        NetworkingManager.shared.downloadContentBySearch(urlString: ApiUrls.multiSearch(query: query)) { [weak self] result in
             guard let self = self else { return }
             
             switch result {

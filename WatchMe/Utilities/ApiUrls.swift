@@ -20,6 +20,11 @@ enum ApiUrls {
         "https://image.tmdb.org/t/p/w500/\(path)"
     }
     
+    // MARK: MULTI SEARCH
+    static func multiSearch(query: String) -> String {
+        return "\(baseURL)search/multi?api_key=\(api_key)&language=en-US&query=\(query)&page=1&include_adult=false"
+    }
+    
     // MARK: SHOWS
     static func trendShows() -> String {
         "\(baseURL)trending/tv/day?api_key=\(api_key)"
