@@ -1,5 +1,5 @@
 //
-//  PopularMovies.swift
+//  Content.swift
 //  WatchMe
 //
 //  Created by Fatih Kilit on 11.08.2022.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Movie: Codable {
+struct Content: Codable {
     let page: Int?
-    let results: [MovieResult]?
+    let results: [ContentResult]?
     let totalPages, totalResults: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -19,7 +19,7 @@ struct Movie: Codable {
     }
 }
 
-struct MovieResult: Codable, Hashable {
+struct ContentResult: Codable, Hashable {
     let adult: Bool?
     let backdropPath: String?
     let genreIDS: [Int]?

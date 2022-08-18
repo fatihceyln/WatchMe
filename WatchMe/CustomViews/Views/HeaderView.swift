@@ -46,23 +46,23 @@ class HeaderView: UIView {
         configureRuntimeLabel()
     }
     
-    func setHeaderView(movieDetail: MovieDetail) {
-        posterImageView.downloadImage(urlString: ApiUrls.image(path: movieDetail.posterPath ?? ""))
-        titleLabel.text = movieDetail.title
-        dateLabel.setWMLabelWithImage(text: movieDetail.releaseDateString, systemImage: SystemImages.calendarImage)
-        genreLabel.setWMLabelWithImage(text: movieDetail.genresString, systemImage: SystemImages.filmImage)
-        runtimeLabel.setWMLabelWithImage(text: movieDetail.runtimeString, systemImage: SystemImages.clockImage)
-    }
-    
-    func setHeaderView(showDetail: ShowDetail) {
-        configureStatusLabel()
+    func setHeaderView(contentDetail: ContentDetail) {
+        posterImageView.downloadImage(urlString: ApiUrls.image(path: contentDetail.posterPath ?? ""))
         
-        posterImageView.downloadImage(urlString: ApiUrls.image(path: showDetail.posterPath ?? ""))
-        titleLabel.text = showDetail.name
-        dateLabel.setWMLabelWithImage(text: showDetail.startEndDate, systemImage: SystemImages.calendarImage)
-        genreLabel.setWMLabelWithImage(text: showDetail.genresString, systemImage: SystemImages.filmImage)
-        runtimeLabel.setWMLabelWithImage(text: showDetail.season, systemImage: SystemImages.clockImage)
-        statusLabel.setWMLabelWithImage(text: showDetail.status, systemImage: SystemImages.infoImage)
+        if contentDetail.isMovie {
+            titleLabel.text = contentDetail.title
+            dateLabel.setWMLabelWithImage(text: contentDetail.releaseDateString, systemImage: SystemImages.calendarImage)
+            genreLabel.setWMLabelWithImage(text: contentDetail.genresString, systemImage: SystemImages.filmImage)
+            runtimeLabel.setWMLabelWithImage(text: contentDetail.runtimeString, systemImage: SystemImages.clockImage)
+        } else {
+            configureStatusLabel()
+            
+            titleLabel.text = contentDetail.name
+            dateLabel.setWMLabelWithImage(text: contentDetail.startEndDate, systemImage: SystemImages.calendarImage)
+            genreLabel.setWMLabelWithImage(text: contentDetail.genresString, systemImage: SystemImages.filmImage)
+            runtimeLabel.setWMLabelWithImage(text: contentDetail.season, systemImage: SystemImages.clockImage)
+            statusLabel.setWMLabelWithImage(text: contentDetail.status, systemImage: SystemImages.infoImage)
+        }
     }
     
     private func configureView() {

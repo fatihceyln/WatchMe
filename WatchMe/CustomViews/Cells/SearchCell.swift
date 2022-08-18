@@ -34,10 +34,10 @@ class SearchCell: UITableViewCell {
         posterImage.cancelDownloading()
     }
     
-    func set(movie: MovieResult) {
-        posterImage.downloadImage(urlString: ApiUrls.image(path: movie.posterPath ?? ""))
-        titleLabel.text = movie.title
-        yearLabel.text = movie.releaseDate?.prefix(4).capitalized
+    func set(content: ContentResult) {
+        posterImage.downloadImage(urlString: ApiUrls.image(path: content.posterPath ?? ""))
+        titleLabel.text = content.title
+        yearLabel.text = content.releaseDate?.prefix(4).capitalized
     }
     
     private func configurePosterImage() {

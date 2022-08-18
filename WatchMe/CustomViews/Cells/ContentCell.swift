@@ -26,8 +26,8 @@ class ContentCell: UICollectionViewCell {
         posterImageView.cancelDownloading()
     }
     
-    func set(movie: MovieResult) {
-        posterImageView.downloadImage(urlString: ApiUrls.image(path: movie.posterPath ?? ""))
+    func set(content: ContentResult) {
+        posterImageView.downloadImage(urlString: ApiUrls.image(path: content.posterPath ?? ""))
     }
     
     private func configure() {

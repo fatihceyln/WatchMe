@@ -22,7 +22,7 @@ final class NetworkingManager {
         return cache
     }()
     
-    func downloadMovies(urlString: String, completion: @escaping (Result<[MovieResult], ErrorMessage>) -> ()) {
+    func downloadContent(urlString: String, completion: @escaping (Result<[ContentResult], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
             completion(.failure(.unknown))
@@ -47,7 +47,7 @@ final class NetworkingManager {
             }
             
             do {
-                let moviesData = try JSONDecoder().decode(Movie.self, from: data)
+                let moviesData = try JSONDecoder().decode(Content.self, from: data)
                 
                 guard let results = moviesData.results else {
                     completion(.failure(.unknown))
@@ -63,7 +63,7 @@ final class NetworkingManager {
         .resume()
     }
     
-    func downloadMovieDetail(urlString: String, completion: @escaping (Result<MovieDetail, ErrorMessage>) -> ()) {
+    func downloadContentDetail(urlString: String, completion: @escaping (Result<ContentDetail, ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
             completion(.failure(.unknown))
@@ -88,44 +88,9 @@ final class NetworkingManager {
             }
             
             do {
-                let movieDetail = try JSONDecoder().decode(MovieDetail.self, from: data)
+                let movieDetail = try JSONDecoder().decode(ContentDetail.self, from: data)
                 
                 completion(.success(movieDetail))
-            } catch {
-                completion(.failure(.unknown))
-            }
-        }
-        .resume()
-    }
-    
-    func downloadShowDetail(urlString: String, completion: @escaping (Result<ShowDetail, ErrorMessage>) -> ()) {
-        
-        guard let url = URL(string: urlString) else {
-            completion(.failure(.unknown))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let _ = error {
-                completion(.failure(.unknown))
-            }
-            
-            guard
-                let response = response as? HTTPURLResponse,
-                response.statusCode == 200 else {
-                completion(.failure(.unknown))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(.unknown))
-                return
-            }
-            
-            do {
-                let showDetail = try JSONDecoder().decode(ShowDetail.self, from: data)
-                
-                completion(.success(showDetail))
             } catch {
                 completion(.failure(.unknown))
             }

@@ -12,10 +12,10 @@ class ShowsVC: UIViewController {
     private var scrollView: UIScrollView!
     private var stackView: UIStackView!
     
-    private var popularShows: [MovieResult] = []
-    private var airingTodayShows: [MovieResult] = []
-    private var onTVShows: [MovieResult] = []
-    private var topRatedShows: [MovieResult] = []
+    private var popularShows: [ContentResult] = []
+    private var airingTodayShows: [ContentResult] = []
+    private var onTVShows: [ContentResult] = []
+    private var topRatedShows: [ContentResult] = []
         
     private var popularShowsPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
     private var airingTodayShowsPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
@@ -100,22 +100,22 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == popularSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: popularShows[indexPath.row])
+            cell.set(content: popularShows[indexPath.row])
             
             return cell
         } else if collectionView == airingTodaySectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: airingTodayShows[indexPath.row])
+            cell.set(content: airingTodayShows[indexPath.row])
             
             return cell
         } else if collectionView == onTVSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: onTVShows[indexPath.row])
+            cell.set(content: onTVShows[indexPath.row])
             
             return cell
         } else if collectionView == topRatedSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: topRatedShows[indexPath.row])
+            cell.set(content: topRatedShows[indexPath.row])
             
             return cell
         } else {
@@ -159,7 +159,7 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getShowDetail(id: popularShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
                 guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
                 }
             }
             
@@ -168,7 +168,7 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getShowDetail(id: airingTodayShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
                 guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
                 }
             }
         
@@ -177,7 +177,7 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getShowDetail(id: onTVShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
                 guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
                 }
             }
         
@@ -186,7 +186,7 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
             getShowDetail(id: topRatedShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
                 guard let showDetail = showDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
                 }
             }
         
@@ -197,7 +197,7 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
 // MARK: GET METHODS
 extension ShowsVC {
     private func getPopularShows(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.popularShows(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.popularShows(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.popularShowsPagination.shouldDownloadMore = true
             
@@ -212,7 +212,7 @@ extension ShowsVC {
     }
     
     private func getAiringTodayShows(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.airingTodayShows(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.airingTodayShows(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.airingTodayShowsPagination.shouldDownloadMore = true
             
@@ -227,7 +227,7 @@ extension ShowsVC {
     }
     
     private func getOnTVShows(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.onTheAirShows(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.onTheAirShows(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.onTVShowsPagination.shouldDownloadMore = true
             
@@ -242,7 +242,7 @@ extension ShowsVC {
     }
     
     private func getTopRatedShows(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.topRatedShows(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.topRatedShows(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.topRatedShowsPagination.shouldDownloadMore = true
             
@@ -256,8 +256,8 @@ extension ShowsVC {
         }
     }
     
-    private func getShowDetail(id: String, completion: @escaping (ShowDetail?) -> ()) {
-        NetworkingManager.shared.downloadShowDetail(urlString: ApiUrls.showDetail(id: id)) { result in
+    private func getShowDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.showDetail(id: id)) { result in
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)

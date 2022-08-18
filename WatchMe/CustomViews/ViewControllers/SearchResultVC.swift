@@ -11,12 +11,12 @@ class SearchResultVC: UIViewController {
 
     private var tableView: UITableView!
     
-    private var results: [MovieResult] = []
+    private var contents: [ContentResult] = []
     private var query: String = ""
     
-    init(results: [MovieResult], query: String) {
+    init(contents: [ContentResult], query: String) {
         super.init(nibName: nil, bundle: nil)
-        self.results = results
+        self.contents = contents
         self.query = query
     }
     
@@ -48,25 +48,25 @@ class SearchResultVC: UIViewController {
 
 extension SearchResultVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        results.count
+        contents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseID) as! SearchCell
-        cell.set(movie: results[indexPath.row])
+        cell.set(content: contents[indexPath.row])
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NetworkingManager.shared.downloadMovieDetail(urlString: ApiUrls.movieDetail(id: results[indexPath.row].id?.description ?? "")) { [weak self] result in
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: contents[indexPath.row].id?.description ?? "")) { [weak self] result in
             
             guard let self = self else { return }
             
             switch result {
             case .success(let detail):
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(MovieDetailVC(movieDetail: detail), animated: true)
+                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: detail), animated: true)
                 }
             case .failure(let error):
                 print(error)

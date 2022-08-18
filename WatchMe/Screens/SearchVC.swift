@@ -12,7 +12,7 @@ class SearchVC: UIViewController {
     var searchBar: UISearchBar!
     var collectionView: UICollectionView!
     
-    private var exploreContent: [MovieResult] = []
+    private var exploreContent: [ContentResult] = []
 
     private var searchText: String = ""
     
@@ -74,7 +74,7 @@ class SearchVC: UIViewController {
 
 extension SearchVC {
     private func getExploreContent() {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.discoverMovies(page: 1)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.discoverMovies(page: 1)) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
@@ -88,8 +88,8 @@ extension SearchVC {
         }
     }
     
-    private func getMovieDetail(id: String, completion: @escaping (MovieDetail?) -> ()) {
-        NetworkingManager.shared.downloadMovieDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
+    private func getMovieDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)
@@ -108,17 +108,17 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-        cell.set(movie: exploreContent[indexPath.row])
+        cell.set(content: exploreContent[indexPath.row])
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        getMovieDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-            guard let self = self, let movieDetail = movieDetail else { return }
+        getMovieDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+            guard let self = self, let contentDetail = contentDetail else { return }
             
             DispatchQueue.main.async {
-                self.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
             }
         }
     }
@@ -167,14 +167,14 @@ extension SearchVC: UISearchBarDelegate {
 
 extension SearchVC {
     private func getSearchResult(query: String) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.searchMovies(query: query, page: 1)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.searchMovies(query: query, page: 1)) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
-            case .success(let results):
-                guard !results.isEmpty else { return }
+            case .success(let contents):
+                guard !contents.isEmpty else { return }
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(SearchResultVC(results: results, query: query.capitalized.replacingOccurrences(of: "%20", with: " ")), animated: true)
+                    self.navigationController?.pushViewController(SearchResultVC(contents: contents, query: query.capitalized.replacingOccurrences(of: "%20", with: " ")), animated: true)
                 }
             case .failure(let error):
                 print(error)

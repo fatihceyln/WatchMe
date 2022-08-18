@@ -13,10 +13,10 @@ class MoviesVC: UIViewController {
     private var scrollView: UIScrollView!
     private var stackView: UIStackView!
     
-    private var popularMovies: [MovieResult] = []
-    private var nowPlayingMovies: [MovieResult] = []
-    private var upcomingMovies: [MovieResult] = []
-    private var topRatedMovies: [MovieResult] = []
+    private var popularMovies: [ContentResult] = []
+    private var nowPlayingMovies: [ContentResult] = []
+    private var upcomingMovies: [ContentResult] = []
+    private var topRatedMovies: [ContentResult] = []
         
     private var popularMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
     private var nowPlayingMoviesPagination: PaginationControl = PaginationControl(shouldDownloadMore: false, page: 1)
@@ -101,22 +101,22 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == popularSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: popularMovies[indexPath.row])
+            cell.set(content: popularMovies[indexPath.row])
             
             return cell
         } else if collectionView == nowPlayingSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: nowPlayingMovies[indexPath.row])
+            cell.set(content: nowPlayingMovies[indexPath.row])
             
             return cell
         } else if collectionView == upcomingSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: upcomingMovies[indexPath.row])
+            cell.set(content: upcomingMovies[indexPath.row])
             
             return cell
         } else if collectionView == topRatedSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: topRatedMovies[indexPath.row])
+            cell.set(content: topRatedMovies[indexPath.row])
             
             return cell
         } else {
@@ -157,37 +157,37 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == popularSectionView.collectionView {
             
-            getMovieDetail(id: popularMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getMovieDetail(id: popularMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let contentDetail = contentDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
                 }
             }
             
         } else if collectionView == nowPlayingSectionView.collectionView {
         
-            getMovieDetail(id: nowPlayingMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getMovieDetail(id: nowPlayingMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let contentDetail = contentDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
                 }
             }
         
         } else if collectionView == upcomingSectionView.collectionView {
         
-            getMovieDetail(id: upcomingMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getMovieDetail(id: upcomingMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let contentDetail = contentDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
                 }
             }
         
         } else if collectionView == topRatedSectionView.collectionView {
         
-            getMovieDetail(id: topRatedMovies[indexPath.row].id?.description ?? "") { [weak self] movieDetail in
-                guard let movieDetail = movieDetail else { return }
+            getMovieDetail(id: topRatedMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let contentDetail = contentDetail else { return }
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(MovieDetailVC(movieDetail: movieDetail), animated: true)
+                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
                 }
             }
         
@@ -198,7 +198,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
 // MARK: GET METHODS
 extension MoviesVC {
     private func getPopularMovies(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.popularMovies(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.popularMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.popularMoviesPagination.shouldDownloadMore = true
             
@@ -213,7 +213,7 @@ extension MoviesVC {
     }
     
     private func getNowPlayingMovies(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.nowPlayingMovies(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.nowPlayingMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.nowPlayingMoviesPagination.shouldDownloadMore = true
             
@@ -228,7 +228,7 @@ extension MoviesVC {
     }
     
     private func getUpcomingMovies(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.upcomingMovies(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.upcomingMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.upcomingMoviesPagination.shouldDownloadMore = true
             
@@ -243,7 +243,7 @@ extension MoviesVC {
     }
     
     private func getTopRatedMovies(page: Int) {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.topRatedMovies(page: page)) { [weak self] result in
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.topRatedMovies(page: page)) { [weak self] result in
             guard let self = self else { return }
             self.topRatedMoviesPagination.shouldDownloadMore = true
             
@@ -257,8 +257,8 @@ extension MoviesVC {
         }
     }
     
-    private func getMovieDetail(id: String, completion: @escaping (MovieDetail?) -> ()) {
-        NetworkingManager.shared.downloadMovieDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
+    private func getMovieDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)

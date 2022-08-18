@@ -1,13 +1,13 @@
 //
-//  ShowDetailVC.swift
+//  ContentDetailVC.swift
 //  WatchMe
 //
-//  Created by Fatih Kilit on 15.08.2022.
+//  Created by Fatih Kilit on 13.08.2022.
 //
 
 import UIKit
 
-class ShowDetailVC: UIViewController {
+class ContentDetailVC: UIViewController {
     
     private var scrollView: UIScrollView!
     private var containerStackView: UIStackView!
@@ -19,16 +19,16 @@ class ShowDetailVC: UIViewController {
     
     private let padding: CGFloat = 16
     
-    private var showDetail: ShowDetail!
+    private var contentDetail: ContentDetail!
     private var cast: [Cast] = []
     
-    private var similarMovies: [MovieResult] = []
+    private var similarContents: [ContentResult] = []
     
     private var emptyView: UIView!
     
-    init(showDetail: ShowDetail) {
+    init(contentDetail: ContentDetail) {
         super.init(nibName: nil, bundle: nil)
-        self.showDetail = showDetail
+        self.contentDetail = contentDetail
     }
     
     required init?(coder: NSCoder) {
@@ -39,7 +39,7 @@ class ShowDetailVC: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        navigationItem.title = showDetail.name
+        navigationItem.title = contentDetail.title
         navigationItem.backButtonTitle = "Back"
         
         configureScrollView()
@@ -60,16 +60,17 @@ class ShowDetailVC: UIViewController {
     }
 }
 
-extension ShowDetailVC {
+extension ContentDetailVC {
     private func getCast() {
-        NetworkingManager.shared.downloadCast(urlString: ApiUrls.showCredits(id: showDetail.id?.description ?? "")) { [weak self] result in
+        let urlString = contentDetail.isMovie ? ApiUrls.movieCredits(id: contentDetail.id?.description ?? "") : ApiUrls.showCredits(id: contentDetail.id?.description ?? "")
+        
+        NetworkingManager.shared.downloadCast(urlString: urlString) { [weak self] result in
             
             guard let self = self else { return }
-            
             switch result {
             case .success(let cast):
                 if cast.isEmpty {
-                    self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No cast info")
+                    self.configureEmptyView(superStackView: self.castView, collectionView: self.castView.collectionView, message: "No casts info")
                     return
                 }
                 
@@ -87,38 +88,41 @@ extension ShowDetailVC {
         }
     }
     
-    private func getSimilarShows() {
-        NetworkingManager.shared.downloadMovies(urlString: ApiUrls.similarShows(showId: showDetail.id?.description ?? "", page: 1)) { [weak self] result in
+    private func getSimilarContents() {
+        let urlString = contentDetail.isMovie ? ApiUrls.similarMovies(movieId: contentDetail.id?.description ?? "", page: 1) : ApiUrls.similarShows(showId: contentDetail.id?.description ?? "", page: 1)
+        
+        NetworkingManager.shared.downloadContent(urlString: urlString) { [weak self] result in
+            
             guard let self = self else { return }
             
             switch result {
-            case .success(let similarMovies):
-                if similarMovies.isEmpty {
-                    self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar shows info")
+            case .success(let similarContents):
+                if similarContents.isEmpty {
+                    self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
                     return
                 }
                 
-                self.similarMovies = similarMovies
+                self.similarContents = similarContents
                 self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
-                self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar shows info")
+                self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
                 print(error)
             }
         }
     }
 }
 
-extension ShowDetailVC {
+extension ContentDetailVC {
     private func setViewData() {
-        headerView.setHeaderView(showDetail: showDetail)
-        overviewLabel.text = showDetail?.overview
+        headerView.setHeaderView(contentDetail: contentDetail)
+        overviewLabel.text = contentDetail?.overview
         
         getCast()
-        getSimilarShows()
+        getSimilarContents()
     }
 }
 
-extension ShowDetailVC {
+extension ContentDetailVC {
     private func configureHeaderView() {
         headerView = HeaderView(superContainerView: containerStackView)
     }
@@ -135,7 +139,7 @@ extension ShowDetailVC {
     }
     
     private func configureSimilarSectionView() {
-        similarSectionView = SectionView(containerStackView: containerStackView, title: "Similar Shows")
+        similarSectionView = SectionView(containerStackView: containerStackView, title: "Similar Movies")
         similarSectionView.collectionView.delegate = self
         similarSectionView.collectionView.dataSource = self
     }
@@ -160,7 +164,7 @@ extension ShowDetailVC {
     }
 }
 
-extension ShowDetailVC {
+extension ContentDetailVC {
     private func configureScrollView() {
         scrollView = UIScrollView(frame: .zero)
         view.addSubview(scrollView)
@@ -191,12 +195,12 @@ extension ShowDetailVC {
     }
 }
 
-extension ShowDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ContentDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == castView.collectionView {
             return cast.count
         } else if collectionView == similarSectionView.collectionView {
-            return similarMovies.count
+            return similarContents.count
         }
         
         return 0
@@ -210,7 +214,7 @@ extension ShowDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return cell
         } else if collectionView == similarSectionView.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
-            cell.set(movie: similarMovies[indexPath.row])
+            cell.set(content: similarContents[indexPath.row])
             
             return cell
         }
@@ -220,23 +224,22 @@ extension ShowDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == similarSectionView.collectionView {
-            NetworkingManager.shared.downloadShowDetail(urlString: ApiUrls.showDetail(id: similarMovies[indexPath.row].id?.description ?? "")) { [weak self] result in
+            let urlString = contentDetail.isMovie ? ApiUrls.movieDetail(id: similarContents[indexPath.row].id?.description ?? "") : ApiUrls.showDetail(id: similarContents[indexPath.row].id?.description ?? "")
+            
+            NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
                 
                 guard let self = self else { return }
+                
                 switch result {
-                case .success(let showDetail):
+                case .success(let contentDetail):
                     DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(ShowDetailVC(showDetail: showDetail), animated: true)
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
-                        if !self.cast.isEmpty {
-                            self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                        }
-                        if !self.similarMovies.isEmpty {
-                            self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                        }
+                        self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
                     }
                 case .failure(let error):
                     print(error)

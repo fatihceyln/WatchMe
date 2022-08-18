@@ -1,5 +1,5 @@
 //
-//  MovieDetail.swift
+//  ContentDetail.swift
 //  WatchMe
 //
 //  Created by Fatih Kilit on 14.08.2022.
@@ -7,22 +7,28 @@
 
 import Foundation
 
-struct MovieDetail: Codable {
+struct ContentDetail: Codable {
     let id: Int?
-    let title, overview, posterPath, releaseDate: String?
+    let title, name, overview, posterPath, releaseDate: String?
+    let numberOfSeasons: Int?
+    let firstAirDate, lastAirDate, status: String?
     let runtime: Int?
     let genres: [Genre]?
-    let homepage: String?
-    let imdbID: String?
     let voteAverage: Double?
-
+    
     enum CodingKeys: String, CodingKey {
-        case id, title, overview
+        case id, title, name, overview
         case posterPath = "poster_path"
         case releaseDate = "release_date"
-        case runtime, genres, homepage
-        case imdbID = "imdb_id"
+        case numberOfSeasons = "number_of_seasons"
+        case firstAirDate = "first_air_date"
+        case lastAirDate = "last_air_date"
+        case status, runtime, genres
         case voteAverage = "vote_average"
+    }
+    
+    var isMovie: Bool {
+        title != nil && name == nil
     }
     
     var genresString: String {
@@ -48,7 +54,21 @@ struct MovieDetail: Codable {
     
     var releaseDateString: String {
         guard releaseDate != "" else { return "N/A"}
-        return releaseDate?.replacingOccurrences(of: "-", with: "/") ?? "N/A"
+        return releaseDate?.replacingOccurrences(of: "-", with: " / ") ?? "N/A"
+    }
+    
+    var startEndDate: String {
+        guard
+            let firstAirDate = firstAirDate,
+            let lastAirDate = lastAirDate else { return "" }
+        
+        return firstAirDate.prefix(4) + " - " + lastAirDate.prefix(4)
+    }
+    
+    var season: String {
+        guard let numberOfSeasons = numberOfSeasons else { return "" }
+        
+        return "\(numberOfSeasons) Season"
     }
 }
 
