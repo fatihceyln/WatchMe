@@ -26,25 +26,29 @@ struct MovieDetail: Codable {
     }
     
     var genresString: String {
-        guard let genres = genres else { return "N/A" }
+        guard let genres = genres, !genres.isEmpty else { return "N/A" }
         let names = genres.map({$0.name ?? ""})
         
         return names.joined(separator: ", ")
     }
     
     var runtimeString: String {
-        guard let runtime = runtime else {
+        guard let runtime = runtime, runtime != 0 else {
             return "N/A"
         }
         
         let hour = runtime / 60
         let minute = runtime % 60
         
-        return "\(hour)h \(minute)m"
+        let hourString = hour == 0 ? "" : "\(hour)h "
+        let minuteString = minute == 0 ? "" : "\(minute)m"
+        
+        return hourString + minuteString
     }
     
     var releaseDateString: String {
-        releaseDate?.replacingOccurrences(of: "-", with: "/") ?? "N/A"
+        guard releaseDate != "" else { return "N/A"}
+        return releaseDate?.replacingOccurrences(of: "-", with: "/") ?? "N/A"
     }
 }
 
