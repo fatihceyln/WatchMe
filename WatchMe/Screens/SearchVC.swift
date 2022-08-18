@@ -81,14 +81,36 @@ class SearchVC: UIViewController {
 
 extension SearchVC {
     private func getExploreContent() {
-        NetworkingManager.shared.downloadContent(urlString: ApiUrls.discoverMovies(page: 1)) { [weak self] result in
+        
+        var reloadControl = false
+        
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.trendMovies()) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let exploreMovies):
                 self.exploreContent.append(contentsOf: exploreMovies)
-                self.exploreContent.shuffle()
-                self.collectionView.reloadDataOnMainThread()
+                if reloadControl {
+                    self.exploreContent.shuffle()
+                    self.collectionView.reloadDataOnMainThread()
+                }
+                reloadControl = true
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        NetworkingManager.shared.downloadContent(urlString: ApiUrls.trendShows()) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let exploreMovies):
+                self.exploreContent.append(contentsOf: exploreMovies)
+                if reloadControl {
+                    self.exploreContent.shuffle()
+                    self.collectionView.reloadDataOnMainThread()
+                }
+                reloadControl = true
             case .failure(let error):
                 print(error)
             }
@@ -97,6 +119,18 @@ extension SearchVC {
     
     private func getMovieDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
         NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
+            switch result {
+            case .success(let movieDetail):
+                completion(movieDetail)
+            case .failure(let error):
+                print(error)
+                completion(nil)
+            }
+        }
+    }
+    
+    private func getShowDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.showDetail(id: id)) { result in
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)
@@ -121,13 +155,26 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        getMovieDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
-            guard let self = self, let contentDetail = contentDetail else { return }
-            
-            DispatchQueue.main.async {
-                self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+        
+        if exploreContent[indexPath.row].name != nil {
+            getShowDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self, let contentDetail = contentDetail else { return }
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+                }
+            }
+        } else {
+            getMovieDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self, let contentDetail = contentDetail else { return }
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+                }
             }
         }
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

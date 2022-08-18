@@ -23,7 +23,7 @@ struct ContentResult: Codable, Hashable {
     let id: Int?
     let overview: String?
     let popularity: Double?
-    let posterPath, releaseDate, title: String?
+    let posterPath, releaseDate, title, name: String?
     let voteAverage: Double?
 
     enum CodingKeys: String, CodingKey {
@@ -31,7 +31,7 @@ struct ContentResult: Codable, Hashable {
         case overview, popularity
         case posterPath = "poster_path"
         case releaseDate = "release_date"
-        case title
+        case title, name
         case voteAverage = "vote_average"
     }
 }
