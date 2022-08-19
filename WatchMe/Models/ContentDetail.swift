@@ -74,6 +74,19 @@ struct ContentDetail: Codable {
         
         return "\(numberOfSeasons) Season"
     }
+    
+    var rating: String {
+        guard voteAverage != 0 || voteAverage != nil else {
+            return "N/A"
+        }
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 1
+        
+        return numberFormatter.string(from: NSNumber(value: voteAverage ?? 0.0)) ?? "N/A"
+    }
 }
 
 struct Genre: Codable {

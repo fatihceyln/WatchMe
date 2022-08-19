@@ -12,4 +12,5 @@ enum SystemImages {
     static let filmImage = UIImage(systemName: "film")
     static let clockImage = UIImage(systemName: "clock")
     static let infoImage = UIImage(systemName: "info.circle")
+    static let starImage = UIImage(systemName: "star.fill")
 }

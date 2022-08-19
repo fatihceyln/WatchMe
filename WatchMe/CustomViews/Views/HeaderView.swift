@@ -19,6 +19,7 @@ class HeaderView: UIView {
     private var genreLabel: WMLabelWithImage!
     private var runtimeLabel: WMLabelWithImage!
     private var statusLabel: WMLabelWithImage!
+    private var ratingLabel: WMLabelWithImage!
     
     let padding: CGFloat = 10
     
@@ -50,18 +51,23 @@ class HeaderView: UIView {
         posterImageView.downloadImage(urlString: ApiUrls.image(path: contentDetail.posterPath ?? ""))
         
         if contentDetail.isMovie {
+            configureRatingLabel()
+            
             titleLabel.text = contentDetail.title
             dateLabel.setWMLabelWithImage(text: contentDetail.releaseDateString, systemImage: SystemImages.calendarImage)
             genreLabel.setWMLabelWithImage(text: contentDetail.genresString, systemImage: SystemImages.filmImage)
             runtimeLabel.setWMLabelWithImage(text: contentDetail.runtimeString, systemImage: SystemImages.clockImage)
+            ratingLabel.setWMLabelWithImage(text: contentDetail.rating, systemImage: SystemImages.starImage)
         } else {
             configureStatusLabel()
+            configureRatingLabel()
             
             titleLabel.text = contentDetail.name
             dateLabel.setWMLabelWithImage(text: contentDetail.startEndDate, systemImage: SystemImages.calendarImage)
             genreLabel.setWMLabelWithImage(text: contentDetail.genresString, systemImage: SystemImages.filmImage)
             runtimeLabel.setWMLabelWithImage(text: contentDetail.season, systemImage: SystemImages.clockImage)
             statusLabel.setWMLabelWithImage(text: contentDetail.status, systemImage: SystemImages.infoImage)
+            ratingLabel.setWMLabelWithImage(text: contentDetail.rating, systemImage: SystemImages.starImage)
         }
     }
     
@@ -133,5 +139,10 @@ class HeaderView: UIView {
     private func configureStatusLabel() {
         statusLabel = WMLabelWithImage()
         attributesStackView.addArrangedSubview(statusLabel)
+    }
+    
+    private func configureRatingLabel() {
+        ratingLabel = WMLabelWithImage()
+        attributesStackView.addArrangedSubview(ratingLabel)
     }
 }
