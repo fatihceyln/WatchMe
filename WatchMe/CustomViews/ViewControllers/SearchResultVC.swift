@@ -26,9 +26,8 @@ class SearchResultVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureVC()
         configureTableView()
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.title = query
     }
     
     private func configureTableView() {
@@ -41,8 +40,15 @@ class SearchResultVC: UIViewController {
         tableView.dataSource = self
         
         tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.reuseID)
+        tableView.showsVerticalScrollIndicator = false
         
         tableView.pinToEdges(of: view)
+    }
+    
+    private func configureVC() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.title = query
+        navigationItem.backButtonTitle = ""
     }
 }
 

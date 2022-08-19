@@ -40,12 +40,12 @@ class SearchCell: UITableViewCell {
         posterImage.downloadImage(urlString: ApiUrls.image(path: content.posterPath ?? ""))
         if content.mediaType == .movie {
             titleLabel.text = content.title
-            yearLabel.text = content.releaseDate?.prefix(4).capitalized
-            extraInfoLabel.text = "🍿"
+            yearLabel.text = content.releaseDateString
+            extraInfoLabel.text = "🎬"
             
         } else {
             titleLabel.text = content.name
-            yearLabel.text = content.firstAirDate?.prefix(4).capitalized
+            yearLabel.text = content.firstAirDateString
         }
     }
     

@@ -37,6 +37,17 @@ struct SearchResult: Codable {
         case releaseDate = "release_date"
         case title
     }
+    
+    var releaseDateString: String {
+        guard releaseDate != "" else { return "N/A"}
+        return String(releaseDate?.prefix(4) ?? "N/A")
+    }
+    
+    var firstAirDateString: String {
+        guard firstAirDate != "" else {return "N/A"}
+        
+        return String(firstAirDate?.prefix(4) ?? "N/A")
+    }
 }
 
 enum MediaType: String, Codable {

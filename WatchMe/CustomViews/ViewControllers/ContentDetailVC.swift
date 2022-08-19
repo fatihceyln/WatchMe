@@ -39,8 +39,7 @@ class ContentDetailVC: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        navigationItem.title = contentDetail.title
-        navigationItem.backButtonTitle = "Back"
+        navigationItem.backButtonTitle = ""
         
         configureScrollView()
         configureContainerStackView()
