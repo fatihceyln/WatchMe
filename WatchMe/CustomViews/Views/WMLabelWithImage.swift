@@ -53,6 +53,8 @@ class WMLabelWithImage: UIView {
         label = WMBodyLabel(textAlignment: .left)
         addSubview(label)
         
+        label.numberOfLines = 2
+        
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: topAnchor, constant: 2),
             label.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8),

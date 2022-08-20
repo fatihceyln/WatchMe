@@ -12,12 +12,13 @@ struct CastModel: Codable {
 }
 
 struct Cast: Codable {
+    let id: Int?
     let name: String?
     let profilePath: String?
     let character: String?
 
     enum CodingKeys: String, CodingKey {
-        case name
+        case name, id
         case profilePath = "profile_path"
         case character
     }
