@@ -215,4 +215,58 @@ final class NetworkingManager {
         }
         .resume()
     }
+    
+    func downloadPersonContent(urlString: String, completion: @escaping (Result<[ContentResult], ErrorMessage>) -> ()) {
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.unknown))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completion(.failure(.unknown))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            do {
+                let personContent = try JSONDecoder().decode(PersonContent.self, from: data)
+                
+                guard let castContent = personContent.cast else {
+                    completion(.failure(.unknown))
+                    return
+                }
+                
+                var result = castContent
+                
+                result = result.filter({$0.posterPath != nil && ($0.title != nil || $0.name != nil)})
+                result = result.sorted(by: {$0.releaseDate ?? "" > $1.releaseDate ?? ""})
+                
+                var nonDuplicatedResult: [ContentResult] = []
+                
+                for item in result {
+                    if !nonDuplicatedResult.contains(where: {$0.id == item.id}) {
+                        nonDuplicatedResult.append(item)
+                    }
+                }
+                
+                completion(.success(nonDuplicatedResult))
+                
+            } catch {
+                completion(.failure(.unknown))
+            }
+        }
+        .resume()
+    }
 }

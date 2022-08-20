@@ -50,11 +50,46 @@ class PersonDetailVC: UIViewController {
         
         configureMoviesSectionView()
         configureShowsSectionView()
+        
+        getPersonShows()
+        getPersonMovies()
     }
 }
 
 extension PersonDetailVC {
-
+    private func getPersonShows() {
+        guard let personId = person.id?.description else { return }
+        let urlString = ApiUrls.personShows(personId: personId)
+        
+        NetworkingManager.shared.downloadPersonContent(urlString: urlString) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let contents):
+                self.shows = contents
+                self.showsSectionView.collectionView.reloadDataOnMainThread()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func getPersonMovies() {
+        guard let personId = person.id?.description else { return }
+        let urlString = ApiUrls.personMovies(personId: personId)
+        
+        NetworkingManager.shared.downloadPersonContent(urlString: urlString) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let contents):
+                self.movies = contents
+                self.moviesSectionView.collectionView.reloadDataOnMainThread()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 extension PersonDetailVC {

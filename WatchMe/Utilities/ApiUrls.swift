@@ -67,6 +67,10 @@ enum ApiUrls {
         return "\(baseURL)tv/\(id)/credits?api_key=\(api_key)&language=en-US"
     }
     
+    static func personShows(personId: String) -> String {
+        return "\(baseURL)person/\(personId)/tv_credits?api_key=\(api_key)&language=en-US"
+    }
+    
     // MARK: MOVIE
     static func trendMovies() -> String {
         "\(baseURL)trending/movie/day?api_key=\(api_key)"
@@ -102,5 +106,9 @@ enum ApiUrls {
     
     static func movieCredits(id: String) -> String {
         return "\(baseURL)movie/\(id)/credits?api_key=\(api_key)&language=en-US"
+    }
+    
+    static func personMovies(personId: String) -> String {
+        return "\(baseURL)person/\(personId)/movie_credits?api_key=\(api_key)&language=en-US"
     }
 }

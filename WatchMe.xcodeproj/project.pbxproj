@@ -43,6 +43,7 @@
 		3DFA542C28B0BB7100F63832 /* PersonDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */; };
 		3DFA542E28B0DCEC00F63832 /* PersonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA542D28B0DCEC00F63832 /* PersonHeaderView.swift */; };
 		3DFA543028B0E03B00F63832 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA542F28B0E03B00F63832 /* Person.swift */; };
+		3DFA543428B0F9AC00F63832 /* PersonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA543328B0F9AC00F63832 /* PersonContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailVC.swift; sourceTree = "<group>"; };
 		3DFA542D28B0DCEC00F63832 /* PersonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonHeaderView.swift; sourceTree = "<group>"; };
 		3DFA542F28B0E03B00F63832 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		3DFA543328B0F9AC00F63832 /* PersonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 				3D487C2C28A9132C000F22F8 /* CastModel.swift */,
 				3D3E557228AE466300C5DF9E /* SearchModel.swift */,
 				3DFA542F28B0E03B00F63832 /* Person.swift */,
+				3DFA543328B0F9AC00F63832 /* PersonContent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				3D3AE55828A520DA00B527AF /* Content.swift in Sources */,
 				3D0463E628A646CF00C1BEE0 /* SectionView.swift in Sources */,
 				3D3AE57828A55A6800B527AF /* AppDelegate.swift in Sources */,
+				3DFA543428B0F9AC00F63832 /* PersonContent.swift in Sources */,
 				3D3E557328AE466300C5DF9E /* SearchModel.swift in Sources */,
 				3D3AE55428A505DB00B527AF /* ApiUrls.swift in Sources */,
 				3D487C1828A7FC38000F22F8 /* ContentDetailVC.swift in Sources */,
