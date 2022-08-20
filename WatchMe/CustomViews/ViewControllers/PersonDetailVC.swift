@@ -14,6 +14,7 @@ class PersonDetailVC: UIViewController {
     
     private var headerView: PersonHeaderView!
     private var biographyLabel: WMBodyLabel!
+    private var showMoreButton: UIButton!
     private var moviesSectionView: SectionView!
     private var showsSectionView: SectionView!
     
@@ -23,6 +24,7 @@ class PersonDetailVC: UIViewController {
     private var shows: [ContentDetail] = []
     
     private let padding: CGFloat = 10
+    private var isShowingMore: Bool = false
     
     init(actor: Person) {
         super.init(nibName: nil, bundle: nil)
@@ -44,6 +46,7 @@ class PersonDetailVC: UIViewController {
         
         configureHeaderView()
         configureBiographyLabel()
+        configureShowMoreButton()
     }
 }
 
@@ -61,6 +64,33 @@ extension PersonDetailVC {
         containerStackView.addArrangedSubview(biographyLabel)
         
         biographyLabel.text = person.biography
+        biographyLabel.numberOfLines = 5
+    }
+    
+    private func configureShowMoreButton() {
+        showMoreButton = UIButton(frame: .zero)
+        containerStackView.addArrangedSubview(showMoreButton)
+        containerStackView.setCustomSpacing(0, after: biographyLabel)
+        
+        showMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        showMoreButton.setTitle("Show more", for: .normal)
+        showMoreButton.contentHorizontalAlignment = .left
+        showMoreButton.tintColor = .link
+        
+        showMoreButton.addTarget(self, action: #selector(showMoreButtonAction), for: .touchUpInside)
+    }
+    
+    @objc private func showMoreButtonAction() {
+        if !isShowingMore {
+            showMoreButton.setTitle("Show less", for: .normal)
+            biographyLabel.numberOfLines = 0
+            isShowingMore = true
+        } else {
+            showMoreButton.setTitle("Show more", for: .normal)
+            biographyLabel.numberOfLines = 5
+            isShowingMore = false
+        }
     }
 }
 
