@@ -20,8 +20,8 @@ class PersonDetailVC: UIViewController {
     
     private var person: Person!
     
-    private var movies: [ContentDetail] = []
-    private var shows: [ContentDetail] = []
+    private var movies: [ContentResult] = []
+    private var shows: [ContentResult] = []
     
     private let padding: CGFloat = 10
     private var isShowingMore: Bool = false
@@ -47,6 +47,9 @@ class PersonDetailVC: UIViewController {
         configureHeaderView()
         configureBiographyLabel()
         configureShowMoreButton()
+        
+        configureMoviesSectionView()
+        configureShowsSectionView()
     }
 }
 
@@ -91,6 +94,43 @@ extension PersonDetailVC {
             biographyLabel.numberOfLines = 5
             isShowingMore = false
         }
+    }
+    
+    private func configureMoviesSectionView() {
+        moviesSectionView = SectionView(containerStackView: containerStackView, title: "Movies")
+        moviesSectionView.collectionView.delegate = self
+        moviesSectionView.collectionView.dataSource = self
+    }
+    
+    private func configureShowsSectionView() {
+        showsSectionView = SectionView(containerStackView: containerStackView, title: "Shows")
+        showsSectionView.collectionView.delegate = self
+        showsSectionView.collectionView.dataSource = self
+    }
+}
+
+extension PersonDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == moviesSectionView.collectionView {
+            return movies.count
+        }
+        
+        return shows.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentCell.reuseID, for: indexPath) as! ContentCell
+        
+        if collectionView == moviesSectionView.collectionView {
+            cell.set(content: movies[indexPath.row])
+            
+            return cell
+        }
+        
+        cell.set(content: shows[indexPath.row])
+        
+        return cell
     }
 }
 
