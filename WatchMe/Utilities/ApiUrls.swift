@@ -25,6 +25,11 @@ enum ApiUrls {
         return "\(baseURL)search/multi?api_key=\(api_key)&language=en-US&query=\(query)&page=1&include_adult=false"
     }
     
+    // MARK: PERSON
+    static func person(id: String) -> String {
+        return "\(baseURL)person/\(id)?api_key=\(api_key)&language=en-US"
+    }
+    
     // MARK: SHOWS
     static func trendShows() -> String {
         "\(baseURL)trending/tv/day?api_key=\(api_key)"

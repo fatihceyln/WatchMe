@@ -89,7 +89,7 @@ class HeaderView: UIView {
             posterImageView.heightAnchor.constraint(equalToConstant: 225)
         ])
         
-        posterImageView.backgroundColor = .gray.withAlphaComponent(0.15)
+        posterImageView.backgroundColor = .secondarySystemBackground
     }
     
     private func configureTitleLabel() {

@@ -179,4 +179,40 @@ final class NetworkingManager {
         }
         .resume()
     }
+    
+    func downloadPerson(urlString: String, completion: @escaping (Result<Person, ErrorMessage>) -> ()) {
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.unknown))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completion(.failure(.unknown))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            do {
+                let person = try JSONDecoder().decode(Person.self, from: data)
+                
+                completion(.success(person))
+                
+            } catch {
+                completion(.failure(.unknown))
+            }
+        }
+        .resume()
+    }
 }

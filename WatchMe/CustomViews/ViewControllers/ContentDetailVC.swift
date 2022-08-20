@@ -188,9 +188,7 @@ extension ContentDetailVC {
         containerStackView.spacing = 20
         
         containerStackView.pinToEdges(of: scrollView)
-        NSLayoutConstraint.activate([
-            containerStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
+        containerStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
 }
 
@@ -243,6 +241,25 @@ extension ContentDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
                         if !self.similarContents.isEmpty {
                             self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
                         }
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        } else if collectionView == castView.collectionView {
+            
+            guard let personId = cast[indexPath.row].id?.description else { return }
+            
+            let urlString = ApiUrls.person(id: personId)
+            
+            NetworkingManager.shared.downloadPerson(urlString: urlString) { [weak self] result in
+                
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let person):
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(PersonDetailVC(actor: person), animated: true)
                     }
                 case .failure(let error):
                     print(error)

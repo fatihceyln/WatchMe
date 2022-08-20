@@ -54,7 +54,7 @@ struct ContentDetail: Codable {
     
     var releaseDateString: String {
         guard releaseDate != "" else { return "N/A"}
-        return releaseDate?.replacingOccurrences(of: "-", with: " / ") ?? "N/A"
+        return releaseDate?.replacingOccurrences(of: "-", with: "/") ?? "N/A"
     }
     
     var startEndDate: String {
