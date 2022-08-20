@@ -43,6 +43,7 @@ class PersonDetailVC: UIViewController {
         configureContainerStackView()
         
         configureHeaderView()
+        configureBiographyLabel()
     }
 }
 
@@ -53,6 +54,13 @@ extension PersonDetailVC {
 extension PersonDetailVC {
     private func configureHeaderView() {
         headerView = PersonHeaderView(superContainerView: containerStackView, person: person)
+    }
+    
+    private func configureBiographyLabel() {
+        biographyLabel = WMBodyLabel(textAlignment: .left)
+        containerStackView.addArrangedSubview(biographyLabel)
+        
+        biographyLabel.text = person.biography
     }
 }
 
