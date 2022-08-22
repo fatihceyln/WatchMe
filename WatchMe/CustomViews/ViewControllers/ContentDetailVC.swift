@@ -156,7 +156,6 @@ extension ContentDetailVC {
             
             let messageLabel = WMBodyLabel(textAlignment: .left)
             self.emptyView.addSubview(messageLabel)
-            messageLabel.translatesAutoresizingMaskIntoConstraints = false
             messageLabel.text = message
             messageLabel.pinToEdges(of: self.emptyView)
         }

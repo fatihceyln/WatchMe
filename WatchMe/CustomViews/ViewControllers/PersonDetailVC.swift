@@ -18,6 +18,8 @@ class PersonDetailVC: UIViewController {
     private var moviesSectionView: SectionView!
     private var showsSectionView: SectionView!
     
+    private var emptyView: UIView!
+    
     private var person: Person!
     
     private var movies: [ContentResult] = []
@@ -66,9 +68,15 @@ extension PersonDetailVC {
             
             switch result {
             case .success(let contents):
+                if contents.isEmpty {
+                    self.configureEmptyView(superStackView: self.containerStackView, collectionView: self.showsSectionView.collectionView, message: "The person haven't played in a show so far.")
+                    return
+                }
+                
                 self.shows = contents
                 self.showsSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
+                self.configureEmptyView(superStackView: self.containerStackView, collectionView: self.showsSectionView.collectionView, message: "The person haven't played in a show so far.")
                 print(error)
             }
         }
@@ -83,9 +91,15 @@ extension PersonDetailVC {
             
             switch result {
             case .success(let contents):
+                if contents.isEmpty {
+                    self.configureEmptyView(superStackView: self.containerStackView, collectionView: self.moviesSectionView.collectionView, message: "The person haven't played in a movie so far.")
+                    return
+                }
+                
                 self.movies = contents
                 self.moviesSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
+                self.configureEmptyView(superStackView: self.containerStackView, collectionView: self.moviesSectionView.collectionView, message: "The person haven't played in a movie so far.")
                 print(error)
             }
         }
@@ -141,6 +155,26 @@ extension PersonDetailVC {
         showsSectionView = SectionView(containerStackView: containerStackView, title: "Shows")
         showsSectionView.collectionView.delegate = self
         showsSectionView.collectionView.dataSource = self
+    }
+}
+
+extension PersonDetailVC {
+    private func configureEmptyView(superStackView: UIStackView, collectionView: UICollectionView, message: String) {
+        DispatchQueue.main.async {
+            collectionView.removeFromSuperview()
+            
+            self.emptyView = UIView(frame: .zero)
+            superStackView.addArrangedSubview(self.emptyView)
+            
+            self.emptyView.translatesAutoresizingMaskIntoConstraints = false
+            self.emptyView.backgroundColor = .systemBackground
+            self.emptyView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            
+            let messageLabel = WMBodyLabel(textAlignment: .left)
+            self.emptyView.addSubview(messageLabel)
+            messageLabel.text = message
+            messageLabel.pinToEdges(of: self.emptyView)
+        }
     }
 }
 
