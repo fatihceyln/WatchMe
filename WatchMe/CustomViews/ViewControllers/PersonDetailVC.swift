@@ -116,30 +116,38 @@ extension PersonDetailVC {
         containerStackView.addArrangedSubview(biographyLabel)
         
         biographyLabel.text = person.biography
-        biographyLabel.numberOfLines = 5
     }
     
     private func configureShowMoreButton() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if self.biographyLabel.lineCount > 5 {
+                self.biographyLabel.numberOfLines = 5
+            } else {
+                self.showMoreButton.isHidden = true
+                self.containerStackView.setCustomSpacing(2 * self.padding, after: self.biographyLabel)
+            }
+        }
+        
         showMoreButton = UIButton(frame: .zero)
         containerStackView.addArrangedSubview(showMoreButton)
         containerStackView.setCustomSpacing(0, after: biographyLabel)
         
         showMoreButton.translatesAutoresizingMaskIntoConstraints = false
         
-        showMoreButton.setTitle("Show more", for: .normal)
+        showMoreButton.setTitle("Read more...", for: .normal)
         showMoreButton.contentHorizontalAlignment = .left
-        showMoreButton.tintColor = .link
+        showMoreButton.setTitleColor(.link, for: .normal)
         
         showMoreButton.addTarget(self, action: #selector(showMoreButtonAction), for: .touchUpInside)
     }
     
     @objc private func showMoreButtonAction() {
         if !isShowingMore {
-            showMoreButton.setTitle("Show less", for: .normal)
+            showMoreButton.setTitle("Less", for: .normal)
             biographyLabel.numberOfLines = 0
             isShowingMore = true
         } else {
-            showMoreButton.setTitle("Show more", for: .normal)
+            showMoreButton.setTitle("Read more...", for: .normal)
             biographyLabel.numberOfLines = 5
             isShowingMore = false
         }
@@ -256,7 +264,7 @@ extension PersonDetailVC {
         
         containerStackView.axis = .vertical
         containerStackView.distribution = .fill
-        containerStackView.spacing = 20
+        containerStackView.spacing = 2 * padding
         
         containerStackView.pinToEdges(of: scrollView)
         containerStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true

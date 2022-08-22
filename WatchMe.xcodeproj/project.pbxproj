@@ -39,6 +39,7 @@
 		3D487C2928A90901000F22F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2828A90901000F22F8 /* Constants.swift */; };
 		3D487C2B28A91148000F22F8 /* TopBilledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2A28A91148000F22F8 /* TopBilledCell.swift */; };
 		3D487C2D28A9132C000F22F8 /* CastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2C28A9132C000F22F8 /* CastModel.swift */; };
+		3D56D80928B35BC300D5721E /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56D80828B35BC300D5721E /* UILabel+Ext.swift */; };
 		3DF933FF28AD366F00066025 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */; };
 		3DFA542C28B0BB7100F63832 /* PersonDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */; };
 		3DFA542E28B0DCEC00F63832 /* PersonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA542D28B0DCEC00F63832 /* PersonHeaderView.swift */; };
@@ -83,6 +84,7 @@
 		3D487C2828A90901000F22F8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3D487C2A28A91148000F22F8 /* TopBilledCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBilledCell.swift; sourceTree = "<group>"; };
 		3D487C2C28A9132C000F22F8 /* CastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastModel.swift; sourceTree = "<group>"; };
+		3D56D80828B35BC300D5721E /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 		3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailVC.swift; sourceTree = "<group>"; };
 		3DFA542D28B0DCEC00F63832 /* PersonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonHeaderView.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				3D3AE55F28A547CF00B527AF /* UIView+Ext.swift */,
 				3D3AE56328A54EEC00B527AF /* UICollectionView+Ext.swift */,
+				3D56D80828B35BC300D5721E /* UILabel+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
 				3D3AE56028A547CF00B527AF /* UIView+Ext.swift in Sources */,
 				3D487C2B28A91148000F22F8 /* TopBilledCell.swift in Sources */,
+				3D56D80928B35BC300D5721E /* UILabel+Ext.swift in Sources */,
 				3DFA542E28B0DCEC00F63832 /* PersonHeaderView.swift in Sources */,
 				3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */,
 				3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */,
