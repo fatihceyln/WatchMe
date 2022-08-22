@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchVC: UIViewController {
+class SearchVC: WMDataLoadingVC {
     
     var searchBar: UISearchBar!
     var collectionView: UICollectionView!
@@ -82,6 +82,7 @@ class SearchVC: UIViewController {
 extension SearchVC {
     private func getExploreContent() {
         
+        showLoadingView()
         var reloadControl = false
         
         NetworkingManager.shared.downloadContent(urlString: ApiUrls.trendMovies()) { [weak self] result in
@@ -93,6 +94,7 @@ extension SearchVC {
                 if reloadControl {
                     self.exploreContent.shuffle()
                     self.collectionView.reloadDataOnMainThread()
+                    self.dismissLoadingView()
                 }
                 reloadControl = true
             case .failure(let error):
@@ -109,6 +111,7 @@ extension SearchVC {
                 if reloadControl {
                     self.exploreContent.shuffle()
                     self.collectionView.reloadDataOnMainThread()
+                    self.dismissLoadingView()
                 }
                 reloadControl = true
             case .failure(let error):
@@ -118,7 +121,11 @@ extension SearchVC {
     }
     
     private func getMovieDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
-        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
+        showLoadingView()
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)
@@ -130,7 +137,11 @@ extension SearchVC {
     }
     
     private func getShowDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
-        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.showDetail(id: id)) { result in
+        showLoadingView()
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.showDetail(id: id)) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)
@@ -221,8 +232,10 @@ extension SearchVC: UISearchBarDelegate {
 
 extension SearchVC {
     private func getSearchedContents(query: String) {
+        showLoadingView()
         NetworkingManager.shared.downloadContentBySearch(urlString: ApiUrls.multiSearch(query: query)) { [weak self] result in
             guard let self = self else { return }
+            self.dismissLoadingView()
             
             switch result {
             case .success(let contents):

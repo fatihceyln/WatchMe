@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchResultVC: UIViewController {
+class SearchResultVC: WMDataLoadingVC {
 
     private var tableView: UITableView!
     
@@ -52,6 +52,25 @@ class SearchResultVC: UIViewController {
     }
 }
 
+extension SearchResultVC {
+    private func getContentDetail(urlString: String) {
+        showLoadingView()
+        NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let detail):
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: detail), animated: true)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
+
 extension SearchResultVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         contents.count
@@ -67,19 +86,7 @@ extension SearchResultVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let urlString = contents[indexPath.row].mediaType == .movie ? ApiUrls.movieDetail(id: contents[indexPath.row].id?.description ?? "") : ApiUrls.showDetail(id: contents[indexPath.row].id?.description ?? "")
         
-        NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let detail):
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: detail), animated: true)
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+        getContentDetail(urlString: urlString)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
