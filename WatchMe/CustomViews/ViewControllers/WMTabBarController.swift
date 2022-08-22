@@ -14,7 +14,7 @@ class WMTabBarController: UITabBarController {
 
         configureTabBar()
         configureNavigationBar()
-        viewControllers = [createMoviesNC(), createShowsNC(), createSearchNC(), createFavoriteNC()]
+        viewControllers = [createMoviesNC(), createShowsNC(), createSearchNC(), createWatchlistNC()]
     }
     
     private func createMoviesNC() -> UINavigationController {
@@ -38,11 +38,11 @@ class WMTabBarController: UITabBarController {
         return UINavigationController(rootViewController: searchVC)
     }
     
-    private func createFavoriteNC() -> UINavigationController {
-        let favoriteVC = FavoriteVC()
-        favoriteVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(systemName: "heart"), tag: 3)
+    private func createWatchlistNC() -> UINavigationController {
+        let watchlistVC = WatchlistVC()
+        watchlistVC.tabBarItem = UITabBarItem(title: "Watchlist", image: UIImage(systemName: "list.and.film"), tag: 3)
         
-        return UINavigationController(rootViewController: favoriteVC)
+        return UINavigationController(rootViewController: watchlistVC)
     }
     
     private func configureTabBar() {

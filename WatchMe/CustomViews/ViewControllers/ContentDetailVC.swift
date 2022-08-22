@@ -26,6 +26,8 @@ class ContentDetailVC: WMDataLoadingVC {
     
     private var emptyView: UIView!
     
+    private var systemName: String = "heart.fill"
+    
     init(contentDetail: ContentDetail) {
         super.init(nibName: nil, bundle: nil)
         self.contentDetail = contentDetail
@@ -40,6 +42,7 @@ class ContentDetailVC: WMDataLoadingVC {
         
         view.backgroundColor = .systemBackground
         navigationItem.backButtonTitle = ""
+        title = contentDetail.isMovie ? contentDetail.title : contentDetail.name
         
         configureScrollView()
         configureContainerStackView()

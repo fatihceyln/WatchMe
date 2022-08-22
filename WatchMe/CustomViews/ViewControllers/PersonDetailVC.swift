@@ -42,6 +42,7 @@ class PersonDetailVC: WMDataLoadingVC {
         
         view.backgroundColor = .systemBackground
         navigationItem.backButtonTitle = ""
+        title = person.name
         
         configureScrollView()
         configureContainerStackView()

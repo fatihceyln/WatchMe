@@ -16,7 +16,7 @@
 		3D3AE53928A4FEA100B527AF /* MoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53828A4FEA100B527AF /* MoviesVC.swift */; };
 		3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */; };
 		3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53C28A4FFC800B527AF /* SearchVC.swift */; };
-		3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */; };
+		3D3AE53F28A4FFDD00B527AF /* WatchlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE53E28A4FFDD00B527AF /* WatchlistVC.swift */; };
 		3D3AE55428A505DB00B527AF /* ApiUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55328A505DB00B527AF /* ApiUrls.swift */; };
 		3D3AE55628A51ECA00B527AF /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55528A51ECA00B527AF /* NetworkingManager.swift */; };
 		3D3AE55828A520DA00B527AF /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AE55728A520DA00B527AF /* Content.swift */; };
@@ -40,6 +40,7 @@
 		3D487C2B28A91148000F22F8 /* TopBilledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2A28A91148000F22F8 /* TopBilledCell.swift */; };
 		3D487C2D28A9132C000F22F8 /* CastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2C28A9132C000F22F8 /* CastModel.swift */; };
 		3D48E50928B3709200DD3919 /* WMDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48E50828B3709200DD3919 /* WMDataLoadingVC.swift */; };
+		3D48E50B28B3936300DD3919 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48E50A28B3936300DD3919 /* Store.swift */; };
 		3D56D80928B35BC300D5721E /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56D80828B35BC300D5721E /* UILabel+Ext.swift */; };
 		3DF933FF28AD366F00066025 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */; };
 		3DFA542C28B0BB7100F63832 /* PersonDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */; };
@@ -59,7 +60,7 @@
 		3D3AE53828A4FEA100B527AF /* MoviesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesVC.swift; sourceTree = "<group>"; };
 		3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsVC.swift; sourceTree = "<group>"; };
 		3D3AE53C28A4FFC800B527AF /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
-		3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
+		3D3AE53E28A4FFDD00B527AF /* WatchlistVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistVC.swift; sourceTree = "<group>"; };
 		3D3AE55328A505DB00B527AF /* ApiUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrls.swift; sourceTree = "<group>"; };
 		3D3AE55528A51ECA00B527AF /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3D3AE55728A520DA00B527AF /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		3D487C2A28A91148000F22F8 /* TopBilledCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBilledCell.swift; sourceTree = "<group>"; };
 		3D487C2C28A9132C000F22F8 /* CastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastModel.swift; sourceTree = "<group>"; };
 		3D48E50828B3709200DD3919 /* WMDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMDataLoadingVC.swift; sourceTree = "<group>"; };
+		3D48E50A28B3936300DD3919 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		3D56D80828B35BC300D5721E /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 		3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailVC.swift; sourceTree = "<group>"; };
@@ -153,7 +155,7 @@
 				3D3AE53828A4FEA100B527AF /* MoviesVC.swift */,
 				3D3AE53A28A4FFBC00B527AF /* ShowsVC.swift */,
 				3D3AE53C28A4FFC800B527AF /* SearchVC.swift */,
-				3D3AE53E28A4FFDD00B527AF /* FavoriteVC.swift */,
+				3D3AE53E28A4FFDD00B527AF /* WatchlistVC.swift */,
 				3D487C1928A8064F000F22F8 /* ReferenceDetailView.swift */,
 				3D20CCF428AACD1500E179BB /* ReferenceShowDetailView.swift */,
 			);
@@ -191,6 +193,7 @@
 				3D3AE56528A5519500B527AF /* UIHelper.swift */,
 				3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */,
 				3D487C2828A90901000F22F8 /* Constants.swift */,
+				3D48E50A28B3936300DD3919 /* Store.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -351,7 +354,7 @@
 				3D3AE55B28A5252000B527AF /* ContentCell.swift in Sources */,
 				3D487C1A28A8064F000F22F8 /* ReferenceDetailView.swift in Sources */,
 				3DFA543028B0E03B00F63832 /* Person.swift in Sources */,
-				3D3AE53F28A4FFDD00B527AF /* FavoriteVC.swift in Sources */,
+				3D3AE53F28A4FFDD00B527AF /* WatchlistVC.swift in Sources */,
 				3D2F43F828AD804600534B27 /* SearchResultVC.swift in Sources */,
 				3D48E50928B3709200DD3919 /* WMDataLoadingVC.swift in Sources */,
 				3D3AE53728A4FDA200B527AF /* WMTabBarController.swift in Sources */,
@@ -369,6 +372,7 @@
 				3DFA542C28B0BB7100F63832 /* PersonDetailVC.swift in Sources */,
 				3D487C2D28A9132C000F22F8 /* CastModel.swift in Sources */,
 				3D3AE56428A54EEC00B527AF /* UICollectionView+Ext.swift in Sources */,
+				3D48E50B28B3936300DD3919 /* Store.swift in Sources */,
 				3D3AE53D28A4FFC800B527AF /* SearchVC.swift in Sources */,
 				3D3AE56B28A5536100B527AF /* WMBodyLabel.swift in Sources */,
 				3D3AE56628A5519500B527AF /* UIHelper.swift in Sources */,
