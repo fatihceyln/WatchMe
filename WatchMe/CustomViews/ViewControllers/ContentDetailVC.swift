@@ -26,7 +26,9 @@ class ContentDetailVC: WMDataLoadingVC {
     
     private var emptyView: UIView!
     
-    private var systemName: String = "heart.fill"
+    private var isSaved: Bool {
+        Store.isSaved(content: contentDetail)
+    }
     
     init(contentDetail: ContentDetail) {
         super.init(nibName: nil, bundle: nil)
@@ -59,6 +61,28 @@ class ContentDetailVC: WMDataLoadingVC {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        updateRightBarButton()
+    }
+    
+    @objc private func updateContent() {
+        Store.update(content: contentDetail)
+        
+        updateRightBarButton()
+    }
+    
+    private func updateRightBarButton() {
+        if isSaved {
+            let checkmarkButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .done, target: self, action: #selector(updateContent))
+            
+        
+            navigationItem.rightBarButtonItem = checkmarkButton
+        } else {
+            let plusButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(updateContent))
+            
+        
+            navigationItem.rightBarButtonItem = plusButton
+        }
     }
 }
 

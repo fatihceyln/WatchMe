@@ -31,7 +31,7 @@ enum Store {
     
     static func retrieveContents(completion: @escaping (Result<[ContentDetail], ErrorMessage>) -> ()) {
         guard let contentsData = defaults.object(forKey: key) as? Data else {
-            completion(.failure(.unknown))
+            completion(.success([]))
             return
         }
         
@@ -51,5 +51,27 @@ enum Store {
         } catch {
             print(error)
         }
+    }
+    
+    static func isSaved(content: ContentDetail) -> Bool {
+        var isSaved = false
+        
+        retrieveContents { result in
+            switch result {
+            case .success(let contents):
+                if contents.contains(where: {$0.id == content.id}) {
+                    isSaved = true
+                    return
+                }
+                
+                isSaved = false
+                return
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        return isSaved
     }
 }
