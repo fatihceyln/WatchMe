@@ -188,9 +188,10 @@ extension PersonDetailVC {
 
 extension PersonDetailVC {
     private func getContent(urlString: String) {
+        showLoadingView()
         NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
-            
             guard let self = self else { return }
+            self.dismissLoadingView()
             
             switch result {
             case .success(let contentDetail):
