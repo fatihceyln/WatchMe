@@ -38,4 +38,17 @@ enum UIHelper {
         
         return flowLayout
     }
+
+    static func createWatchlistFlowLayout() -> UICollectionViewFlowLayout {
+        let flowLayout = UICollectionViewFlowLayout()
+        
+        let width = UIScreen.main.bounds.width
+        let itemWidth = width / 3.31
+        
+        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 30, right: 10)
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth * 1.5)
+        flowLayout.scrollDirection = .vertical
+        
+        return flowLayout
+    }
 }

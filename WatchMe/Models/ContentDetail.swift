@@ -31,6 +31,10 @@ struct ContentDetail: Codable {
         title != nil && name == nil
     }
     
+    var asContentResult: ContentResult {
+        ContentResult(id: id, overview: overview, posterPath: posterPath, releaseDate: releaseDate, title: title, name: name, voteAverage: voteAverage)
+    }
+    
     var genresString: String {
         guard let genres = genres, !genres.isEmpty else { return "N/A" }
         let names = genres.map({$0.name ?? ""})

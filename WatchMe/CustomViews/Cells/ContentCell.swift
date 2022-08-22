@@ -33,12 +33,12 @@ class ContentCell: UICollectionViewCell {
     private func configure() {
         addSubview(posterImageView)
         
-        let padding: CGFloat = 8
+        let padding: CGFloat = 4
         
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
-            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2 * padding),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             posterImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding)
         ])
     }
