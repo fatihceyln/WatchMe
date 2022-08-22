@@ -13,12 +13,12 @@ class SearchVC: WMDataLoadingVC {
     var collectionView: UICollectionView!
     
     private var exploreContent: [ContentResult] = []
-
+    
     private var searchText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureSearchBar()
         configureCollectionView()
         getExploreContent()
@@ -120,9 +120,9 @@ extension SearchVC {
         }
     }
     
-    private func getMovieDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
+    private func getContentDetail(urlString: String, completion: @escaping (ContentDetail?) -> ()) {
         showLoadingView()
-        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { [weak self] result in
+        NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
             self.dismissLoadingView()
             
@@ -136,19 +136,11 @@ extension SearchVC {
         }
     }
     
-    private func getShowDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
-        showLoadingView()
-        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.showDetail(id: id)) { [weak self] result in
-            guard let self = self else { return }
-            self.dismissLoadingView()
+    private func getVideo(urlString: String, completion: @escaping(VideoResult?) -> ()) {
+        NetworkingManager.shared.downloadVideo(urlString: urlString) { [weak self] result in
+            guard let _ = self else { completion(nil); return }
             
-            switch result {
-            case .success(let movieDetail):
-                completion(movieDetail)
-            case .failure(let error):
-                print(error)
-                completion(nil)
-            }
+            completion(result)
         }
     }
 }
@@ -168,19 +160,35 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if exploreContent[indexPath.row].name != nil {
-            getShowDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+            guard let id = exploreContent[indexPath.row].id?.description else { return }
+            let urlString = ApiUrls.showDetail(id: id)
+            getContentDetail(urlString: urlString) { [weak self] contentDetail in
                 guard let self = self, let contentDetail = contentDetail else { return }
                 
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+                guard let id = contentDetail.id?.description else { return }
+                let urlString = ApiUrls.showVideo(id: id)
+                
+                self.getVideo(urlString: urlString) { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
                 }
             }
         } else {
-            getMovieDetail(id: exploreContent[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+            guard let id = exploreContent[indexPath.row].id?.description else { return }
+            let urlString = ApiUrls.movieDetail(id: id)
+            getContentDetail(urlString: urlString) { [weak self] contentDetail in
                 guard let self = self, let contentDetail = contentDetail else { return }
                 
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+                guard let id = contentDetail.id?.description else { return }
+                let urlString = ApiUrls.movieVideo(id: id)
+                
+                self.getVideo(urlString: urlString) { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
                 }
             }
         }

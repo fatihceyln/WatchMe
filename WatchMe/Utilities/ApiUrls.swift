@@ -15,6 +15,15 @@ enum ApiUrls {
     static private let api_key = "b9df2a6976d6dd6ad797595884995d6e"
     static private let baseURL = "https://api.themoviedb.org/3/"
     
+    // MARK: VIDEOS
+    static func movieVideo(id: String) -> String {
+        return "\(baseURL)movie/\(id)/videos?api_key=\(api_key)&language=en-US"
+    }
+    
+    static func showVideo(id: String) -> String {
+        return "\(baseURL)tv/\(id)/videos?api_key=\(api_key)&language=en-US"
+    }
+    
     // MARK: IMAGE
     static func image(path: String) -> String {
         "https://image.tmdb.org/t/p/w500/\(path)"

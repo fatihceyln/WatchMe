@@ -158,37 +158,65 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == popularSectionView.collectionView {
             
             getMovieDetail(id: popularMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
                 guard let contentDetail = contentDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
-                }
+                
+                let trailerUrlString = ApiUrls.movieVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
             
         } else if collectionView == nowPlayingSectionView.collectionView {
         
             getMovieDetail(id: nowPlayingMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
                 guard let contentDetail = contentDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
-                }
+                
+                let trailerUrlString = ApiUrls.movieVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
         
         } else if collectionView == upcomingSectionView.collectionView {
         
             getMovieDetail(id: upcomingMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
                 guard let contentDetail = contentDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
-                }
+                
+                let trailerUrlString = ApiUrls.movieVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
         
         } else if collectionView == topRatedSectionView.collectionView {
         
             getMovieDetail(id: topRatedMovies[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
                 guard let contentDetail = contentDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
-                }
+                
+                let trailerUrlString = ApiUrls.movieVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
         
         }
@@ -270,6 +298,14 @@ extension MoviesVC {
                 print(error)
                 completion(nil)
             }
+        }
+    }
+    
+    private func getVideo(urlString: String, completion: @escaping(VideoResult?) -> ()) {
+        NetworkingManager.shared.downloadVideo(urlString: urlString) { [weak self] result in
+            guard let _ = self else { completion(nil); return }
+            
+            completion(result)
         }
     }
 }

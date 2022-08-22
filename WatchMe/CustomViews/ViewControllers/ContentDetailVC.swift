@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import WebKit
 
-class ContentDetailVC: WMDataLoadingVC {
+class ContentDetailVC: WMDataLoadingVC, WKUIDelegate {
     
     private var scrollView: UIScrollView!
     private var containerStackView: UIStackView!
@@ -21,18 +22,22 @@ class ContentDetailVC: WMDataLoadingVC {
     
     private var contentDetail: ContentDetail!
     private var cast: [Cast] = []
+    private var videoResult: VideoResult?
     
     private var similarContents: [ContentResult] = []
     
     private var emptyView: UIView!
     
+    private var webView: WKWebView!
+    
     private var isSaved: Bool {
         Store.isSaved(content: contentDetail)
     }
     
-    init(contentDetail: ContentDetail) {
+    init(contentDetail: ContentDetail, videoResult: VideoResult?) {
         super.init(nibName: nil, bundle: nil)
         self.contentDetail = contentDetail
+        self.videoResult = videoResult
     }
     
     required init?(coder: NSCoder) {
@@ -51,6 +56,7 @@ class ContentDetailVC: WMDataLoadingVC {
         
         configureHeaderView()
         configureOverviewLabel()
+        configureWebView()
         configureCastView()
         configureSimilarSectionView()
         
@@ -145,19 +151,27 @@ extension ContentDetailVC {
             
             switch result {
             case .success(let contentDetail):
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+                
+                guard let id = contentDetail.id?.description else { return }
+                let urlString = contentDetail.isMovie ? ApiUrls.movieVideo(id: id) : ApiUrls.showVideo(id: id)
+                
+                self.getVideo(urlString: urlString) { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
+                        if !self.cast.isEmpty {
+                            self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        }
+                        if !self.similarContents.isEmpty {
+                            self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                        }
+                    }
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
-                    if !self.cast.isEmpty {
-                        self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                    }
-                    if !self.similarContents.isEmpty {
-                        self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                    }
-                }
             case .failure(let error):
                 print(error)
             }
@@ -179,6 +193,14 @@ extension ContentDetailVC {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    private func getVideo(urlString: String, completion: @escaping(VideoResult?) -> ()) {
+        NetworkingManager.shared.downloadVideo(urlString: urlString) { [weak self] result in
+            guard let _ = self else { completion(nil); return }
+            
+            completion(result)
         }
     }
 }
@@ -231,6 +253,26 @@ extension ContentDetailVC {
             messageLabel.text = message
             messageLabel.pinToEdges(of: self.emptyView)
         }
+    }
+    
+    private func configureWebView() {
+        
+        guard let videoResult = videoResult else { return }
+        
+        let webConfiguration = WKWebViewConfiguration()
+        
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        containerStackView.addArrangedSubview(webView)
+        
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.uiDelegate = self
+        webView.scrollView.isScrollEnabled = false
+        
+        let myURL = URL(string:"https://www.youtube.com/embed/\(videoResult.key ?? "")")
+        let myRequest = URLRequest(url: myURL!)
+        webView.load(myRequest)
+        webView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - (2 * padding)) * 0.5625).isActive = true
+        webView.backgroundColor = .red
     }
 }
 

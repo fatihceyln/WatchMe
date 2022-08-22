@@ -60,13 +60,29 @@ extension SearchResultVC {
             self.dismissLoadingView()
             
             switch result {
-            case .success(let detail):
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: detail), animated: true)
+            case .success(let contentDetail):
+                
+                guard let id = contentDetail.id?.description else { return }
+                let urlString = contentDetail.isMovie ? ApiUrls.movieVideo(id: id) : ApiUrls.showVideo(id: id)
+                
+                self.getVideo(urlString: urlString) { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
                 }
+                
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    private func getVideo(urlString: String, completion: @escaping(VideoResult?) -> ()) {
+        NetworkingManager.shared.downloadVideo(urlString: urlString) { [weak self] result in
+            guard let _ = self else { completion(nil); return }
+            
+            completion(result)
         }
     }
 }

@@ -72,6 +72,14 @@ extension WatchlistVC {
             }
         }
     }
+    
+    private func getVideo(urlString: String, completion: @escaping(VideoResult?) -> ()) {
+        NetworkingManager.shared.downloadVideo(urlString: urlString) { [weak self] result in
+            guard let _ = self else { completion(nil); return }
+            
+            completion(result)
+        }
+    }
 }
 
 extension WatchlistVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -94,8 +102,15 @@ extension WatchlistVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         getContentDetail(urlString: urlString) { [weak self] contentDetail in
             guard let self = self, let contentDetail = contentDetail else { return }
-            DispatchQueue.main.async {
-                self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+            
+            guard let id = contentDetail.id?.description else { return }
+            let urlString = contentDetail.isMovie ? ApiUrls.movieVideo(id: id) : ApiUrls.showVideo(id: id)
+            
+            self.getVideo(urlString: urlString) { [weak self] videoResult in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                }
             }
         }
     }

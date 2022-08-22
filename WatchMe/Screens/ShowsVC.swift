@@ -156,38 +156,66 @@ extension ShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == popularSectionView.collectionView {
             
-            getShowDetail(id: popularShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
-                guard let showDetail = showDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
-                }
+            getShowDetail(id: popularShows[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
+                guard let contentDetail = contentDetail else { return }
+                
+                let trailerUrlString = ApiUrls.showVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
             
         } else if collectionView == airingTodaySectionView.collectionView {
         
-            getShowDetail(id: airingTodayShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
-                guard let showDetail = showDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
-                }
+            getShowDetail(id: airingTodayShows[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
+                guard let contentDetail = contentDetail else { return }
+                
+                let trailerUrlString = ApiUrls.showVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
         
         } else if collectionView == onTVSectionView.collectionView {
         
-            getShowDetail(id: onTVShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
-                guard let showDetail = showDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
-                }
+            getShowDetail(id: onTVShows[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
+                guard let contentDetail = contentDetail else { return }
+                
+                let trailerUrlString = ApiUrls.showVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
         
         } else if collectionView == topRatedSectionView.collectionView {
         
-            getShowDetail(id: topRatedShows[indexPath.row].id?.description ?? "") { [weak self] showDetail in
-                guard let showDetail = showDetail else { return }
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(ContentDetailVC(contentDetail: showDetail), animated: true)
-                }
+            getShowDetail(id: topRatedShows[indexPath.row].id?.description ?? "") { [weak self] contentDetail in
+                guard let self = self else { return }
+                guard let contentDetail = contentDetail else { return }
+                
+                let trailerUrlString = ApiUrls.showVideo(id: contentDetail.id?.description ?? "")
+                
+                self.getVideo(urlString: trailerUrlString, completion: { [weak self] videoResult in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail, videoResult: videoResult), animated: true)
+                    }
+                })
             }
         
         }
@@ -269,6 +297,15 @@ extension ShowsVC {
                 print(error)
                 completion(nil)
             }
+        }
+    }
+    
+    private func getVideo(urlString: String, completion: @escaping(VideoResult?) -> ()) {
+        NetworkingManager.shared.downloadVideo(urlString: urlString) { [weak self] result in
+            
+            guard let _ = self else { completion(nil); return }
+            
+            completion(result)
         }
     }
 }

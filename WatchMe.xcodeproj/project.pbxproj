@@ -41,6 +41,7 @@
 		3D487C2D28A9132C000F22F8 /* CastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D487C2C28A9132C000F22F8 /* CastModel.swift */; };
 		3D48E50928B3709200DD3919 /* WMDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48E50828B3709200DD3919 /* WMDataLoadingVC.swift */; };
 		3D48E50B28B3936300DD3919 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48E50A28B3936300DD3919 /* Store.swift */; };
+		3D48E50D28B3B0E600DD3919 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48E50C28B3B0E600DD3919 /* Video.swift */; };
 		3D56D80928B35BC300D5721E /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56D80828B35BC300D5721E /* UILabel+Ext.swift */; };
 		3DF933FF28AD366F00066025 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */; };
 		3DFA542C28B0BB7100F63832 /* PersonDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */; };
@@ -88,6 +89,7 @@
 		3D487C2C28A9132C000F22F8 /* CastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastModel.swift; sourceTree = "<group>"; };
 		3D48E50828B3709200DD3919 /* WMDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMDataLoadingVC.swift; sourceTree = "<group>"; };
 		3D48E50A28B3936300DD3919 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		3D48E50C28B3B0E600DD3919 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		3D56D80828B35BC300D5721E /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 		3DF933FE28AD366F00066025 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		3DFA542B28B0BB7100F63832 /* PersonDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailVC.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				3D3E557228AE466300C5DF9E /* SearchModel.swift */,
 				3DFA542F28B0E03B00F63832 /* Person.swift */,
 				3DFA543328B0F9AC00F63832 /* PersonContent.swift */,
+				3D48E50C28B3B0E600DD3919 /* Video.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				3D487C2428A8E48E000F22F8 /* CastView.swift in Sources */,
 				3D3AE57228A55A5600B527AF /* SceneDelegate.swift in Sources */,
 				3D20CCF528AACD1500E179BB /* ReferenceShowDetailView.swift in Sources */,
+				3D48E50D28B3B0E600DD3919 /* Video.swift in Sources */,
 				3D487C2728A8F737000F22F8 /* ContentDetail.swift in Sources */,
 				3D3AE56928A552D600B527AF /* WMTitleLabel.swift in Sources */,
 				3D3AE53B28A4FFBC00B527AF /* ShowsVC.swift in Sources */,
