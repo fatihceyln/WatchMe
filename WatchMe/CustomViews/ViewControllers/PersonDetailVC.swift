@@ -144,6 +144,24 @@ extension PersonDetailVC {
     }
 }
 
+extension PersonDetailVC {
+    private func getContent(urlString: String) {
+        NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let contentDetail):
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
+
 extension PersonDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == moviesSectionView.collectionView {
@@ -166,6 +184,20 @@ extension PersonDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.set(content: shows[indexPath.row])
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == moviesSectionView.collectionView {
+            guard let contentId = movies[indexPath.row].id?.description else { return }
+            let urlString = ApiUrls.movieDetail(id: contentId)
+            
+            getContent(urlString: urlString)
+        } else if collectionView == showsSectionView.collectionView {
+            guard let contentId = shows[indexPath.row].id?.description else { return }
+            let urlString = ApiUrls.showDetail(id: contentId)
+            
+            getContent(urlString: urlString)
+        }
     }
 }
 
