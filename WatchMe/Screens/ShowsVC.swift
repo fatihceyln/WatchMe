@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShowsVC: UIViewController {
+class ShowsVC: WMDataLoadingVC {
     
     private var scrollView: UIScrollView!
     private var stackView: UIStackView!
@@ -257,7 +257,11 @@ extension ShowsVC {
     }
     
     private func getShowDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
-        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.showDetail(id: id)) { result in
+        self.showLoadingView()
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.showDetail(id: id)) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)

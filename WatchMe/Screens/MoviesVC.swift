@@ -8,7 +8,7 @@
 import UIKit
 
 
-class MoviesVC: UIViewController {
+class MoviesVC: WMDataLoadingVC {
     
     private var scrollView: UIScrollView!
     private var stackView: UIStackView!
@@ -258,7 +258,11 @@ extension MoviesVC {
     }
     
     private func getMovieDetail(id: String, completion: @escaping (ContentDetail?) -> ()) {
-        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { result in
+        showLoadingView()
+        NetworkingManager.shared.downloadContentDetail(urlString: ApiUrls.movieDetail(id: id)) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
             switch result {
             case .success(let movieDetail):
                 completion(movieDetail)
