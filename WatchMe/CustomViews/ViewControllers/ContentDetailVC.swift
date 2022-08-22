@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContentDetailVC: UIViewController {
+class ContentDetailVC: WMDataLoadingVC {
     
     private var scrollView: UIScrollView!
     private var containerStackView: UIStackView!
@@ -105,6 +105,51 @@ extension ContentDetailVC {
                 self.similarSectionView.collectionView.reloadDataOnMainThread()
             case .failure(let error):
                 self.configureEmptyView(superStackView: self.similarSectionView, collectionView: self.similarSectionView.collectionView, message: "No similar movies info")
+                print(error)
+            }
+        }
+    }
+    
+    private func getContentDetail(urlString: String) {
+        showLoadingView()
+        NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let contentDetail):
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
+                    if !self.cast.isEmpty {
+                        self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                    }
+                    if !self.similarContents.isEmpty {
+                        self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func getPersonDetail(urlString: String) {
+        showLoadingView()
+        
+        NetworkingManager.shared.downloadPerson(urlString: urlString) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let person):
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(PersonDetailVC(actor: person), animated: true)
+                }
+            case .failure(let error):
                 print(error)
             }
         }
@@ -222,48 +267,12 @@ extension ContentDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
         if collectionView == similarSectionView.collectionView {
             let urlString = contentDetail.isMovie ? ApiUrls.movieDetail(id: similarContents[indexPath.row].id?.description ?? "") : ApiUrls.showDetail(id: similarContents[indexPath.row].id?.description ?? "")
             
-            NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
-                
-                guard let self = self else { return }
-                
-                switch result {
-                case .success(let contentDetail):
-                    DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(ContentDetailVC(contentDetail: contentDetail), animated: true)
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.view.safeAreaInsets.top), animated: true)
-                        if !self.cast.isEmpty {
-                            self.castView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                        }
-                        if !self.similarContents.isEmpty {
-                            self.similarSectionView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                        }
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            self.getContentDetail(urlString: urlString)
         } else if collectionView == castView.collectionView {
-            
             guard let personId = cast[indexPath.row].id?.description else { return }
-            
             let urlString = ApiUrls.person(id: personId)
             
-            NetworkingManager.shared.downloadPerson(urlString: urlString) { [weak self] result in
-                
-                guard let self = self else { return }
-                
-                switch result {
-                case .success(let person):
-                    DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(PersonDetailVC(actor: person), animated: true)
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            self.getPersonDetail(urlString: urlString)
         }
     }
 }
