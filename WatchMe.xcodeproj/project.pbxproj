@@ -193,7 +193,6 @@
 				3D3AE56528A5519500B527AF /* UIHelper.swift */,
 				3D0D694828A7B70A0058B7C0 /* PaginationControl.swift */,
 				3D487C2828A90901000F22F8 /* Constants.swift */,
-				3D48E50A28B3936300DD3919 /* Store.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -201,6 +200,7 @@
 		3D3AE54528A504FE00B527AF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				3D48E50A28B3936300DD3919 /* Store.swift */,
 				3D3AE55528A51ECA00B527AF /* NetworkingManager.swift */,
 			);
 			path = Managers;
