@@ -51,6 +51,7 @@ class WatchlistVC: WMDataLoadingVC {
         collectionView.dataSource = self
         
         collectionView.register(ContentCell.self, forCellWithReuseIdentifier: ContentCell.reuseID)
+        collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.reuseID)
         
         collectionView.pinToEdges(of: view)
     }
@@ -82,7 +83,7 @@ extension WatchlistVC {
     }
 }
 
-extension WatchlistVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension WatchlistVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         contents.count
     }
@@ -113,5 +114,16 @@ extension WatchlistVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 }
             }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.reuseID, for: indexPath) as! HeaderCollectionReusableView
+        header.setHeader(text: "My Movies & Shows")
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        CGSize(width: 0, height: 70)
     }
 }

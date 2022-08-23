@@ -276,8 +276,6 @@ final class NetworkingManager {
             return
         }
         
-        print(urlString)
-        
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
                 completion(nil)
