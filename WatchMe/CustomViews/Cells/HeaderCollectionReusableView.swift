@@ -28,8 +28,8 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         
         NSLayoutConstraint.activate([
             headerLablel.topAnchor.constraint(equalTo: topAnchor, constant: 40),
-            headerLablel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            headerLablel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            headerLablel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
+            headerLablel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
             headerLablel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }

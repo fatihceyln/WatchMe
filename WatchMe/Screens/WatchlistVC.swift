@@ -12,12 +12,15 @@ class WatchlistVC: WMDataLoadingVC {
     private var contents: [ContentDetail] = []
     
     private var collectionView: UICollectionView!
-
+    
+    private var emptyWatchlistView: EmptyWatchlistView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Watchlist"
         configureCollectionView()
+        configureEmptyWatchlistView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,6 +35,16 @@ class WatchlistVC: WMDataLoadingVC {
             
             switch result {
             case .success(let contents):
+                if contents.isEmpty {
+                    self.collectionView.isHidden = true
+                    self.emptyWatchlistView.isHidden = false
+                    
+                    return
+                }
+                
+                self.emptyWatchlistView.isHidden = true
+                self.collectionView.isHidden = false
+                
                 self.contents = contents
                 self.collectionView.reloadDataOnMainThread()
             case .failure(let error):
@@ -55,6 +68,20 @@ class WatchlistVC: WMDataLoadingVC {
         
         collectionView.pinToEdges(of: view)
     }
+    
+    private func configureEmptyWatchlistView() {
+        emptyWatchlistView = EmptyWatchlistView(frame: .zero)
+        view.addSubview(emptyWatchlistView)
+        
+        emptyWatchlistView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyWatchlistView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyWatchlistView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyWatchlistView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 30),
+            emptyWatchlistView.heightAnchor.constraint(equalToConstant: 250)
+        ])
+    }
 }
 
 extension WatchlistVC {
@@ -62,8 +89,8 @@ extension WatchlistVC {
         showLoadingView()
         
         NetworkingManager.shared.downloadContentDetail(urlString: urlString) { [weak self] result in
-            guard let _ = self else { return }
-            self?.dismissLoadingView()
+            guard let self = self else { return }
+            self.dismissLoadingView()
             
             switch result {
             case .success(let contentDetail):
