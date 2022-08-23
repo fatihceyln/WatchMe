@@ -11,7 +11,10 @@ enum UIHelper {
     static func createFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
         
-        flowLayout.itemSize = CGSize(width: 200, height: 300)
+        let width = UIScreen.main.bounds.width
+        let itemWidth = width / 2.16
+        
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth * 1.5)
         flowLayout.scrollDirection = .horizontal
         
         return flowLayout
@@ -30,7 +33,7 @@ enum UIHelper {
         let flowLayout = UICollectionViewFlowLayout()
         
         let width = UIScreen.main.bounds.width
-        let itemWidth = width / 2.2
+        let itemWidth = width / 2.16
         
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 30, right: 10)
         flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth * 1.5)

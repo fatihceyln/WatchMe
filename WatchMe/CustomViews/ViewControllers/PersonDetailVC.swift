@@ -267,6 +267,7 @@ extension PersonDetailVC {
         view.addSubview(scrollView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
         
         scrollView.pinToEdges(of: view)
     }
