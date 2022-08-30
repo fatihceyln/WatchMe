@@ -7,10 +7,6 @@
 
 import UIKit
 
-enum ErrorMessage: String, Error {
-    case unknown = "Unknown error occured!"
-}
-
 final class NetworkingManager {
     static let shared = NetworkingManager()
     private init() {}
@@ -25,24 +21,24 @@ final class NetworkingManager {
     func downloadContent(urlString: String, completion: @escaping (Result<[ContentResult], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
-            completion(.failure(.unknown))
+            completion(.failure(.invalidUrl))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToComplete))
             }
             
             guard
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidData))
                 return
             }
             
@@ -57,7 +53,7 @@ final class NetworkingManager {
                 completion(.success(results))
                 
             } catch {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToParseJson))
             }
         }
         .resume()
@@ -66,24 +62,24 @@ final class NetworkingManager {
     func downloadContentDetail(urlString: String, completion: @escaping (Result<ContentDetail, ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
-            completion(.failure(.unknown))
+            completion(.failure(.invalidUrl))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToComplete))
             }
             
             guard
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidData))
                 return
             }
             
@@ -92,7 +88,7 @@ final class NetworkingManager {
                 
                 completion(.success(movieDetail))
             } catch {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToParseJson))
             }
         }
         .resume()
@@ -101,24 +97,24 @@ final class NetworkingManager {
     func downloadCast(urlString: String, completion: @escaping (Result<[Cast], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
-            completion(.failure(.unknown))
+            completion(.failure(.invalidUrl))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToComplete))
             }
             
             guard
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidData))
                 return
             }
             
@@ -133,7 +129,7 @@ final class NetworkingManager {
                 completion(.success(cast))
                 
             } catch {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToParseJson))
             }
         }
         .resume()
@@ -142,24 +138,24 @@ final class NetworkingManager {
     func downloadContentBySearch(urlString: String, completion: @escaping (Result<[SearchResult], ErrorMessage>) ->()) {
         
         guard let url = URL(string: urlString) else {
-            completion(.failure(.unknown))
+            completion(.failure(.invalidUrl))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToComplete))
             }
             
             guard
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidData))
                 return
             }
             
@@ -174,7 +170,7 @@ final class NetworkingManager {
                 completion(.success(results.filter({$0.mediaType == .movie || $0.mediaType == .tv})))
                 
             } catch {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToParseJson))
             }
         }
         .resume()
@@ -183,24 +179,24 @@ final class NetworkingManager {
     func downloadPerson(urlString: String, completion: @escaping (Result<Person, ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
-            completion(.failure(.unknown))
+            completion(.failure(.invalidUrl))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToComplete))
             }
             
             guard
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidData))
                 return
             }
             
@@ -210,7 +206,7 @@ final class NetworkingManager {
                 completion(.success(person))
                 
             } catch {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToParseJson))
             }
         }
         .resume()
@@ -219,24 +215,24 @@ final class NetworkingManager {
     func downloadPersonContent(urlString: String, completion: @escaping (Result<[ContentResult], ErrorMessage>) -> ()) {
         
         guard let url = URL(string: urlString) else {
-            completion(.failure(.unknown))
+            completion(.failure(.invalidUrl))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToComplete))
             }
             
             guard
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.unknown))
+                completion(.failure(.invalidData))
                 return
             }
             
@@ -264,7 +260,7 @@ final class NetworkingManager {
                 completion(.success(nonDuplicatedResult))
                 
             } catch {
-                completion(.failure(.unknown))
+                completion(.failure(.unableToParseJson))
             }
         }
         .resume()
